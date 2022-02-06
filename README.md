@@ -3,6 +3,8 @@ Template de repo pour le projet Dev Web 2022
 
 ## Comment copier ce Wiki? 
 
+-- ATTENTION : Wiki non définitif, attendre le feu vert des enseignants avant de faire la copie!! --
+
 Pour récupérer le template et l'utiliser dans le cadre de votre projet, vous allez devoir faire un "fork" de ce repo.  Cependant, le wiki n'est pas copié automatiquement.  Suivez donc la procédure ci-dessous : 
 
 1.  Créez un fork de ce repository.  Ce sera votre repo de projet, avec une URL de type `https://github.com/<username>/<repo-name>`.  
