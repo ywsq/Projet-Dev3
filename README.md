@@ -1,5 +1,5 @@
-# Dev-Web-2022
-Template de repo pour le projet Dev Web 2022
+# Dev-Web-2023
+Template de repo pour le projet Dev Web 2023
 
 ## Comment copier ce Wiki? 
 
