@@ -1,0 +1,105 @@
+/* En-tête */
+header {
+    background-color: #f5f5f5; /* Couleur de fond de l'en-tête */
+    padding: 2px 0; /* Espacement interne en haut et en bas */ 
+  }
+
+.logo {
+    display: inline-block;
+    vertical-align: top;
+    width: 50px;
+    margin-right: auto; /* Déplace le logo à l'extrême droite de l'en-tête */
+  }
+  
+  /* Redimensionner le logo */
+  .logo img {
+    height: 60px; /* Nouvelle hauteur du logo */
+  }
+
+/*Cacher le bouton burger*/
+.menu-button {
+  display: none;
+}
+
+/* Cacher le texte lorsque la fenêtre est petite */
+@media screen and (max-width: 920px) {
+  .navbar ul li a {
+      display: none;
+  }
+}
+
+/* Afficher le bouton avec l'icône lorsque la fenêtre est petite */
+@media screen and (max-width: 920px) {
+  .menu-button {
+      display: block;
+      background: none;
+      border: none;
+      margin-right: 50px;
+  }
+
+  /* Optionnel : Ajouter des styles supplémentaires au bouton */
+  .menu-button img {
+      width: 30px; /* Ajustez la taille de l'icône selon vos besoins */
+      height: auto;
+  }
+}
+
+
+  .navbar {
+    display: flex; /* Utilisation de flexbox pour aligner les éléments de navigation */
+    justify-content: space-between; /* Centrage horizontal */
+    align-items: center; /* Centrage vertical */
+  }
+  
+  .navbar ul {
+    list-style-type: none; /* Suppression des puces de liste */
+  }
+  
+  .navbar ul li {
+    display: inline-block; /* Affichage en ligne des éléments de liste */
+    margin-right: 50px; /* Espacement entre les éléments de la liste */
+    position: relative;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none; /* Suppression des soulignements des liens */
+    color: #555; /* Couleur du texte des liens */
+    font-weight: bold; /* Texte en gras */
+  }
+  
+  .navbar ul li a:hover {
+    color: #0C1618; /* Couleur du texte des liens au survol */
+  }
+  
+  #login {
+    margin: 0px 70px 0 20px;
+  }
+  
+  .sous {
+    display: none; /*Cacher les sous catégories du menu déroulant*/
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    position: absolute;
+    width: 120px; /*largeur de l'arrière plan du sous menu*/
+    z-index: 1000;
+  }
+  
+  nav > ul li:hover .sous {
+    display: block; /*affichage des sous catégories au passage de la souris par dessus*/
+  }
+  
+  .sous li {
+    float: none;
+    /*width: 100%;*/
+    text-align: left;
+  }
+  
+  .sous a {
+    padding: 10px;
+    border-bottom: none;
+  }
+  
+  .sous a:hover {
+    border-bottom: none;
+    background-color: rgba(200, 200, 200, 0.1);
+  }

@@ -1,0 +1,51 @@
+/* Réinitialisation des marges et des rembourrages */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Styles de base */
+body {
+  font-family: Arial, sans-serif; /* Utilisation d'une police de caractères sans empattement par défaut */
+  line-height: 1.6; /* Espacement entre les lignes pour une meilleure lisibilité */
+  color: #0C1618; /* Couleur du texte par défaut */
+  background-color: #f9f9f9; /* Couleur de fond par défaut */
+}
+
+.titleText {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  letter-spacing: 1px;
+  word-spacing: 0px;
+  color: #0C1618;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase; /*Texte en majuscule*/
+  font-size: calc(4vw + 30px); /* Taille de la police adaptée à la largeur de la fenêtre */
+  margin-bottom: 20px; /* Marge inférieure pour séparer les titres du contenu */
+  line-height: 1.1em; /*Espacement interligne*/
+}
+
+/* Diapositives */
+.slide {
+  position: relative; /* Position relative pour permettre le positionnement absolu des éléments enfants */
+  padding: 100px 0; /* Espacement interne des diapositives */
+  text-align: center; /* Centrage du contenu */
+}
+
+.slide p {
+  font-size: 18px; /* Taille de la police pour les paragraphes */
+  margin-bottom: 30px; /* Marge inférieure pour séparer les paragraphes */
+}
+
+.slide img {
+  max-width: 100%; /* Largeur maximale des images pour les rendre responsives */
+  height: auto; /* Hauteur automatique pour maintenir le ratio d'aspect */
+}
+
+/* Pied de page */
+footer {
+  background-color: #333; /* Couleur de fond du pied de page */
+  color: #fff; /* Couleur du texte du pied de page */
+  padding: 20px 0; /* Espacement interne en haut et en bas */
+  text-align: center; /* Centrage du contenu */
+}
