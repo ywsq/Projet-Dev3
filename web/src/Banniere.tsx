@@ -15,7 +15,7 @@ function Banniere() {
         <header className="banner">
             <div className="logo">
                 {/*<img src={Logo} alt="Logo" />*/}
-                <p>STAR MOBILE</p>
+                <li><a href="/"><p>STAR MOBILE</p></a></li>
             </div>
             <nav className="menu">
                 <ul>
@@ -23,7 +23,7 @@ function Banniere() {
                     <li><a href="/Store">Store</a></li>
                     <li><a href="/Products">Product</a></li>
                     <li><a href="/Partnership">Partnership</a></li>
-                    <li><a href="/">Panier</a></li>
+                    <li><a href="/App">Pannier</a></li>
                 </ul>
             </nav>
             <div className="login">
