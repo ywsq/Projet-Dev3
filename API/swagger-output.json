@@ -1,0 +1,77 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "E-Organizer API",
+    "description": "API defined for a sample project during the course 'Développement Informatique III' à l'EPHEC Louvain-la-Neuve",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Redirect to API docssss"
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Test OK"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/API/client/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/API/client/all-clients": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/API/client/clientID/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
