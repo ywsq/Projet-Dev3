@@ -23,7 +23,7 @@ function Banniere() {
                     <li><a href="/Store">Store</a></li>
                     <li><a href="/Products">Product</a></li>
                     <li><a href="/Partnership">Partnership</a></li>
-                    <li><a href="/App">Pannier</a></li>
+                    <li><a href="/Pannier">Pannier</a></li>
                 </ul>
             </nav>
             <div className="login">

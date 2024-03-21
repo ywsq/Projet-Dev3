@@ -9,14 +9,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/all-clients", (req, res) => {
-    var sql = "select * from tb_clients";
+    let sql = "select * from tb_clients";
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
 });
 
 router.get("/clientID/:id", (req, res) => {
-    var sql = "select * from tb_clients where id_client like " + req.params.id;
+    let sql = "select * from tb_clients where id_client like " + req.params.id;
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
