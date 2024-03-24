@@ -17,7 +17,7 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "Redirect to API docssss"
+            "description": "Redirect to API docs"
           }
         }
       }
