@@ -129,12 +129,18 @@
         }
       }
     },
-    "/API/pannier/pannierID/{id}/articleID/{id}": {
+    "/API/pannier/pannierID/{id}/articleID/{u}": {
       "get": {
         "description": "",
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "u",
             "in": "path",
             "required": true,
             "type": "string"

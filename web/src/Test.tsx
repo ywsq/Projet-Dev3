@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-function Test() {
-    const [data, setData] = useState(null);
+interface IDataItem {
+    Amount: number; // Supposons que Amount soit un nombre
+    // Définissez ici d'autres propriétés de IDataItem si nécessaire
+}
 
-    function handleClick() {
+const Test: React.FC = () => {
+    const [data, setData] = useState<IDataItem[] | null>(null);
+
+    const handleClick = () => {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'API/article/articleID/1');
-        xhr.onload = function() {
+        xhr.open('GET', 'API/pannier/pannierID/1');
+        xhr.onload = function () {
             if (xhr.status === 200) {
                 setData(JSON.parse(xhr.responseText));
             }
         };
         xhr.send();
-    }
+    };
 
     return (
         <div>
             <button onClick={handleClick}>Get Data</button>
-            {data ? <div>{JSON.stringify(data[0]['Name'])}</div> : <div>Loading...</div>}
+            {data ? (
+                <div>
+                    {data.map((item, index) => (
+                        <div key={index}>{JSON.stringify((item as IDataItem))}</div>
+                    ))}
+                </div>
+            ) : (
+                <div>Loading...</div>
+            )}
         </div>
     );
-}
+};
 
 export default Test;

@@ -9,14 +9,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/pannierID/:id", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id;
+    let sql = "SELECT * FROM tb_shopping_cart_article natural join tb_articles where ID_Shopping_Cart like " + req.params.id;
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
 });
 
-router.get("/pannierID/:id/articleID/:id", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id + "and id_article like " + req.params.id;
+router.get("/pannierID/:id/articleID/:u", (req, res) => {
+    let sql = "SELECT * FROM tb_articles join tb_cart_client_link WHERE ID_Article LIKE " + req.params.id + " and ID_Shopping_Cart like " + req.params.id;
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
