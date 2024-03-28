@@ -5,11 +5,18 @@ const swaggerDoc = require("./swagger");
 const DataBaseConnection = require('./DataBaseConnection/connection.js')
 const app = express();
 const port = 1600;
-
+const bodyParser = require('body-parser');
 
 // swagger documentation
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJson));
+
+
+// body parser
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 
 // connect all route
 const routerIndex = require("./routes/index.js")

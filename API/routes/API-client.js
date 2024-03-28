@@ -26,17 +26,25 @@ router.get("/clients/:id", (req, res) => {
 
 // Create a new client
 router.post("/clients", async (req, res) => {
-    // Get data of the new client from the request body
-    const { Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number } = req.body;
+    try {
+        // Get data of the new client from the request body
+        const { Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number } = req.body;
 
-    // Create the SQL query to insert the new client into the database
-    const [{ ID_Client }] = await connection.promise().query("INSERT INTO tb_clients ( Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)", [ Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number]);
+        // Create the SQL query to insert the new client into the database
+        const [result] = await connection.promise().query("INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)", [Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number]);
 
-    // Execute the SQL query with the data of the new client
-    /*connection.query(sql, [ ID_Client, Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number], function (err, result) {
-        res.send(result);
-    });*/
+        // Check if the insertion was successful and send the response
+        if (result.affectedRows > 0) {
+            res.status(201).json({ message: "Client created successfully", clientId: result.insertId });
+        } else {
+            res.status(500).json({ message: "Failed to create client" });
+        }
+    } catch (error) {
+        console.error("Error creating client:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 });
+
 
 // Update the information of a specific client by ID
 router.put("/clients/:id", (req, res) => {
