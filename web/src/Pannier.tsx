@@ -29,11 +29,23 @@ const Pannier = () => {
         <div>
             <div className="container">
                 <h1>Shopping Cart</h1>
+                <div className="cart-item">
+                    <div className="cart-item-details">
+                        <h3><a href="#">Name</a></h3>
+                        <p>Price:</p>
+                        <p>Price HTVA:</p>
+                        <p>Number</p>
+                        <p className="cart-item-price">Total:</p>
+                        <p className="cart-item-price-htva">Total HTVA:</p>
+                        <p className="remove">REMOVE</p>
+                    </div>
+                </div>
                 {data.map((item: any, index: number) => (
                     <div className="cart-item" key={index}>
                         <div className="cart-item-details">
                             <h3><a href="#">{item.Name}</a></h3>
-                            <p>Price: ${item.Single_Price}</p>
+                            <p>${item.Single_Price}</p>
+                            <p>${item.Single_Price - (21/100*item.Single_Price)}</p>
                             <input
                                 name="Num"
                                 type="number"
@@ -43,7 +55,8 @@ const Pannier = () => {
                                 max={item.Stock}
                             />
                             <p className="cart-item-price">${calculateTotalPrice(quantities[index], item.Single_Price)}</p>
-                            <a href="#" className="remove">Remove</a>
+                            <p className="cart-item-price-htva">${calculateTotalPrice(quantities[index], item.Single_Price) - (21/100*calculateTotalPrice(quantities[index], item.Single_Price))}</p>
+                            <a href="#" className="remove">REMOVE</a>
                         </div>
                     </div>
                 ))}
