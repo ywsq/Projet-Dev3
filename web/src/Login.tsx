@@ -4,8 +4,8 @@ function Login() {
     return (
         <div>
             <p>Page of Login</p>
-    </div>
-);
+        </div>
+    );
 }
 
 export default Login;
