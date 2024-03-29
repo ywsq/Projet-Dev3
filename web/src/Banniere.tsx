@@ -1,6 +1,6 @@
 import React from 'react';
 import './Banniere.css';
-import Logo from './logo.svg'
+import Logo from './assets/logoStarNoBack.png'
 import { useNavigate } from 'react-router-dom';
 
 function Banniere() {
@@ -14,7 +14,7 @@ function Banniere() {
     return (
         <header className="banner">
             <div className="logo">
-                {/*<img src={Logo} alt="Logo" />*/}
+                <img src={Logo} alt="Logo" />
                 <li><a href="/"><p>STAR MOBILE</p></a></li>
             </div>
             <nav className="menu">
