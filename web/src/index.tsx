@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './Pannier';
@@ -14,9 +13,12 @@ import Login from './Login';
 import Contact from './Contact';
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
+import { createRoot } from 'react-dom/client';
 
+const container = document.getElementById('root');
+const root = createRoot(container!);
 
-ReactDOM.render(
+root.render(
     <React.StrictMode>
         <Router>
             <Banniere />
@@ -35,8 +37,7 @@ ReactDOM.render(
             </body>
             <Footer />
         </Router>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );
 
 reportWebVitals();
