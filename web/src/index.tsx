@@ -6,7 +6,7 @@ import {
     Route,
 } from "react-router-dom";
 import './index.css';
-import App from './App';
+import App from './Pannier';
 import reportWebVitals from './reportWebVitals';
 import Banniere from './Banniere';
 import Footer from './Footer';

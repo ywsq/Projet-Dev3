@@ -1,4 +1,4 @@
-body {
+/*body {
     margin: 0;
     font-family: Arial, sans-serif;
     padding: 40px 0;
@@ -10,7 +10,7 @@ body {
     left: 0;
     width: 100%;
     background-color: darkslategrey;
-    z-index: 1000; /* Assure que la bannière soit au-dessus de tout autre contenu */
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,12 +46,12 @@ body {
 
 .menu ul li a {
     text-decoration: none;
-    color: limegreen; /* Changer la couleur ici */
+    color: limegreen;
     margin-left: 20px;
 }
 
 .menu ul li a:hover {
-    color: #fff; /* Couleur du texte au survol */
+    color: #fff;
     text-decoration: underline;
 }
 
@@ -78,7 +78,7 @@ body {
 
 .login button:hover {
     background-color: #45a049;
-}
+}*/
 
 @media only screen and (min-width: 770px){
     .parent:hover .child {
