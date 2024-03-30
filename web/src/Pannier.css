@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Utilisation d'une police plus moderne */
   margin: 0;
@@ -67,7 +68,7 @@ a {
 }
 
 a:hover {
-  color: limegreen; /* Changement de la couleur du lien au survol */
+  color: dodgerblue; /* Changement de la couleur du lien au survol */
 }
 
 .checkout-button {
