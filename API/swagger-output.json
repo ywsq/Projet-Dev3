@@ -45,7 +45,7 @@
         }
       }
     },
-    "/API/clients": {
+    "/API/all-clients": {
       "get": {
         "description": "",
         "responses": {
@@ -53,7 +53,27 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/API/clientID/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/API/clients": {
       "post": {
         "description": "",
         "parameters": [
@@ -93,22 +113,6 @@
       }
     },
     "/API/clients/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
         "description": "",
         "parameters": [
@@ -166,7 +170,7 @@
         }
       }
     },
-    "/API/articles": {
+    "/API/": {
       "get": {
         "description": "",
         "responses": {
@@ -176,40 +180,8 @@
         }
       }
     },
-    "/API/articles/{id}": {
+    "/API/articleID/{id}": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
         "description": "",
         "parameters": [
           {
@@ -385,86 +357,6 @@
         "responses": {
           "default": {
             "description": ""
-          }
-        }
-      }
-    },
-    "/API/article/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/API/article/articleID/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/API/pannier/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/API/pannier/pannierID/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/API/pannier/pannierID/{id}/articleID/{u}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "u",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }

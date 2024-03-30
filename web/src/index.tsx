@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import createRoot from 'react-dom';
 import {
     BrowserRouter as Router,
     Routes,
@@ -19,7 +19,8 @@ import Contact from './Contact';
 import HomePage from './homePage';
 import Test from './Test'
 
-ReactDOM.render(
+
+createRoot.render(
     <React.StrictMode>
         <Router>
             <Banniere />
