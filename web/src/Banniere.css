@@ -46,12 +46,12 @@
 
 .menu ul li a {
     text-decoration: none;
-    color: limegreen;
+    color: skyblue;
     margin-left: 20px;
 }
 
 .menu ul li a:hover {
-    color: #fff;
+    color: skyblue;
     text-decoration: underline;
 }
 
@@ -78,8 +78,8 @@
 
 .login button:hover {
     background-color: #45a049;
-}*/
-
+}
+*/
 @media only screen and (min-width: 770px){
     .parent:hover .child {
         opacity:1;
