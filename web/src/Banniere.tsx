@@ -2,6 +2,7 @@ import React from 'react';
 import './Banniere.css';
 import Logo from './assets/logoStarNoBack.png'
 import burgerMenu from './assets/menu_FILL0_wght400_GRAD0_opsz24.svg'
+import expand from './assets/expand_more_FILL0_wght400_GRAD0_opsz24.svg'
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
 
@@ -32,10 +33,7 @@ function Banniere() {
                         <a href="/Service"
                            className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-200 space-x-2 rounded">
                             <span>Services</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 h-3 fill-current pt-0 ${menuVisible ? 'hidden' : ''}`}
-                                 viewBox="0 0 24 24">
-                                <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/>
-                            </svg>
+                            <img className={`w-4 h-4 ${menuVisible ? 'hidden' : ''}`} src={expand} alt="Expand icon"/>
                         </a>
                         <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
                             <li>
