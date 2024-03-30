@@ -5,6 +5,10 @@ import './AccountCreation.css';
 function AccountCreation() {
     return (
         <body>
+
+        </body>
+
+        /*<body>
             <section id="applyImage">
                 <img src="" alt={"apply to access all features"}/>
             </section>
@@ -20,7 +24,7 @@ function AccountCreation() {
                     <button type="submit">Apply</button>
                 </form>
             </section>
-        </body>
+        </body>*/
     );
 }
 
