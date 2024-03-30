@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './Pannier';
 import reportWebVitals from './reportWebVitals';
@@ -17,7 +13,8 @@ import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
-import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named HomePage
+import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
+
 
 ReactDOM.render(
     <React.StrictMode>
