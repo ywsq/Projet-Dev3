@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import createRoot from 'react-dom';
 import {
     BrowserRouter as Router,
     Routes,
     Route,
 } from "react-router-dom";
 import './index.css';
-import App from './App';
+import Pannier from './Pannier';
 import reportWebVitals from './reportWebVitals';
 import Banniere from './Banniere';
 import Footer from './Footer';
@@ -16,16 +16,19 @@ import Store from './Store';
 import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
-import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
+import HomePage from './homePage';
+import Test from './Test'
 
-ReactDOM.render(
+
+createRoot.render(
     <React.StrictMode>
         <Router>
             <Banniere />
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/App" element={<App />} />
+                <Route path="/Test" element={<Test />} />
+                <Route path="/Pannier" element={<Pannier />} />
                 <Route path="/Products" element={<Products />} />
                 <Route path="/Store" element={<Store />} />
                 <Route path="/Service" element={<Service />} />

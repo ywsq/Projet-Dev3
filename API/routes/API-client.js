@@ -8,17 +8,16 @@ router.get("/client", (req, res) => {
     res.send("You are in the API/client page");
 });
 
-// Get data about all clients
-router.get("/clients", (req, res) => {
-    var sql = "select * from tb_clients";
+router.get("/all-clients", (req, res) => {
+    let sql = "select * from tb_clients";
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
 });
 
-// Get client's data by his ID
-router.get("/clients/:id", (req, res) => {
-    var sql = "select * from tb_clients where id_client like " + req.params.id;
+
+router.get("/clientID/:id", (req, res) => {
+    let sql = "select * from tb_clients where id_client like " + req.params.id;
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });

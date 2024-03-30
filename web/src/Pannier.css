@@ -1,0 +1,90 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Utilisation d'une police plus moderne */
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5; /* Ajout d'une couleur de fond */
+}
+
+.container {
+  max-width: 1200px; /* Augmentation de la largeur maximale */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto; /* Réduction de la marge supérieure et inférieure */
+  background-color: #fff; /* Ajout d'un fond blanc */
+  border-radius: 8px; /* Ajout de coins arrondis */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre pour un effet de profondeur */
+}
+
+h1 {
+  text-align: center;
+  color: #333; /* Changement de la couleur du texte */
+  margin-bottom: 20px; /* Augmentation de la marge inférieure */
+}
+
+.cart-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+}
+
+.cart-item-details {
+  flex-grow: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+}
+
+.cart-item-details h3 {
+  margin-right: 20px;
+  color: #555; /* Changement de la couleur du titre */
+}
+
+.cart-item-details input {
+  width: 60px; /* Augmentation de la largeur de l'input */
+  margin-right: 15px; /* Réduction de la marge droite */
+}
+
+.cart-total {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 30px; /* Augmentation de la marge supérieure */
+  color: #333; /* Changement de la couleur du texte */
+}
+
+a {
+  text-decoration: none;
+  color: black; /* Changement de la couleur du lien */
+}
+
+a:hover {
+  color: limegreen; /* Changement de la couleur du lien au survol */
+}
+
+.checkout-button {
+  display: inline-block; /* Changement pour afficher en ligne */
+  margin-top: 20px; /* Augmentation de la marge supérieure */
+  text-align: center;
+  background-color: #28a745; /* Changement de la couleur de fond */
+  color: #fff; /* Changement de la couleur du texte */
+  padding: 12px 24px; /* Ajustement du rembourrage */
+  font-size: 18px; /* Augmentation de la taille de la police */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.checkout-button:hover {
+  background-color: #218838; /* Changement de la couleur de fond au survol */
+}
