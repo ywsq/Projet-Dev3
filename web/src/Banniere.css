@@ -79,3 +79,17 @@ body {
 .login button:hover {
     background-color: #45a049;
 }
+
+@media only screen and (min-width: 770px){
+    .parent:hover .child {
+        opacity:1;
+        height:auto;
+        transform: translateY(0);
+    }
+    .child {
+        opacity:0;
+        height:0;
+        overflow:hidden;
+        transform: translateY(-10%);
+    }
+}
