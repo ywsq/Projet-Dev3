@@ -17,6 +17,7 @@ import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
+import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named HomePage
 
 ReactDOM.render(
     <React.StrictMode>
@@ -32,6 +33,7 @@ ReactDOM.render(
                 <Route path="/Partnership" element={<Partnership />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Contact" element={<Contact />} />
+                <Route path="/AccountCreation" element={<AccountCreation />} />
             </Routes>
             </body>
             <Footer />
