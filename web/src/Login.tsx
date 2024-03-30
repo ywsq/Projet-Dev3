@@ -24,7 +24,7 @@ function Login() {
                 </form>
             </article>
             <article className="mt-5">
-                <a href="./AccountCreation" className="mt-5 text-gray-400 hover:text-sky-600">Don't have an account?</a>
+                <a href="./AccountCreation" className="mt-5 text-gray-400 hover:text-sky-600">Don&apos;t have an account?</a>
             </article>
         </section>
         </body>
