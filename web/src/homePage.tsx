@@ -1,14 +1,14 @@
 import React from 'react';
+import Banniere from "./Banniere";
 
 function HomePage() {
     return (
-        <body>
-            <section>
-                {/*<img src={}*/}
-                <p>Page of homePage</p>
-            </section>
-
-        </body>
+        <><Banniere/>
+                <section>
+                    {/*<img src={}*/}
+                    <p>Page of homePage</p>
+                </section>
+        </>
     );
 }
 
