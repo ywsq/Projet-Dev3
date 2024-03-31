@@ -36,7 +36,6 @@ root.render(
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
                 <Route path="/AccountRequests" element={<AccountRequests />} />
-                <Route path="/sideBar" element={<sideBar />} />
             </Routes>
             </body>
             <Footer />
