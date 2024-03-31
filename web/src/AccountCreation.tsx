@@ -5,13 +5,13 @@ import './AccountCreation.css';
 function AccountCreation() {
     return (
         <body className="">
-            <div className="relative min-h-screen flex ">
+            <div className="min-h-screen flex">
                 <div
                     className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
-                    <div className="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
+                    <div className="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-1 items-center justify-start p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
                         style={{backgroundImage: "url('https://images.unsplash.com/photo-1579451861283-a2239070aaa9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80')"}}>
-                        <div className="absolute bg-gradient-to-b from-blue-900 to-gray-900 opacity-75 inset-0 z-0"></div>
-                        <div className="absolute triangle  min-h-screen right-0 w-16"></div>
+                        <div className="absolute bg-gradient-to-b from-sky-500 to-gray-900 opacity-70 inset-0 z-0"></div>
+                        <div className="absolute triangle min-h-screen right-0 w-16"></div>
 
                         <img
                             src="https://jasper-pimstorage-skullcandy.s3.us-west-1.amazonaws.com/bd2253a9671dac36a95faf821b52e78935050140be1718ce001f6aace45cf25c.png"
@@ -54,30 +54,30 @@ function AccountCreation() {
                             <form className="mt-8 space-y-6" action="#" method="POST">
                                 <input type="hidden" name="remember" value="true"/>
                                 <div className="grid grid-cols-2 space-x-2">
-                                    <div className="relative">
-                                        <input
-                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500"
+                                    <div className="">
+                                        <input required
+                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
                                             type="" placeholder="First Name"/>
                                     </div>
-                                    <div className="relative">
-                                        <input
-                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500"
+                                    <div className="">
+                                        <input required
+                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
                                             type="" placeholder="Last Name"/>
                                     </div>
                                 </div>
-                                    <div className="relative">
-                                        <input
-                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500"
+                                    <div className="">
+                                        <input required
+                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
                                             type="" placeholder="Email"/>
                                     </div>
                                     <div className="mt-8 content-center">
-                                        <input
-                                            className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-amber-500"
+                                        <input required
+                                            className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-amber-500 transition ease-in duration-200"
                                             type="" placeholder="Company Name"/>
                                     </div>
-                                    <div className="relative">
-                                        <input
-                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500"
+                                    <div className="">
+                                        <input required
+                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
                                             type="" placeholder="VAT Number"/>
                                     </div>
                                     <div className="flex items-center justify-between">
