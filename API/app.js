@@ -4,7 +4,7 @@ const swaggerJson = require("./swagger-output.json")
 const swaggerDoc = require("./swagger");
 const DataBaseConnection = require('./DataBaseConnection/connection.js')
 const app = express();
-const port = 1600;
+const port = 8080;
 const bodyParser = require('body-parser');
 
 // swagger documentation
