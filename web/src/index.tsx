@@ -15,6 +15,7 @@ import Contact from './Contact';
 import HomePage from './homePage';
 import AccountCreation from './AccountCreation';
 import AccountRequests from './AccountRequests';
+import sideBar from './sideBar';
 
 
 const container = document.getElementById('root');
@@ -35,6 +36,7 @@ root.render(
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
                 <Route path="/AccountRequests" element={<AccountRequests />} />
+                <Route path="/sideBar" element={<sideBar />} />
             </Routes>
             </body>
             <Footer />
