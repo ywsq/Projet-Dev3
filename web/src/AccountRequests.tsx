@@ -1,12 +1,15 @@
 import React from 'react';
 import './AccountRequests.css';
+import sideBar from "./sideBar";
+import SideBar from "./sideBar";
 
 function AccountRequests() {
     return (
         <body>
             <div className="text-gray-900 flex justify-center">
                 <div>
-
+                    <><SideBar />
+                    </>
                 </div>
                 <div className="px-3 py-4 ">
                     <h1 className="text-3xl font-semibold">Account Requests</h1>
