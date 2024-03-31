@@ -17,14 +17,12 @@ import AccountCreation from './AccountCreation';
 import AccountRequests from './AccountRequests';
 
 
-
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
 root.render(
     <React.StrictMode>
         <Router>
-            <Banniere />
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
