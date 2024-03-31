@@ -3,12 +3,11 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 
 // GET the user's shopping cart content
-router.get("/cart", (req, res) => {
-    // Assuming there is a session middleware set up to store cart data in req.session.cart
-    const cartContent = req.session.cart; // Retrieve cart content from session
-
-    // Send the shopping cart content back to the client
-    res.send(cartContent);
+router.get("/cart/:id", (req, res) => {
+    let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id;
+    connection.query(sql, function (err, result, fields) {
+        res.send(result);
+    });
 });
 
 // Add an item to the shopping cart

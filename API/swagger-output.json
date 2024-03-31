@@ -180,6 +180,16 @@
         }
       }
     },
+    "/API/articles": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/API/articleID/{id}": {
       "get": {
         "description": "",
@@ -191,6 +201,16 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/API/article/categories": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -290,9 +310,17 @@
         }
       }
     },
-    "/API/cart": {
+    "/API/cart/{id}": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -7,7 +7,7 @@ const Pannier = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('API/pannier/pannierID/1');
+            const response = await fetch('API/cart/1');
             const responseData = await response.json();
             setData(responseData);
         };
