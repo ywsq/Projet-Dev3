@@ -7,7 +7,7 @@ const Pannier = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('API/pannier/pannier/1');
+            const response = await fetch('API/cart/1');
             const responseData = await response.json();
             setData(responseData);
         };
@@ -21,9 +21,22 @@ const Pannier = () => {
 
     const handleQuantityChange = (index: number, value: number) => {
         const newQuantities = [...quantities];
-        newQuantities[index] = value;
+        const maxStock = data[index].Stock;
+        if (value > maxStock) {
+            newQuantities[index] = maxStock;
+        } else if (value < 1) {
+            newQuantities[index] = 1;
+        } else if (isNaN(value)) {
+            newQuantities[index] = 1;
+        } else {
+            newQuantities[index] = value;
+        }
         setQuantities(newQuantities);
     };
+
+    const remove = (id: number) => {
+        console.log("remove " + id);
+    }
 
     return (
         <div>
@@ -31,7 +44,7 @@ const Pannier = () => {
                 <h1>Shopping Cart</h1>
                 <div className="cart-item">
                     <div className="cart-item-details">
-                        <h3><a href="#">Name</a></h3>
+                        <h3><a href="#">Items:</a></h3>
                         <p>Price:</p>
                         <p>Price HTVA:</p>
                         <p>Number</p>
@@ -56,7 +69,7 @@ const Pannier = () => {
                             />
                             <p className="cart-item-price">${calculateTotalPrice(quantities[index], item.Single_Price)}</p>
                             <p className="cart-item-price-htva">${calculateTotalPrice(quantities[index], item.Single_Price) - (21/100*calculateTotalPrice(quantities[index], item.Single_Price))}</p>
-                            <a href="#" className="remove">REMOVE</a>
+                            <button onClick={() => remove(item.ID_Article)} className="remove-button">&#10007;</button>
                         </div>
                     </div>
                 ))}

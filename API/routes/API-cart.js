@@ -12,7 +12,7 @@ router.get("/all-carts", (req, res) => {
 
 
 router.get("/cart/:id", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id;
+    let sql = "select * from tb_shopping_cart_article natural join tb_articles where ID_Shopping_Cart like " + req.params.id;
     connection.query(sql, function (err, result) {
         res.send(result);
     });

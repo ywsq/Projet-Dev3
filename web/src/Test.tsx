@@ -10,7 +10,7 @@ const Test: React.FC = () => {
 
     const handleClick = () => {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'API/pannier/pannierID/1');
+        xhr.open('GET', 'API/cart/1');
         xhr.onload = function () {
             if (xhr.status === 200) {
                 setData(JSON.parse(xhr.responseText));

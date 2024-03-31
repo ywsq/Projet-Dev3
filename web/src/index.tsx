@@ -13,6 +13,7 @@ import Login from './Login';
 import Contact from './Contact';
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
+import Test from './Test';
 import { createRoot } from 'react-dom/client';
 
 const container = document.getElementById('root');
@@ -22,6 +23,7 @@ root.render(
     <React.StrictMode>
         <Router>
             <Banniere />
+
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -33,6 +35,7 @@ root.render(
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
+                <Route path="/Test" element={<Test />} />
             </Routes>
             </body>
             <Footer />
