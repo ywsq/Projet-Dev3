@@ -38,7 +38,6 @@ root.render(
                 <Route path="/AccountRequests" element={<AccountRequests />} />
             </Routes>
             </body>
-            <Footer />
         </Router>
     </React.StrictMode>
 );
