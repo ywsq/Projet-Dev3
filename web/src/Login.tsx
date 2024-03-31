@@ -10,9 +10,9 @@ function Login() {
 
                 <form>
                     <label htmlFor="email" className="block text-base mb-2 mt-0">Email</label>
-                    <input type="text" placeholder="Enter Email" id="email" name="email" required className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-xl"/>
+                    <input type="text" placeholder="Enter Email" id="email" name="email" required className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-amber-500 rounded-xl"/>
                     <label htmlFor="password" className="block text-base mb-2 mt-3">Password</label>
-                    <input type="password" placeholder="Enter Password" id="password" name="password" required className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-xl"/>
+                    <input type="password" placeholder="Enter Password" id="password" name="password" required className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-amber-500 rounded-xl"/>
                     <div className="mt-5 flex justify-center">
                         <button type="submit" className="w-28 h-10 text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 font-semibold rounded-xl text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
                     </div>
