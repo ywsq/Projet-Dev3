@@ -2,17 +2,24 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 
-// GET the user's shopping cart content
-router.get("/cart", (req, res) => {
-    // Assuming there is a session middleware set up to store cart data in req.session.cart
-    const cartContent = req.session.cart; // Retrieve cart content from session
 
-    // Send the shopping cart content back to the client
-    res.send(cartContent);
+router.get("/all-carts", (req, res) => {
+    let sql = "select * from tb_shopping_cart_article";
+    connection.query(sql, function (err, result) {
+        res.send(result);
+    });
+});
+
+
+router.get("/cart/:id", (req, res) => {
+    let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id;
+    connection.query(sql, function (err, result) {
+        res.send(result);
+    });
 });
 
 // Add an item to the shopping cart
-router.post("/cart/add", (req, res) => {
+router.post("/cart", (req) => {
     // Retrieve item details from the request body
     const { itemId, quantity } = req.body;
 
@@ -27,7 +34,7 @@ router.post("/cart/add", (req, res) => {
 });
 
 // Remove an item from the shopping cart
-router.post("/cart/remove", (req, res) => {
+router.post("/cart/remove", (req) => {
     // Retrieve item ID from the request body
     const { itemId } = req.body;
 
@@ -46,7 +53,7 @@ router.post("/cart/remove", (req, res) => {
 
 
 // Proceed to checkout and create an order from the shopping cart
-router.post("/cart/checkout", (req, res) => {
+router.post("/cart/checkout", (req) => {
     // Retrieve the user's shopping cart content from the session
     const cartContent = req.session.cart;
 
@@ -68,7 +75,7 @@ router.post("/cart/checkout", (req, res) => {
     };
 
     // Save the new order in the database
-    db.tb_orders.insert(newOrder, (err, result) => {
+    db.tb_orders.insert(newOrder, (result) => {
 
         // Clear the user's shopping cart (remove cart content from the session)
         delete req.session.cart;
