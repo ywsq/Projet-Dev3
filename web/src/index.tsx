@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './Pannier';
 import reportWebVitals from './reportWebVitals';
@@ -11,10 +12,10 @@ import Store from './Store';
 import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
-import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
-import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
-import Test from './Test';
-import { createRoot } from 'react-dom/client';
+import HomePage from './homePage';
+import AccountCreation from './AccountCreation';
+import AccountRequests from './AccountRequests';
+
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -22,8 +23,6 @@ const root = createRoot(container!);
 root.render(
     <React.StrictMode>
         <Router>
-            <Banniere />
-
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -35,7 +34,7 @@ root.render(
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
-                <Route path="/Test" element={<Test />} />
+                <Route path="/AccountRequests" element={<AccountRequests />} />
             </Routes>
             </body>
             <Footer />

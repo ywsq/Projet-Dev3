@@ -1,102 +1,49 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
-const session = require('express-session');
-const bodyParser = require('body-parser');
-
-router.use(bodyParser.json());
-
-router.get("/all-carts", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article";
-    connection.query(sql, function (err, result) {
-        res.send(result);
-    });
-});
 
 
+// GET the user's shopping cart content
 router.get("/cart/:id", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article natural join tb_articles where ID_Shopping_Cart like " + req.params.id;
-    connection.query(sql, function (err, result) {
+    let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id;
+    connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
 });
 
-router.put("/cart/:articleId/:cartId", (req, res) => {
-    // Récupérer les données à mettre à jour
-    const { newAmount } = req.body;
+// Add an item to the shopping cart
+router.post("/cart", (req) => {
+    // Retrieve item details from the request body
+    const { itemId, quantity } = req.body;
 
-    // Requête SQL d'update
-    let sql = `UPDATE tb_shopping_cart_article 
-               SET Amount = ${newAmount} 
-               WHERE ID_Shopping_Cart = ${req.params.id} AND ID_Shopping_Cart = ${req.params.id}`;
+    // Assuming there is a session middleware set up to store cart data in req.session.cart
+    let cartContent = req.session.cart || []; // Retrieve cart content from session or initialize as empty array
 
-    // Exécution de la requête
-    connection.query(sql, function (err, result) {
-        if (err) {
-            // Gestion des erreurs
-            console.error(err);
-            res.status(500).send("Erreur lors de la mise à jour du panier");
-        } else {
-            // Envoyer la réponse en cas de succès
-            res.send("Mise à jour du panier réussie");
-        }
-    });
+    // Add the item to the shopping cart
+    cartContent.push({ itemId, quantity });
+
+    // Update the cart content in the session
+    req.session.cart = cartContent;
 });
 
-router.delete("/cart/:articleId/:cartId", (req, res) => {
-    let sql = "DELETE FROM tb_shopping_cart_article WHERE ID_Article = ? AND ID_Shopping_Cart = ?";
-    connection.query(sql, [req.params.articleId, req.params.cartId], function (err, result) {
-        if (err) {
-            console.error("Erreur lors de la suppression de l'article du panier:", err);
-            res.status(500).send("Erreur lors de la suppression de l'article du panier");
-        } else {
-            console.log("Article du panier supprimé avec succès");
-            res.send("Article du panier supprimé avec succès");
-        }
-    });
+// Remove an item from the shopping cart
+router.post("/cart/remove", (req) => {
+    // Retrieve item ID from the request body
+    const { itemId } = req.body;
+
+    // Assuming you have a session middleware set up to store cart data in req.session.cart
+    let cartContent = req.session.cart || []; // Retrieve cart content from session or initialize as empty array
+
+    // Find the index of the item with the provided ID in the cart
+    const index = cartContent.findIndex(item => item.itemId === itemId);
+
+    // Remove the item from the cart content
+    cartContent.splice(index, 1);
+
+    // Update the cart content in the session
+    req.session.cart = cartContent;
 });
 
-
-router.post("/add-to-cart", (req, res) => {
-    // Supposons que vous receviez les données nécessaires dans le corps de la requête
-    const { ID_Shopping_Cart, ID_Article, Amount } = req.body;
-
-    // Assurez-vous d'effectuer une validation des données avant l'insertion
-
-    let sql = "INSERT INTO tb_shopping_cart_article (ID_Shopping_Cart, ID_Article, Amount) VALUES (?, ?, ?)";
-    let values = [ID_Shopping_Cart, ID_Article, Amount];
-
-    connection.query(sql, values, function (err, result) {
-        if (err) {
-            console.error("Erreur lors de l'insertion dans la base de données : ", err);
-            res.status(500).send("Erreur lors de l'insertion dans la base de données.");
-        } else {
-            console.log("Nouvel article ajouté au panier !");
-            res.status(200).send("Nouvel article ajouté au panier !");
-        }
-    });
-});
-
-
-
-// Endpoint pour la suppression d'un objet par ID
-router.delete('/cart/:id', (req, res) => {
-    const id = req.params.id; // Récupérer l'ID de la requête
-
-    // Supprimer l'objet de la table en utilisant l'ID fourni
-    // Code de suppression de la base de données (à remplacer par le vôtre)
-    // Exemple de suppression fictive
-    // database.deleteObjectById(id, (err, result) => {
-    //     if (err) {
-    //         res.status(500).send('Erreur lors de la suppression de l\'objet');
-    //     } else {
-    //         res.status(200).send('Objet supprimé avec succès');
-    //     }
-    // });
-
-    // Réponse de succès (à supprimer ou à commenter une fois que vous avez intégré la suppression dans votre base de données)
-    res.status(200).send(`Objet avec l'ID ${id} supprimé avec succès`);
-});
 
 // Proceed to checkout and create an order from the shopping cart
 router.post("/cart/checkout", (req) => {

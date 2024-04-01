@@ -1,10 +1,14 @@
 import React from 'react';
+import Banniere from "./Banniere";
 
 function Store() {
     return (
-        <div>
-            <p>Page of Store</p>
-        </div>
+        <><Banniere/>
+            <section>
+                {/*<img src={}*/}
+                <p>Page of homePage</p>
+            </section>
+        </>
 );
 }
 

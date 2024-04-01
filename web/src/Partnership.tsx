@@ -1,10 +1,14 @@
 import React from 'react';
+import Banniere from "./Banniere";
 
 function Partnership() {
     return (
-        <div>
-            <p>Page of Partnership</p>
-        </div>
+        <><Banniere/>
+            <section>
+                {/*<img src={}*/}
+                <p>Page of Partnership</p>
+            </section>
+        </>
     );
 }
 
