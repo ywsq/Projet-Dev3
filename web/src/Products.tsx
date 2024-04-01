@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import "./Products.css"
+import Banniere from "./Banniere";
 
 interface IDataItem {
     Category_Name: string;
@@ -61,58 +62,61 @@ const Products: React.FC = () => {
 
 
     return (
-        <div>
-            {dataCategories ? (
-                <div id="allArticles">
-                    <div id="headerProducts">
-                        <div className="intro">
-                            <div className="bold">Star Mobile.</div> The best way to buy <br/>
-                            the products you need
-                        </div>
-                        <div id="visitStarMobile">Visit Star Mobile<br/>
-                            <Link to="/Store" id="findStore">Find a store &gt;</Link>
+        <><Banniere/>
+            <div>
 
+                {dataCategories ? (
+                    <div id="allArticles">
+                        <div id="headerProducts">
+                            <div className="intro">
+                                <div className="bold">Star Mobile.</div> The best way to buy <br/>
+                                the products you need
+                            </div>
+                            <div id="visitStarMobile">Visit Star Mobile<br/>
+                                <Link to="/Store" id="findStore">Find a store &gt;</Link>
+
+                            </div>
                         </div>
+
+
+                        {dataCategories.map((itemCartegory, indexCategory) => (
+                            <div className="categories" key={indexCategory}>
+                                <div className="categoriesHeader">
+                                    <div className="categoryName">{itemCartegory.Category_Name}</div>
+                                    <div className="seeMore"> Show more &gt;</div>
+                                </div>
+                                <div className="displayNone">{tablePerArticle[itemCartegory.Category_Name] = 0}</div>
+                                {dataArticles ? (
+                                    <div className="products">
+                                        {dataArticles.map((itemArticle, indexArticle) => {
+                                            if (itemArticle.Category_Name === itemCartegory.Category_Name && tablePerArticle[itemArticle.Category_Name] < 5) {
+                                                tablePerArticle[itemArticle.Category_Name] += 1
+                                                console.log(tablePerArticle)
+                                                return (
+                                                    <div key={indexArticle} className="article"
+                                                         style={{backgroundImage: itemArticle.Image ? `url(${itemArticle.Image.replace(/"/g, '')})` : 'none'}}>
+                                                        <div className="articleName">{itemArticle.Name}</div>
+                                                    </div>
+
+
+                                                );
+                                            }
+                                        })}
+
+                                    </div>
+                                ) : (
+                                    <div>Loading...</div>
+                                )}
+
+                            </div>
+                        ))}
                     </div>
 
-
-                    {dataCategories.map((itemCartegory, indexCategory) => (
-                        <div className="categories" key={indexCategory}>
-                            <div className="categoriesHeader">
-                                <div className="categoryName">{itemCartegory.Category_Name}</div>
-                                <div className="seeMore"> Show more &gt;</div>
-                            </div>
-                            <div className="displayNone">{tablePerArticle[itemCartegory.Category_Name] = 0}</div>
-                            {dataArticles ? (
-                                <div className="products">
-                                    {dataArticles.map((itemArticle, indexArticle) => {
-                                        if (itemArticle.Category_Name === itemCartegory.Category_Name && tablePerArticle[itemArticle.Category_Name] < 5) {
-                                            tablePerArticle[itemArticle.Category_Name] += 1
-                                            console.log(tablePerArticle)
-                                            return (
-                                                <div key={indexArticle} className="article"
-                                                     style={{backgroundImage: itemArticle.Image ? `url(${itemArticle.Image.replace(/"/g, '')})` : 'none'}}>
-                                                    <div className="articleName">{itemArticle.Name}</div>
-                                                </div>
-
-
-                                            );
-                                        }
-                                    })}
-
-                                </div>
-                            ) : (
-                                <div>Loading...</div>
-                            )}
-
-                        </div>
-                    ))}
-                </div>
-
-            ) : (
-                <div>Loading...</div>
-            )}
-        </div>
+                ) : (
+                    <div>Loading...</div>
+                )}
+            </div>
+        </>
     );
 };
 
