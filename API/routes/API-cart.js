@@ -3,17 +3,10 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 
 
-router.get("/all-carts", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article";
-    connection.query(sql, function (err, result) {
-        res.send(result);
-    });
-});
-
-
+// GET the user's shopping cart content
 router.get("/cart/:id", (req, res) => {
     let sql = "select * from tb_shopping_cart_article where ID_Shopping_Cart like " + req.params.id;
-    connection.query(sql, function (err, result) {
+    connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
 });
