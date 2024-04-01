@@ -12,10 +12,10 @@ import Store from './Store';
 import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
-import AccountRequests from './AccountRequests';
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
 import Test from './Test';
+import AccountRequests from './AccountRequests';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -24,7 +24,6 @@ root.render(
     <React.StrictMode>
         <Router>
             <Banniere />
-
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -36,8 +35,8 @@ root.render(
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
-                <Route path="/AccountRequests" element={<AccountRequests />} />
                 <Route path="/Test" element={<Test />} />
+                <Route path="/AccountRequests" element={<AccountRequests />} />
             </Routes>
             </body>
             <Footer />
