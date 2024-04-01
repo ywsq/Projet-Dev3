@@ -16,6 +16,7 @@ import HomePage from './homePage'; // Corrected import, assuming the component i
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
 import Test from './Test';
 import AccountRequests from './AccountRequests';
+import sideBar from './sideBar';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -39,7 +40,6 @@ root.render(
                 <Route path="/AccountRequests" element={<AccountRequests />} />
             </Routes>
             </body>
-            <Footer />
         </Router>
     </React.StrictMode>
 );
