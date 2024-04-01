@@ -6,14 +6,7 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.json());
 
-router.get("/all-carts", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article";
-    connection.query(sql, function (err, result) {
-        res.send(result);
-    });
-});
-
-
+// GET the user's shopping cart content
 router.get("/cart/:id", (req, res) => {
     let sql = "select * from tb_shopping_cart_article natural join tb_articles where ID_Shopping_Cart like " + req.params.id;
     connection.query(sql, function (err, result) {

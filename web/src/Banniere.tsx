@@ -21,17 +21,17 @@ function Banniere() {
 
     return (
         <header className="bg-white">
-            <nav className="flex px-4 border-b md:shadow-lg items-center relative">
+            <nav className="flex px-4 border-b items-center relative">
                 <div className="text-lg font-bold md:py-2 py-4">
                     <img className="h-14 max-w-xs" src={Logo} alt="Logo"/>
                 </div>
                 <ul className={`bg-white md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 ${menuVisible ? '' : 'hidden'}`}>
                     <li>
-                        <a href="/Products" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded">Products</a>
+                        <a href="/Products" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Products</a>
                     </li>
                     <li className="relative parent">
                         <a href="/Service"
-                           className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-200 space-x-2 rounded">
+                           className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-200 space-x-2 rounded-xl">
                             <span>Services</span>
                             <img className={`w-4 h-4 ${menuVisible ? 'hidden' : ''}`} src={expand} alt="Expand icon"/>
                         </a>
@@ -48,13 +48,13 @@ function Banniere() {
                         </ul>
                     </li>
                     <li>
-                        <a href="/Store" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded">Stores</a>
+                        <a href="/Store" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Stores</a>
                     </li>
                     <li>
-                        <a href="/Partnership" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded">Partnership</a>
+                        <a href="/Partnership" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Partnership</a>
                     </li>
                     <li>
-                        <a href="/Login" className={`flex md:inline-flex p-5 items-center hover:bg-orange-500 hover:text-white text-orange-500 ${menuVisible ? 'bg-white text-orange-400' : 'hover:bg-orange-500'} focus:ring-4 focus:outline-none focus:ring-orange-300 font-semibold rounded-xl text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
+                        <a href="/Login" className={`flex md:inline-flex p-4 items-center hover:bg-orange-500 hover:text-white text-orange-500 ${menuVisible ? 'bg-white text-orange-400' : 'hover:bg-orange-500'} focus:ring-4 focus:outline-none focus:ring-orange-300 font-semibold rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-200`}>
                             Login
                         </a>
                     </li>

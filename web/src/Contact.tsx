@@ -1,10 +1,13 @@
 import React from 'react';
+import Banniere from "./Banniere";
 
 function Contact() {
     return (
-        <div>
-            <p>Page of Contact</p>
-        </div>
+        <><Banniere/>
+            <div>
+                <p>Page of Contact</p>
+            </div>
+        </>
     );
 }
 
