@@ -15,7 +15,6 @@ import Contact from './Contact';
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
 import Test from './Test';
-import { createRoot } from 'react-dom/client';
 import AccountRequests from './AccountRequests';
 
 const container = document.getElementById('root');
@@ -24,6 +23,7 @@ const root = createRoot(container!);
 root.render(
     <React.StrictMode>
         <Router>
+            <Banniere />
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
