@@ -12,17 +12,10 @@ import Store from './Store';
 import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
-<<<<<<<<< Temporary merge branch 1
-import HomePage from './homePage';
-import AccountCreation from './AccountCreation';
 import AccountRequests from './AccountRequests';
-
-=========
 import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
 import Test from './Test';
-import { createRoot } from 'react-dom/client';
->>>>>>>>> Temporary merge branch 2
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -30,11 +23,8 @@ const root = createRoot(container!);
 root.render(
     <React.StrictMode>
         <Router>
-<<<<<<<<< Temporary merge branch 1
-=========
             <Banniere />
 
->>>>>>>>> Temporary merge branch 2
             <body>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -46,11 +36,8 @@ root.render(
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
-<<<<<<<<< Temporary merge branch 1
                 <Route path="/AccountRequests" element={<AccountRequests />} />
-=========
                 <Route path="/Test" element={<Test />} />
->>>>>>>>> Temporary merge branch 2
             </Routes>
             </body>
             <Footer />

@@ -328,6 +328,16 @@
         }
       }
     },
+    "/API/all-carts": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/API/cart/{id}": {
       "get": {
         "description": "",
@@ -344,36 +354,89 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/API/cart": {
-      "post": {
+      },
+      "delete": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "itemId": {
-                  "example": "any"
-                },
-                "quantity": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
-    "/API/cart/remove": {
+    "/API/cart/{articleId}/{cartId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newAmount": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/add-to-cart": {
       "post": {
         "description": "",
         "parameters": [
@@ -383,7 +446,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "itemId": {
+                "ID_Shopping_Cart": {
+                  "example": "any"
+                },
+                "ID_Article": {
+                  "example": "any"
+                },
+                "Amount": {
                   "example": "any"
                 }
               }
@@ -391,8 +460,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
