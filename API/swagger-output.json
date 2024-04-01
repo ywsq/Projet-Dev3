@@ -218,6 +218,24 @@
         }
       }
     },
+    "/API/article/categories/{name}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/API/orders": {
       "get": {
         "description": "",
