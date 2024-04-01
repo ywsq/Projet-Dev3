@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from './assets/LogoStar.png'
 
 function SideBar() {
     return (
@@ -6,7 +7,7 @@ function SideBar() {
             className="flex flex-col items-center w-16 h-screen py-8 overflow-y-auto bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-gray-900 dark:border-gray-700">
             <nav className="flex flex-col flex-1 space-y-6">
                 <a href="#">
-                    <img className="w-auto h-6 " src="https://merakiui.com/images/logo.svg" alt=""/>
+                    <img className="w-10 h-10 " src={logo} alt=""/>
                 </a>
 
                 <a href="#"
