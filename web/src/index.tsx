@@ -12,10 +12,11 @@ import Store from './Store';
 import Partnership from './Partnership';
 import Login from './Login';
 import Contact from './Contact';
-import HomePage from './homePage';
-import AccountCreation from './AccountCreation';
+import HomePage from './homePage'; // Corrected import, assuming the component is named HomePage
+import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
+import Test from './Test';
+import { createRoot } from 'react-dom/client';
 import AccountRequests from './AccountRequests';
-
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -34,6 +35,7 @@ root.render(
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AccountCreation" element={<AccountCreation />} />
+                <Route path="/Test" element={<Test />} />
                 <Route path="/AccountRequests" element={<AccountRequests />} />
             </Routes>
             </body>
