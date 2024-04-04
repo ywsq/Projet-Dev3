@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './Pannier.css';
+import BannierePartner from './BannierePartner'
 
 const Pannier = () => {
     const [quantities, setQuantities] = useState<number[]>(Array(1000000).fill(10));
@@ -71,6 +72,7 @@ const Pannier = () => {
     };
 
     return (
+        <><BannierePartner/>
         <div>
             <div className="container">
                 <h1>Shopping Cart</h1>
@@ -111,6 +113,7 @@ const Pannier = () => {
                 <button className="checkout-button">Proceed to Checkout</button>
             </div>
         </div>
+        </>
     );
 };
 
