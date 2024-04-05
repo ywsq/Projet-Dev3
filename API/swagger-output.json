@@ -328,6 +328,16 @@
         }
       }
     },
+    "/API/all-carts": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/API/cart/{id}": {
       "get": {
         "description": "",

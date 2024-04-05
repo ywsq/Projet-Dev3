@@ -37,13 +37,13 @@ function Banniere() {
                         </a>
                         <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
                             <li>
-                                <a href="#" className="flex px-4 py-3 hover:bg-gray-200 rounded">Devices</a>
+                                <a href="#" className="flex p-4 hover:bg-gray-200 rounded-xl">Devices</a>
                             </li>
                             <li>
-                                <a href="#" className="flex px-4 py-3 hover:bg-gray-200 rounded">Components</a>
+                                <a href="#" className="flex p-4 hover:bg-gray-200 rounded-xl">Components</a>
                             </li>
                             <li>
-                                <a href="#" className="flex px-4 py-3 hover:bg-gray-200 rounded">Accessories</a>
+                                <a href="#" className="flex p-4 hover:bg-gray-200 rounded-xl">Accessories</a>
                             </li>
                         </ul>
                     </li>
@@ -54,7 +54,7 @@ function Banniere() {
                         <a href="/Partnership" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Partnership</a>
                     </li>
                     <li>
-                        <a href="/Login" className={`flex md:inline-flex p-4 items-center hover:bg-orange-500 hover:text-white text-orange-500 ${menuVisible ? 'bg-white text-orange-400' : 'hover:bg-orange-500'} focus:ring-4 focus:outline-none focus:ring-orange-300 font-semibold rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-200`}>
+                        <a href="/Login" className={`flex md:inline-flex p-4 items-center hover:bg-sky-400 hover:text-white text-sky-500 ${menuVisible ? 'bg-white text-orange-400' : 'hover:bg-sky-400'} focus:ring-4 focus:outline-none focus:ring-orange-300 font-semibold rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-200`}>
                             Login
                         </a>
                     </li>
