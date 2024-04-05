@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import Logo from './assets/logoStarNoBack-rmbg.png'
 import expand from "./assets/expand_more_FILL0_wght400_GRAD0_opsz24.svg";
 import burgerMenu from "./assets/menu_FILL0_wght400_GRAD0_opsz24.svg";
-import { useNavigate } from "react-router-dom";
-import Search from './assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import Cart from './assets/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg'
 import Account from './assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg'
 
 function BannierePartner() {
     const [menuVisible, setMenuVisible] = useState(false);
-    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
