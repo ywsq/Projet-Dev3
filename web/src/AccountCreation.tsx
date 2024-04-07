@@ -16,7 +16,7 @@ function AccountCreation() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/display', { firstName, lastName, email, companyName, vat });
+            const response = await axios.post('/add-request', { firstName, lastName, email, companyName, vat });
             setDisplayData(response.data);
         } catch (error) {
             console.error('Error posting data:', error);
