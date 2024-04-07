@@ -1,9 +1,28 @@
-import React from 'react';
+import React, {FormEvent, useState } from 'react';
 import './AccountCreation.css';
 import Banniere from './Banniere';
+import axios from 'axios';
+
 
 
 function AccountCreation() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [vat, setVat] = useState('');
+    const [displayData, setDisplayData] = useState('');
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/display', { firstName, lastName, email, companyName, vat });
+            setDisplayData(response.data);
+        } catch (error) {
+            console.error('Error posting data:', error);
+        }
+    };
+
     return (
         <><Banniere/>
             <body className="">
@@ -56,34 +75,53 @@ function AccountCreation() {
                                 <p className="mt-5 text-sm font-semibold text-gray-500">The only access to the entire
                                     catalog and exclusive features</p>
                             </div>
-                            <form className="mt-8 space-y-6" action="#" method="POST">
-                                <input type="hidden" name="remember" value="true"/>
+                            <form className="mt-8 space-y-6"  onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 space-x-2">
                                     <div className="">
                                         <input required
+                                               name="firstName"
+                                               value={firstName}
+                                               onChange={(e) => setFirstName(e.target.value)}
                                                className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                               type="" placeholder="First Name"/>
+                                               type="text"
+                                               placeholder="First Name"/>
                                     </div>
                                     <div className="">
                                         <input required
+                                               name="lastName"
+                                               value={lastName}
+                                               onChange={(e) => setLastName(e.target.value)}
                                                className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                               type="" placeholder="Last Name"/>
+                                               type="text"
+                                               placeholder="Last Name"/>
                                     </div>
                                 </div>
                                 <div className="">
                                     <input required
+                                           name="email"
+                                           value={email}
+                                           onChange={(e) => setEmail(e.target.value)}
                                            className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                           type="" placeholder="Email"/>
+                                           type="email"
+                                           placeholder="Email"/>
                                 </div>
                                 <div className="mt-8 content-center">
                                     <input required
+                                           name="companyName"
+                                           value={companyName}
+                                           onChange={(e) => setCompanyName(e.target.value)}
                                            className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-amber-500 transition ease-in duration-200"
-                                           type="" placeholder="Company Name"/>
+                                           type="text"
+                                           placeholder="Company Name"/>
                                 </div>
                                 <div className="">
                                     <input required
+                                           name="vat"
+                                           value={vat}
+                                           onChange={(e) => setVat(e.target.value)}
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                           type="" placeholder="VAT Number"/>
+                                           type="text"
+                                           placeholder="VAT Number"/>
                                 </div>
                                 <div className="flex items-center justify-between">
                                 </div>
