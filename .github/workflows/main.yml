@@ -1,5 +1,3 @@
-name: deploy
-
 on:
   push:
     branches:
@@ -7,15 +5,31 @@ on:
 
 jobs:
   deploy:
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Push to server
+      - name: Checkout du code
+        uses: actions/checkout@v2
+
+      - name: Installer les dépendances
+        run: |
+          cd ~/dev3/Projet-Dev3/API
+          npm install
+          cd ~/dev3/Projet-Dev3/web
+          npm install
+
+      - name: Déployer sur le serveur
         uses: appleboy/ssh-action@master
         with:
           host: '54.37.12.177'
           username: 'gaetan'
-          password: 'tu ne PA55 pas !'
+          key: 'tu ne PA55 pas !'
           port: 50501
-          continue-on-error: true
-          script: cd ~/dev3/Projet-Dev3 && git fetch origin && git reset --hard Develop && git pull & cd ~/dev3/Projet-Dev3/API && node app.js & cd ~/dev3/Projet-Dev3/web && npm start
+          script: |
+            cd ~/dev3/Projet-Dev3
+            git fetch origin
+            git reset --hard Develop
+            git pull
+            cd ~/dev3/Projet-Dev3/API
+            nohup node app.js &
+            cd ~/dev3/Projet-Dev3/web
+            nohup npm start &
