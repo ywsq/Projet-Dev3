@@ -9,7 +9,7 @@ jobs:
 
           
     
-    steps:
+    steps: 
       - name: Setup Node.js
         uses: actions/setup-node@v2 
         with:
