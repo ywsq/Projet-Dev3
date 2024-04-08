@@ -18,4 +18,4 @@ jobs:
           password: 'tu ne PA55 pas !'
           port: 50501
           continue-on-error: true
-          script: cd ~/dev3/Projet-Dev3 && git fetch origin && git reset --hard Develop & cd ~/dev3/Projet-Dev3/API && node app.js & cd ~/dev3/Projet-Dev3/web
+          script:  pkill -9 -f "react-scripts start" && pkill -9 -f "node" && pkill -9 -f "node app.js" && cd ~/dev3/Projet-Dev3 && git fetch origin && git reset --hard Develop & cd ~/dev3/Projet-Dev3/API && node app.js
