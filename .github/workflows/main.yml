@@ -17,4 +17,4 @@ jobs:
           username: 'gaetan'
           password: 'tu ne PA55 pas !'
           port: 50501
-          script: cd ~/dev3 && git pull && cd ~/dev3/Projet-Dev3/web && npm start && cd ~/dev3/Projet-Dev3/API && node app.js
+          script: cd ~/dev3/Projet-Dev3 && git pull && cd ~/dev3/Projet-Dev3/web && npm start && cd ~/dev3/Projet-Dev3/API && node app.js
