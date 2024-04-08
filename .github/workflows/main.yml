@@ -6,9 +6,6 @@ on:
 jobs:
   deploy:
     runs-on: [ubuntu-latest]
-    runs:
-      using: 'node20'  # Ajoutez cette ligne pour spécifier l'utilisation de Node.js version 20
-
     steps: 
       - uses: actions/checkout@v1
       - name: Push to server 
@@ -18,5 +15,4 @@ jobs:
           username: 'gaetan'
           password: 'tu ne PA55 pas !'
           port: 50501
-          continue-on-error: true
           script: cd ~/dev3 && sh update.sh 
