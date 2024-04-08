@@ -12,7 +12,7 @@ jobs:
 
       - name: Installer les dépendances
         run: |
-          cd ~/dev3/Projet-Dev3/web
+          cd /home/gaetan/dev3/Projet-Dev3/web
           nvm use 21
 
       - name: Déployer sur le serveur
