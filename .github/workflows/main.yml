@@ -12,8 +12,6 @@ jobs:
 
       - name: Installer les dépendances
         run: |
-          cd ~/dev3/Projet-Dev3/API
-          npm install
           cd ~/dev3/Projet-Dev3/web
           npm install
 
