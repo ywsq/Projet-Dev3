@@ -1,7 +1,9 @@
+name: deploy
+
 on:
   push:
     branches:
-      - develop
+      - Develop
 
 jobs:
   deploy:
