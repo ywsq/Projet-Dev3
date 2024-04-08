@@ -16,4 +16,4 @@ jobs:
           password: 'tu ne PA55 pas !'
           port: 50501
           continue-on-error: true
-          script:  git fetch origin && git reset --hard Develop & cd ~/dev3/Projet-Dev3/API && node app.js & cd ~/dev3/Projet-Dev3/web && npm install && npm start
+          script: cd ~/dev3/Projet-Dev3 && git fetch origin && git reset --hard Develop & cd ~/dev3/Projet-Dev3/API && node app.js & cd ~/dev3/Projet-Dev3/web && npm install && npm start
