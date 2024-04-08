@@ -17,4 +17,4 @@ jobs:
           username: 'gaetan'
           password: 'tu ne PA55 pas !'
           port: 50501
-          script: sudo cd ~/dev3/Projet-Dev3 && git fetch origin && git reset --hard origin/Develop && cd ~/dev3/Projet-Dev3/web && npm start & cd ~/dev3/Projet-Dev3/API && node app.js
+          script: cd ~/dev3/Projet-Dev3 && git fetch origin && echo "tu ne PA55 pas !" | sudo git reset --hard origin/Develop && cd ~/dev3/Projet-Dev3/web && npm start & cd ~/dev3/Projet-Dev3/API && node app.js
