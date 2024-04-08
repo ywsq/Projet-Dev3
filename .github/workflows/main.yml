@@ -15,4 +15,4 @@ jobs:
           username: 'gaetan'
           password: 'tu ne PA55 pas !'
           port: 50501
-          script: cd ~/dev3 && sh update.sh 
+          script: cd ~/dev3 && sh update.sh
