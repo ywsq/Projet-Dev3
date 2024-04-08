@@ -13,7 +13,7 @@ jobs:
       - name: Installer les dépendances
         run: |
           cd ~/dev3/Projet-Dev3/web
-          npm install
+          nvm use 21
 
       - name: Déployer sur le serveur
         uses: appleboy/ssh-action@master
