@@ -23,7 +23,9 @@ function Banniere() {
         <header className="bg-white">
             <nav className="flex px-4 border-b items-center relative">
                 <div className="text-lg font-bold md:py-2 py-4">
-                    <img className="h-14 max-w-xs" src={Logo} alt="Logo"/>
+                    <a href={"/"}>
+                        <img className="h-14 max-w-xs" src={Logo} alt="Logo"/>
+                    </a>
                 </div>
                 <ul className={`bg-white md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 ${menuVisible ? '' : 'hidden'}`}>
                     <li>
