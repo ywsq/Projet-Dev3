@@ -19,7 +19,7 @@ function BannierePartner() {
         <header>
             <nav className="flex px-4 py-1 border-b justify-between items-center relative">
                 <div className="flex flex-col md:flex-row items-center flex-grow">
-                    <a href="#" className="xl:ml-20 lg:ml-14 md:ml-5">
+                    <a href="/" className="xl:ml-20 lg:ml-14 md:ml-5">
                         <img className="h-12 max-w-xs" src={Logo} alt="Logo"/>
                     </a>
                     <ul className={`items-center bg-white md:px-2 ml-5 md:flex md:space-x-2 ${menuVisible ? '' : 'hidden md:block'}`}>
