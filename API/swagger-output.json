@@ -352,6 +352,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -453,6 +456,42 @@
                   "example": "any"
                 },
                 "Amount": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/replace-in-cart": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ID_Shopping_Cart": {
+                  "example": "any"
+                },
+                "ID_Old_Article": {
+                  "example": "any"
+                },
+                "ID_New_Article": {
+                  "example": "any"
+                },
+                "New_Amount": {
                   "example": "any"
                 }
               }

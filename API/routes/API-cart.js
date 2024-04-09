@@ -15,11 +15,19 @@ router.get("/all-carts", (req, res) => {
 
 // GET the user's shopping cart content
 router.get("/cart/:id", (req, res) => {
-    let sql = "select * from tb_shopping_cart_article natural join tb_articles where ID_Shopping_Cart like " + req.params.id;
-    connection.query(sql, function (err, result) {
-        res.send(result);
+    let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE ?";
+    connection.query(sql, req.params.id, function (err, result) {
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving shopping cart content:", err);
+            res.status(500).json({ error: "Error retrieving shopping cart content from the database" });
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du panier d'achat
+            res.status(200).json(result);
+        }
     });
 });
+
 
 router.put("/cart/:articleId/:cartId", (req, res) => {
     // Récupérer les données à mettre à jour
@@ -97,6 +105,39 @@ router.delete('/cart/:id', (req, res) => {
     // Réponse de succès (à supprimer ou à commenter une fois que vous avez intégré la suppression dans votre base de données)
     res.status(200).send(`Objet avec l'ID ${id} supprimé avec succès`);
 });
+
+router.post("/replace-in-cart", (req, res) => {
+    // Supposons que vous receviez les données nécessaires dans le corps de la requête
+    const { ID_Shopping_Cart, ID_Old_Article, ID_New_Article, New_Amount } = req.body;
+
+    // Assurez-vous d'effectuer une validation des données avant la mise à jour
+
+    // Suppression de l'article existant
+    let deleteSql = "DELETE FROM tb_shopping_cart_article WHERE ID_Shopping_Cart = ? AND ID_Article = ?";
+    let deleteValues = [ID_Shopping_Cart, ID_Old_Article];
+
+    connection.query(deleteSql, deleteValues, function (deleteErr, deleteResult) {
+        if (deleteErr) {
+            console.error("Erreur lors de la suppression de l'article du panier : ", deleteErr);
+            res.status(500).send("Erreur lors de la suppression de l'article du panier.");
+        } else {
+            // Insertion du nouvel article
+            let insertSql = "INSERT INTO tb_shopping_cart_article (ID_Shopping_Cart, ID_Article, Amount) VALUES (?, ?, ?)";
+            let insertValues = [ID_Shopping_Cart, ID_New_Article, New_Amount];
+
+            connection.query(insertSql, insertValues, function (insertErr, insertResult) {
+                if (insertErr) {
+                    console.error("Erreur lors de l'insertion du nouvel article dans le panier : ", insertErr);
+                    res.status(500).send("Erreur lors de l'insertion du nouvel article dans le panier.");
+                } else {
+                    console.log("Article remplacé dans le panier avec succès !");
+                    res.status(200).send("Article remplacé dans le panier avec succès !");
+                }
+            });
+        }
+    });
+});
+
 
 // Proceed to checkout and create an order from the shopping cart
 router.post("/cart/checkout", (req) => {
