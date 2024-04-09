@@ -24,7 +24,7 @@ function BannierePartner() {
                     </a>
                     <ul className={`items-center bg-white md:px-2 ml-5 md:flex md:space-x-2 ${menuVisible ? '' : 'hidden md:block'}`}>
                         <li>
-                            <a href="#" className="flex md:inline-flex p-4 md:mt-2 items-center hover:bg-sky-400 hover:text-white rounded">MyProduct</a>
+                            <a href="/" className="flex md:inline-flex p-4 md:mt-2 items-center hover:bg-sky-400 hover:text-white rounded">MyProduct</a>
                         </li>
                         <li className="relative parent">
                             <a href="/Catalog" className="flex justify-between md:inline-flex p-4 md:mt-2 items-center hover:bg-sky-400 hover:text-white space-x-2 rounded group">
