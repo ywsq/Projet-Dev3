@@ -1,6 +1,7 @@
 import React, {useState, useEffect, SetStateAction, Dispatch} from 'react';
 import './Pannier.css';
 import Banniere from "./Banniere";
+import BannierePartner from './BannierePartner'
 
 export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
     if ((quantity * price) > 0) {
@@ -53,6 +54,7 @@ function Pannier() {
     };
 
     return (
+        <><BannierePartner/>
         <div>
             <Banniere />
             <div className="container">
@@ -109,6 +111,7 @@ function Pannier() {
                 <button className="checkout-button">Proceed to Checkout</button>
             </div>
         </div>
+        </>
     );
 }
 
