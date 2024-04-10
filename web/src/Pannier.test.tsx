@@ -41,50 +41,61 @@ describe('calculateTotalPrice', () => {
 });
 
 describe('handleQuantityChange function', () => {
-    test('should update quantities correctly when value is within the valid range', () => {
+    test('should update quantities correctly when value is within the valid range', async () => {
+        // Définir les données de test
         const index = 0;
         const value = 5;
+        const idArticle = 1;
+        const idCart = 1;
         const quantities = [10, 20, 30];
-        const data = [{ Stock: 15 }, { Stock: 25 }, { Stock: 35 }];
+        const data = [{Stock: 15}, {Stock: 25}, {Stock: 35}];
         const setQuantities = jest.fn();
 
-        handleQuantityChange(index, value, quantities, data, setQuantities);
+        // Appeler la fonction à tester
+        await handleQuantityChange(index, value, idArticle, idCart, data, quantities, setQuantities);
 
+        // Vérifier si la fonction a appelé setQuantities avec les valeurs attendues
         expect(setQuantities).toHaveBeenCalledWith([5, 20, 30]);
     });
 
-    test('should update quantities correctly when value exceeds maxStock', () => {
+    test('should update quantities correctly when value exceeds maxStock', async () => {
         const index = 1;
         const value = 30;
+        const idArticle = 1;
+        const idCart = 1;
         const quantities = [10, 20, 30];
-        const data = [{ Stock: 15 }, { Stock: 25 }, { Stock: 35 }];
+        const data = [{Stock: 15}, {Stock: 25}, {Stock: 35}];
         const setQuantities = jest.fn();
 
-        handleQuantityChange(index, value, quantities, data, setQuantities);
+        await handleQuantityChange(index, value, idArticle, idCart, data, quantities, setQuantities);
 
         expect(setQuantities).toHaveBeenCalledWith([10, 25, 30]);
     });
 
-    test('should update quantities correctly when value is less than 1', () => {
+    test('should update quantities correctly when value is less than 1', async () => {
         const index = 2;
         const value = -5;
+        const idArticle = 1;
+        const idCart = 1;
         const quantities = [10, 20, 30];
-        const data = [{ Stock: 15 }, { Stock: 25 }, { Stock: 35 }];
+        const data = [{Stock: 15}, {Stock: 25}, {Stock: 35}];
         const setQuantities = jest.fn();
 
-        handleQuantityChange(index, value, quantities, data, setQuantities);
+        await handleQuantityChange(index, value, idArticle, idCart, data, quantities, setQuantities);
 
         expect(setQuantities).toHaveBeenCalledWith([10, 20, 1]);
     });
 
-    test('should update quantities correctly when value is NaN', () => {
+    test('should update quantities correctly when value is NaN', async () => {
         const index = 1;
         const value = NaN;
+        const idArticle = 1;
+        const idCart = 1;
         const quantities = [10, 20, 30];
-        const data = [{ Stock: 15 }, { Stock: 25 }, { Stock: 35 }];
+        const data = [{Stock: 15}, {Stock: 25}, {Stock: 35}];
         const setQuantities = jest.fn();
 
-        handleQuantityChange(index, value, quantities, data, setQuantities);
+        await handleQuantityChange(index, value, idArticle, idCart, data, quantities, setQuantities);
 
         expect(setQuantities).toHaveBeenCalledWith([10, 1, 30]);
     });

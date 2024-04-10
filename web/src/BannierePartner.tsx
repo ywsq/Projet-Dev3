@@ -53,7 +53,7 @@ function BannierePartner() {
                     <input type="search" name="search" placeholder="Search" className="hidden md:block border-2 bg-white h-10 px-5 md:mt-2 w-full rounded-full text-sm focus:outline-sky-500 focus:border-white"/>
                 </div>
                 <div className="hidden md:flex md:mt-2">
-                    <a href="#" className="ml-10 mr-4">
+                    <a href="/App" className="ml-10 mr-4">
                         <img className="h-7" src={Cart} alt="Cart icon"/>
                     </a>
                     <a href="#" className="xl:mr-24 lg:mr-14 md:mr-5">
