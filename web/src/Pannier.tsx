@@ -11,9 +11,18 @@ export function calculateTotalPrice({ quantity, price }: { quantity: any, price:
     }
 }
 
-export async function handleQuantityChange(index: number, value: number, quantities: number[], data: any[], setQuantities: Dispatch<SetStateAction<number[]>>) {
+export async function handleQuantityChange(
+    index: number,
+    value: number,
+    idArticle: number,
+    idCart: number,
+    data: any[],
+    quantities: number[],
+    setQuantities: Dispatch<SetStateAction<number[]>>
+) {
     const newQuantities = [...quantities];
     const maxStock = data[index].Stock;
+
     if (value > maxStock) {
         newQuantities[index] = maxStock;
     } else if (value < 1) {
@@ -23,12 +32,26 @@ export async function handleQuantityChange(index: number, value: number, quantit
     } else {
         newQuantities[index] = value;
     }
+
     setQuantities(newQuantities);
+
+    try {
+        await fetch(`API/update-cart-article/${idCart}/${idArticle}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newAmount: newQuantities[index] })
+        });
+        console.log("Item quantity updated successfully.");
+    } catch (error) {
+        console.error("Error updating item quantity:", error);
+    }
 }
 
 function Pannier() {
-    const [quantities, setQuantities] = useState<number[]>(Array(1000000).fill(10));
     const [data, setData] = useState<any[]>([]);
+    const [quantities, setQuantities] = useState<number[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,6 +62,15 @@ function Pannier() {
 
         fetchData();
     }, []);
+
+    // Utiliser useEffect pour mettre à jour quantities lorsque data change
+    useEffect(() => {
+        // Vérifier si data est vide avant de mettre à jour quantities
+        if (data.length > 0) {
+            const newQuantities = data.map((item: any) => item.Amount);
+            setQuantities(newQuantities);
+        }
+    }, [data]);
 
     const handleRemoveItem = async (idArticle: number, idCart: number) => {
         try {
@@ -54,9 +86,8 @@ function Pannier() {
     };
 
     return (
-        <><BannierePartner/>
         <div>
-            <Banniere />
+            <BannierePartner />
             <div className="container">
                 <h1>Shopping Cart</h1>
                 <div className="cart-item">
@@ -85,7 +116,7 @@ function Pannier() {
                                     name="Num"
                                     type="number"
                                     value={quantities[index]}
-                                    onChange={e => handleQuantityChange(index, parseInt(e.target.value), quantities, data, setQuantities)}
+                                    onChange={e => handleQuantityChange(index, parseInt(e.target.value), item.ID_Article, item.ID_Shopping_Cart, data, quantities, setQuantities)}
                                     min={item.Min_To_By}
                                     max={item.Stock}
                                 />
@@ -111,7 +142,6 @@ function Pannier() {
                 <button className="checkout-button">Proceed to Checkout</button>
             </div>
         </div>
-        </>
     );
 }
 

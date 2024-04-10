@@ -375,18 +375,18 @@
         }
       }
     },
-    "/API/cart/{articleId}/{cartId}": {
+    "/API/update-cart-article/{cartId}/{articleId}": {
       "put": {
         "description": "",
         "parameters": [
           {
-            "name": "articleId",
+            "name": "cartId",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "cartId",
+            "name": "articleId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -408,11 +408,19 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/API/cart/{articleId}/{cartId}": {
       "delete": {
         "description": "",
         "parameters": [
