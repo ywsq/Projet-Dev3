@@ -1,31 +1,43 @@
-import React, {FormEvent, useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import axios from 'axios';
 import './AccountCreation.css';
 import Banniere from './Banniere';
-import axios from 'axios';
-
 
 
 function AccountCreation() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [vat, setVat] = useState('');
-    const [displayData, setDisplayData] = useState('');
+
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        companyName: '',
+        vat: ''
+    });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         try {
-            const response = await axios.post('/add-request', { firstName, lastName, email, companyName, vat });
-            setDisplayData(response.data);
+            const response = await axios.post('/add-request', formData); // Envoi des données du formulaire vers la route /add-request
+            console.log('Request sent successfully:', response.data);
+            // Ici, vous pouvez gérer la réponse de la requête, par exemple afficher un message de succès à l'utilisateur
         } catch (error) {
-            console.error('Error posting data:', error);
+            console.error('Error sending request:', error);
+            // Ici, vous pouvez gérer les erreurs, par exemple afficher un message d'erreur à l'utilisateur
         }
     };
 
     return (
-        <><Banniere/>
-            <body className="">
+        <>
+            <Banniere/>
+            <div className="">
             <div className="min-h-screen flex">
                 <div
                     className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
@@ -75,66 +87,49 @@ function AccountCreation() {
                                 <p className="mt-5 text-sm font-semibold text-gray-500">The only access to the entire
                                     catalog and exclusive features</p>
                             </div>
-                            <form className="mt-8 space-y-6"  onSubmit={handleSubmit}>
+                            <form className="mt-8 space-y-6" action="" method="post" onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 space-x-2">
                                     <div className="">
                                         <input required
-                                               name="firstName"
-                                               value={firstName}
-                                               onChange={(e) => setFirstName(e.target.value)}
-                                               className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                               type="text"
-                                               placeholder="First Name"/>
+                                               name="companyName"
+                                               className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
+                                               type="text" placeholder="Company Name"/>
                                     </div>
                                     <div className="">
                                         <input required
-                                               name="lastName"
-                                               value={lastName}
-                                               onChange={(e) => setLastName(e.target.value)}
-                                               className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                               type="text"
-                                               placeholder="Last Name"/>
+                                               name="Country"
+                                               className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
+                                               type="text" placeholder="Country"/>
                                     </div>
+                                </div>
+                                <div className="">
+                                    <input required
+                                           name="address"
+                                           className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
+                                           type="text" placeholder="Address"/>
                                 </div>
                                 <div className="">
                                     <input required
                                            name="email"
-                                           value={email}
-                                           onChange={(e) => setEmail(e.target.value)}
-                                           className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                           type="email"
-                                           placeholder="Email"/>
-                                </div>
-                                <div className="mt-8 content-center">
-                                    <input required
-                                           name="companyName"
-                                           value={companyName}
-                                           onChange={(e) => setCompanyName(e.target.value)}
-                                           className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-amber-500 transition ease-in duration-200"
-                                           type="text"
-                                           placeholder="Company Name"/>
+                                           className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
+                                           type="email" placeholder="Email"/>
                                 </div>
                                 <div className="">
                                     <input required
-                                           name="vat"
-                                           value={vat}
-                                           onChange={(e) => setVat(e.target.value)}
-                                           className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-amber-500 transition ease-in duration-200"
-                                           type="text"
-                                           placeholder="VAT Number"/>
-                                </div>
-                                <div className="flex items-center justify-between">
+                                           name="phone"
+                                           className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
+                                           type="" placeholder="Phone Number"/>
                                 </div>
                                 <div>
                                     <button type="submit"
-                                            className="w-full flex justify-center bg-orange-400  hover:bg-orange-500 text-gray-100 p-4  rounded-2xl tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-300">
+                                            className="w-full flex justify-center bg-sky-400  hover:bg-sky-500 text-sky-100 p-4  rounded-2xl tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-300">
                                         Apply
                                     </button>
                                 </div>
                                 <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                                     <span>have an account?</span>
                                     <a href="/Login"
-                                       className="text-sky-300 hover:text-blue-500 no-underline hover:underline cursor-pointer transition ease-in duration-300">Log
+                                       className="text-sky-300 hover:text-sky-500 hover:underline cursor-pointer transition ease-in duration-300">Log
                                         in with your account</a>
                                 </p>
                             </form>
@@ -142,7 +137,7 @@ function AccountCreation() {
                     </div>
                 </div>
             </div>
-            </body>
+            </div>
         </>
     );
 }
