@@ -54,7 +54,7 @@ function Banniere() {
                         <a href="/Partnership" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Partnership</a>
                     </li>
                     <li>
-                        <a href="/Login" className={`flex md:inline-flex p-4 items-center hover:bg-sky-400 hover:text-white text-sky-500 ${menuVisible ? 'bg-white text-orange-400' : 'hover:bg-sky-400'} focus:ring-4 focus:outline-none focus:ring-orange-300 font-semibold rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-200`}>
+                        <a href="/Login" className={`flex md:inline-flex p-4 items-center hover:bg-sky-400 hover:text-white text-sky-500 ${menuVisible ? 'bg-white text-sky-400' : 'hover:bg-sky-400'} focus:ring-4 focus:outline-none focus:ring-sky-300 font-semibold rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-200`}>
                             Login
                         </a>
                     </li>
