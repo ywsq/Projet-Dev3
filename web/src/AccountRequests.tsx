@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './AccountRequests.css';
 import SideBar from "./sideBar";
 import axios from "axios";
+import {NavLink} from "react-router-dom";
 
 function AccountRequests() {
     const [data, setData] = useState<any[]>([]);
@@ -60,12 +61,12 @@ function AccountRequests() {
             <div className="flex-grow p-8 flex flex-col items-center">
                 <h1 className="text-3xl font-bold mb-4">Account Requests</h1>
                 <div className="w-full md:w-10/12 xl:w-7/12 text-md bg-white shadow-md rounded-xl mb-4">
-                    <div className="py-4 px-3">
+                    <nav className="py-4 px-3">
                         {/* Filtrer les demandes en fonction du statut */}
-                        <a href="#" className={filter === 'Waiting' ? 'text-left px-5 mx-1 py-2 font-semibold text-gray-600 bg-gray-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-gray-500'} onClick={() => setFilter('Waiting')}>Waiting</a>
-                        <a href="#" className={filter === 'Accepted' ? 'text-left px-5 mx-1 py-2 font-semibold text-sky-600 bg-sky-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-sky-500'} onClick={() => setFilter('Accepted')}>Accepted</a>
-                        <a href="#" className={filter === 'Refused' ? 'text-left px-5 mx-1 py-2 font-semibold text-orange-600 bg-orange-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-orange-400'} onClick={() => setFilter('Refused')}>Refused</a>
-                    </div>
+                        <NavLink to="#" className={filter === 'Waiting' ? 'text-left px-5 mx-1 py-2 font-semibold text-gray-600 bg-gray-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-gray-500'} onClick={() => setFilter('Waiting')}>Waiting</NavLink>
+                        <NavLink to="#" className={filter === 'Accepted' ? 'text-left px-5 mx-1 py-2 font-semibold text-sky-600 bg-sky-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-sky-500'} onClick={() => setFilter('Accepted')}>Accepted</NavLink>
+                        <NavLink to="#" className={filter === 'Refused' ? 'text-left px-5 mx-1 py-2 font-semibold text-orange-600 bg-orange-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-orange-400'} onClick={() => setFilter('Refused')}>Refused</NavLink>
+                    </nav>
                     {data.map((item: any, index: number) => (
                         <div key={index} className="flex justify-between border-t hover:bg-gray-100">
                             <p className="p-3 px-5 bg-transparent">{item.Society_Name}<br />{item.Mail_Address}<br />{item.Phone_Number}<br />{item.ID_Country}</p>

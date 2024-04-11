@@ -16,6 +16,8 @@ import HomePage from './homePage'; // Corrected import, assuming the component i
 import AccountCreation from './AccountCreation'; // Corrected import, assuming the component is named AccountCreation
 import Test from './Test';
 import AccountRequests from './AccountRequests';
+import AdminAnalytics from "./AdminAnalytics";
+import AdminHome from "./AdminHome";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -36,6 +38,8 @@ root.render(
                 <Route path="/AccountCreation" element={<AccountCreation />} />
                 <Route path="/Test" element={<Test />} />
                 <Route path="/AccountRequests" element={<AccountRequests />} />
+                <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
+                <Route path="/AdminHome" element={<AdminHome />} />
             </Routes>
             </body>
         </Router>
