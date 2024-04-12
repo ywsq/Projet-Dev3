@@ -1,7 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import "./Products.css"
-import BannierePartner from "./BannierePartner";
+import Banniere from "./Banniere";
 
 interface IDataItem {
     Category_Name: string;
@@ -62,7 +62,7 @@ const Products: React.FC = () => {
 
 
     return (
-        <><BannierePartner/>
+        <><Banniere/>
             <div>
 
                 {dataCategories ? (

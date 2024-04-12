@@ -8,13 +8,10 @@ const port = 8080;
 const bodyParser = require('body-parser');
 
 // swagger documentation
-
-
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
 
 // body parser
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -27,12 +24,15 @@ const pannierAPI = require("./routes/API-pannier.js")
 const orderAPI = require("./routes/API-order.js")
 const searchAPI = require("./routes/API-search.js")
 const cartAPI = require("./routes/API-cart.js")
+const accountAPI = require("./routes/API-account.js")
+
 app.use('/', routerIndex)
 app.use('/API', clientAPI)
 app.use('/API', articleAPI)
 app.use('/API', orderAPI)
 app.use('/API', searchAPI)
 app.use('/API', cartAPI)
+app.use('/API', accountAPI)
 
 
 // start your Express app
