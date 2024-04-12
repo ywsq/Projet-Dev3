@@ -67,9 +67,12 @@ const Products: React.FC = () => {
 
                 {dataCategories ? (
                     <div id="allArticles">
-                        <div id="headerProducts">
+
+                        <div data-testid="headerProducts" id="headerProducts">
+                            <div data-testid="headerProducts" >test</div>
                             <div className="intro">
-                                <div className="bold">Star Mobile.</div> The best way to buy <br/>
+                                <div className="bold">Star Mobile.</div>
+                                The best way to buy <br/>
                                 the products you need
                             </div>
                             <div id="visitStarMobile">Visit Star Mobile<br/>
@@ -117,7 +120,7 @@ const Products: React.FC = () => {
                 )}
             </div>
         </>
-    );
+            );
 };
 
 export default Products;
