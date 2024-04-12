@@ -1,7 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import "./Products.css"
-import BannierePartner from "./BannierePartner";
+import Banniere from "./Banniere";
 
 interface IDataItem {
     Category_Name: string;
@@ -62,14 +62,17 @@ const Products: React.FC = () => {
 
 
     return (
-        <><BannierePartner/>
+        <><Banniere/>
             <div>
 
                 {dataCategories ? (
                     <div id="allArticles">
-                        <div id="headerProducts">
+
+                        <div data-testid="headerProducts" id="headerProducts">
+                            <div data-testid="headerProducts" >test</div>
                             <div className="intro">
-                                <div className="bold">Star Mobile.</div> The best way to buy <br/>
+                                <div className="bold">Star Mobile.</div>
+                                The best way to buy <br/>
                                 the products you need
                             </div>
                             <div id="visitStarMobile">Visit Star Mobile<br/>
@@ -117,7 +120,7 @@ const Products: React.FC = () => {
                 )}
             </div>
         </>
-    );
+            );
 };
 
 export default Products;
