@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - Develop
+
+jobs:
+  deploy:
+    runs-on: [ubuntu-latest] 
+    steps: 
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Push to server 
+        uses: appleboy/ssh-action@master
+        with:
+          host: '54.37.12.177'
+          username: 'gaetan'
+          password: 'tu ne PA55 pas !'
+          port: 50501
+          script: cd ~/dev3 && sh update.sh  

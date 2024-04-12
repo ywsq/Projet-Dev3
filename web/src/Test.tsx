@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Banniere from "./Banniere";
 
 interface IDataItem {
     Amount: number;
@@ -40,17 +41,19 @@ const Test: React.FC = () => {
             console.error('Error deleting data:', error);
         }
     };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setPostData(prevData => ({
-            ...prevData,
-            [name]: name === 'Amount' ? parseFloat(value) : parseInt(value, 10)
-        }));
+/*
+    const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            await axios.post('API/replace-in-cart', postData);
+            console.log('Cart updated successfully');
+        } catch (error) {
+            console.error('Error updating cart:', error);
+        }
     };
-
+*/
     return (
         <div>
+            <Banniere />
             <button onClick={handleClickGetData}>Get Data</button>
             {data ? (
                 <div>
@@ -66,10 +69,12 @@ const Test: React.FC = () => {
             <p>----------------------------------------</p>
             <button onClick={handleClickDeleteData}>Delete Data</button>
             <p>----------------------------------------</p>
+
+            <p>----------------------------------------</p>
             <div>
-                <input type="number" name="ID_Shopping_Cart" placeholder="Enter Cart ID" onChange={handleInputChange} />
-                <input type="number" name="ID_Article" placeholder="Enter Item ID" onChange={handleInputChange} />
-                <input type="number" name="Amount" placeholder="Enter Amount" onChange={handleInputChange} />
+                <input type="number" name="ID_Shopping_Cart" placeholder="Enter Cart ID" />
+                <input type="number" name="ID_Article" placeholder="Enter Item ID" />
+                <input type="number" name="Amount" placeholder="Enter Amount" />
             </div>
         </div>
     );
