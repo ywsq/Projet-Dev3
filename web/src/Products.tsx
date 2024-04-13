@@ -67,9 +67,7 @@ const Products: React.FC = () => {
 
                 {dataCategories ? (
                     <div id="allArticles">
-
                         <div data-testid="headerProducts" id="headerProducts">
-                            <div data-testid="headerProducts" >test</div>
                             <div className="intro">
                                 <div className="bold">Star Mobile.</div>
                                 The best way to buy <br/>
