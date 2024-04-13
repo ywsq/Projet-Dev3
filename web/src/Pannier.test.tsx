@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Pannier, { calculateTotalPrice, handleQuantityChange } from './Pannier';
+
 
 describe('calculateTotalPrice', () => {
     test('should calculate total price correctly when quantity and price are positive integers', () => {
