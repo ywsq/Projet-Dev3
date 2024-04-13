@@ -1,6 +1,5 @@
 import React, {useState, useEffect, SetStateAction, Dispatch} from 'react';
 import './Pannier.css';
-import Banniere from "./Banniere";
 import BannierePartner from './BannierePartner'
 
 export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
@@ -88,58 +87,92 @@ function Pannier() {
     return (
         <div>
             <BannierePartner />
-            <div className="container">
-                <h1>Shopping Cart</h1>
-                <div className="cart-item">
-                    <div className="cart-item-details">
-                        <h3><a href="#">Items:</a></h3>
-                        <p>Price:</p>
-                        <p>Price HTVA:</p>
-                        <p>Number</p>
-                        <p className="cart-item-price">Total:</p>
-                        <p className="cart-item-price-htva">Total HTVA:</p>
-                        <p className="remove">REMOVE</p>
+            <div className="w-full h-full px-10 flex flex-col lg:px-32">
+                <h1 className="flex left-0 my-8 text-xl font-semibold">Your Cart</h1>
+                <div className="w-full h-7">
+                    <div className="flex">
+                        <h3 className="font-semibold text-gray-500 text-xs uppercase w-2/5">Product details</h3>
+                        <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-1/5">Price</h3>
+                        <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-1/5">Quantity</h3>
+                        <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-1/5">Total</h3>
+                        <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-1/5">REMOVE</h3>
                     </div>
                 </div>
                 {data.length === 0 ? (
-                    <div className="cart-item">
-                        <p>Le panier est vide</p>
+                    <div className="">
+                        <hr/>
+                        <p className="mt-5">The cart is empty</p>
                     </div>
                 ) : (
                     data.map((item: any, index: number) => (
-                        <div className="cart-item" key={index}>
-                            <div className="cart-item-details">
-                                <h3><a href="#">{item.Name}</a></h3>
-                                <p>${item.Single_Price}</p>
-                                <p>${item.Single_Price - (21 / 100 * item.Single_Price)}</p>
-                                <input
-                                    name="Num"
-                                    type="number"
-                                    value={quantities[index]}
-                                    onChange={e => handleQuantityChange(index, parseInt(e.target.value), item.ID_Article, item.ID_Shopping_Cart, data, quantities, setQuantities)}
-                                    min={item.Min_To_By}
-                                    max={item.Stock}
-                                />
-                                <p className="cart-item-price">${calculateTotalPrice({
-                                    quantity: quantities[index],
-                                    price: item.Single_Price
-                                })}</p>
-                                <p className="cart-item-price-htva">${calculateTotalPrice({
-                                    quantity: quantities[index],
-                                    price: item.Single_Price
-                                }) - (21 / 100 * calculateTotalPrice({ quantity: quantities[index], price: item.Single_Price }))}</p>
-                                <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)} className="remove-button">&#10007;</button>
+                        <div className="w-full" key={index}>
+                            <hr/>
+                            <div className="flex items-center hover:bg-gray-100 py-2">
+                                <div className="flex w-2/5">
+                                    <div className="w-20">
+                                        <img className="h-24" src="#" alt=""/>
+                                    </div>
+                                    <div className="flex ml-4">
+                                        <p className="w-2/5 flex-grow">{item.Name}</p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center w-1/5 space-y-1">
+                                    <p>${item.Single_Price}</p>
+                                    <p className="text-gray-400">${item.Single_Price - (21 / 100 * item.Single_Price)}</p>
+                                </div>
+                                <div className="flex justify-center w-1/5">
+                                    <input
+                                        className="border-2 rounded-xl text-center focus:outline-sky-300"
+                                        name="Num"
+                                        type="number"
+                                        value={quantities[index]}
+                                        onChange={e => handleQuantityChange(index, parseInt(e.target.value), item.ID_Article, item.ID_Shopping_Cart, data, quantities, setQuantities)}
+                                        min={item.Min_To_By}
+                                        max={item.Stock}
+                                    />
+                                </div>
+                                <div className="flex flex-col justify-center items-center w-1/5 space-y-1">
+                                    <p className="">${calculateTotalPrice({
+                                        quantity: quantities[index],
+                                        price: item.Single_Price
+                                    })}</p>
+                                    <p className="text-gray-400">${calculateTotalPrice({
+                                        quantity: quantities[index],
+                                        price: item.Single_Price
+                                    }) - (21 / 100 * calculateTotalPrice({ quantity: quantities[index], price: item.Single_Price }))}</p>
+                                </div>
+                                <div className="flex w-1/5 items-center justify-center">
+                                    <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)} className=" text-gray-400 text-xl hover:text-red-500 h-8 w-8">X</button>
+                                </div>
                             </div>
                         </div>
                     ))
                 )}
-                <div className="cart-total">
-                    Total: ${data.reduce((total, item, index) => total + calculateTotalPrice({
-                    quantity: quantities[index],
-                    price: item.Single_Price
-                }), 0)}
+                <div className="flex justify-end">
+                    <div className="flex flex-col p-5 mt-10 border rounded-xl w-9/12 max-w-96 md:w-96 xl:mr-14 shadow-lg">
+                        <div className="font-semibold flex justify-between">
+                            <p>Subtotal</p>
+                            <p>$ {data.reduce((total, item, index) => total + calculateTotalPrice({
+                                quantity: quantities[index],
+                                price: item.Single_Price
+                            }), 0)}</p>
+                        </div>
+                        <div className="flex justify-between text-gray-500">
+                            <p>VAT excl.</p>
+                            <p>$ {data.reduce((total, item, index) => {
+                                const totalPriceWithoutVAT = item.Single_Price - (0.21 * item.Single_Price);
+                                const totalItemPrice = totalPriceWithoutVAT * quantities[index];
+                                return total + totalItemPrice;
+                            }, 0)}</p>
+                        </div>
+                        <div className="flex justify-center mt-8">
+                            <button
+                                className="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-sky-400  duration-500 before:duration-500 hover:duration-500  hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur  origin-left relative bg-sky-500 hover:bg-white border-4 border-sky-100 h-16 w-64 text-left p-3 text-white hover:text-sky-500 font-bold rounded-xl  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-orange-400 after:right-8 after:top-3 after:rounded-full after:blur-lg">
+                                Checkout
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button className="checkout-button">Proceed to Checkout</button>
             </div>
         </div>
     );
