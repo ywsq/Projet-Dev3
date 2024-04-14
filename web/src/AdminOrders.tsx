@@ -38,7 +38,7 @@ function AdminOrders() {
                         <p>Stark Tower, New York</p>
                     </div>
                     <div className="flex justify-center w-2/12">
-                        <p>9,2k</p>
+                        <p>$ 9,2k</p>
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p>#ID108</p>
@@ -63,7 +63,7 @@ function AdminOrders() {
                         <p>Stark Tower, New York</p>
                     </div>
                     <div className="flex justify-center w-2/12">
-                        <p>7,5k</p>
+                        <p>$ 7,5k</p>
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p>#ID109</p>
@@ -88,7 +88,7 @@ function AdminOrders() {
                         <p>Stark Tower, New York</p>
                     </div>
                     <div className="flex justify-center w-2/12">
-                        <p>8,3k</p>
+                        <p>$ 8,3k</p>
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p>#ID110</p>
