@@ -19,6 +19,9 @@ import AccountRequests from './AccountRequests';
 import AdminAnalytics from "./AdminAnalytics";
 import AdminHome from "./AdminHome";
 import Article from "./Article";
+import AdminCustomers from "./AdminCustomers";
+import AdminOrders from "./AdminOrders";
+import AdminProducts from "./AdminProducts";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -43,6 +46,9 @@ root.render(
                 <Route path="/AccountRequests" element={<AccountRequests />} />
                 <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
                 <Route path="/AdminHome" element={<AdminHome />} />
+                <Route path="/AdminCustomers" element={<AdminCustomers />} />
+                <Route path="/AdminOrders" element={<AdminOrders />} />
+                <Route path="/AdminProducts" element={<AdminProducts />} />
             </Routes>
             </body>
         </Router>
