@@ -4,6 +4,7 @@ import "./Products.css"
 import Banniere from "./Banniere";
 
 interface IDataItem {
+    ID_Article: number;
     Category_Name: string;
     Name: string;
     Image: string;
@@ -27,7 +28,7 @@ const Products: React.FC = () => {
                 }
             };
             xhr.send();
-            }
+        }
 
         const fetchDataArticles = async () => {
             const xhr = new XMLHttpRequest();
@@ -39,8 +40,8 @@ const Products: React.FC = () => {
                 }
             };
             xhr.send();
-        }
 
+        }
 
 
 
@@ -48,7 +49,8 @@ const Products: React.FC = () => {
         fetchDataCategories();
         fetchDataArticles();
 
-    }, []);
+        }, []);
+
 
 
     const createdata = () => {
@@ -94,16 +96,14 @@ const Products: React.FC = () => {
                                                 tablePerArticle[itemArticle.Category_Name] += 1
                                                 console.log(tablePerArticle)
                                                 return (
-                                                    <div key={indexArticle} className="article"
-                                                         style={{backgroundImage: itemArticle.Image ? `url(${itemArticle.Image.replace(/"/g, '')})` : 'none'}}>
-                                                        <div className="articleName">{itemArticle.Name}</div>
-                                                    </div>
-
-
+                                                    <Link key={itemArticle.ID_Article} to={`/article/${itemArticle.ID_Article}`}>                                                        <div key={indexArticle} className="article"
+                                                            style={{backgroundImage: itemArticle.Image ? `url(${itemArticle.Image.replace(/"/g, '')})` : 'none'}}>
+                                                            <div  className="articleName">{itemArticle.Name}</div>
+                                                        </div>
+                                                    </Link>
                                                 );
                                             }
                                         })}
-
                                     </div>
                                 ) : (
                                     <div>Loading...</div>

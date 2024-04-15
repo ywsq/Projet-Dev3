@@ -3,11 +3,10 @@ import Banniere from "./Banniere";
 
 function Contact() {
     return (
-        <><Banniere/>
             <div>
+                <Banniere />
                 <p>Page of Contact</p>
             </div>
-        </>
     );
 }
 
