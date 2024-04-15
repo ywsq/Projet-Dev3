@@ -113,7 +113,7 @@ function Pannier() {
                                         <img className="h-24" src="#" alt=""/>
                                     </div>
                                     <div className="flex ml-4">
-                                        <p className="w-2/5 flex-grow">{item.Name}</p>
+                                        <a href={`/Article/${item.ID_Article}`} className="w-2/5 flex-grow">{item.Name}</a>
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-center items-center w-1/5 space-y-1">

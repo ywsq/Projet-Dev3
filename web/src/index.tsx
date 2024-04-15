@@ -18,6 +18,7 @@ import Test from './Test';
 import AccountRequests from './AccountRequests';
 import AdminAnalytics from "./AdminAnalytics";
 import AdminHome from "./AdminHome";
+import Article from "./Article";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -31,6 +32,7 @@ root.render(
                 <Route path="/" element={<HomePage />} />
                 <Route path="/App" element={<App />} />
                 <Route path="/Products" element={<Products />} />
+                <Route path="/Article/:id" element={<Article />} />
                 <Route path="/Store" element={<Store />} />
                 <Route path="/Service" element={<Service />} />
                 <Route path="/Partnership" element={<Partnership />} />
