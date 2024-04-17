@@ -8,12 +8,11 @@ router.get("/request", (req, res) => {
 
 router.post("/add-request", (req, res) => {
     // Supposons que vous receviez les données nécessaires dans le corps de la requête
-    const { Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number } = req.body;
-
+    const { companyName, country, address, email, phone, password } = req.body;
+    console.log(req.body)
     // Assurez-vous d'effectuer une validation des données avant l'insertion
-
     let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
-    let values = [Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number];
+    let values = [ companyName, email, address, country, phone ];
 
     connection.query(sql, values, function (err, clientResult) {
         if (err) {
@@ -36,6 +35,20 @@ router.post("/add-request", (req, res) => {
                     res.status(200).send("Nouveau client ajouté avec succès !");
                 }
             });
+
+            // Insérer le password pour le client dans la table 'tb_Login'
+            let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
+            let passwordValues = [clientId, password];
+
+            connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
+                if (acceptErr) {
+                    console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
+                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
+                } else {
+                    console.log("Password ajouté avec succès !");
+                    res.status(200).send("Password ajouté avec succès !");
+                }
+            })
         }
     });
 });

@@ -6,7 +6,7 @@ const doc = {
         description: "API defined for a sample project during the course 'Développement Informatique III' à l'EPHEC Louvain-la-Neuve",
         version: "1.0.0" // Define a valid version field
     },
-    host: "54.37.12.177:8080",
+    host: "localhost:8080",
     basePath: "/", // Base path of your API
     schemes: ["http", "https"],
 };
