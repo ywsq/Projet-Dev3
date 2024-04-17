@@ -11,21 +11,15 @@ function AccountCreation() {
         country: '',
         address:'',
         email: '',
+        phone: '',
         password: ''
     });
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/add-request', formData); // Envoi des données du formulaire vers la route /add-request
+            const response = await axios.post('API/add-request', formData); // Envoi des données du formulaire vers la route /add-request
             console.log('Request sent successfully:', response.data);
             // Ici, vous pouvez gérer la réponse de la requête, par exemple afficher un message de succès à l'utilisateur
         } catch (error) {
@@ -88,19 +82,27 @@ function AccountCreation() {
                                     <div className="">
                                         <input required
                                                name="companyName"
+                                               value={formData.companyName}
+                                               onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                                                className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
                                                type="text" placeholder="Company Name"/>
                                     </div>
-                                    <div className="">
-                                        <input required
-                                               name="country"
-                                               className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
-                                               type="text" placeholder="Country"/>
-                                    </div>
+                                    <select id="country"
+                                            name="country"
+                                            value={formData.country}
+                                            onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                                            className="appearance-none w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
+                                            style={{ color: formData.country ? 'black' : 'gray' }}>
+                                        <option value="" disabled selected hidden>Select Country</option>
+                                        <option value="260">Belgium</option>
+                                        <option value="389">Netherlands</option>
+                                    </select>
                                 </div>
                                 <div className="">
                                     <input required
                                            name="address"
+                                           value={formData.address}
+                                           onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                            type="text" placeholder="Address"/>
                                 </div>
@@ -108,12 +110,16 @@ function AccountCreation() {
                                     <div className="">
                                         <input required
                                                name="email"
+                                               value={formData.email}
+                                               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
                                                type="email" placeholder="Email"/>
                                     </div>
                                     <div className="">
                                         <input required
                                                name="phone"
+                                               value={formData.phone}
+                                               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                                type="tel" placeholder="Phone Number"/>
                                     </div>
@@ -122,6 +128,8 @@ function AccountCreation() {
                                     <input required
                                            id="password"
                                            name="password"
+                                           value={formData.password}
+                                           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                            type="password" placeholder="Password"/>
                                 </div>
