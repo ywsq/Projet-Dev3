@@ -6,9 +6,9 @@ import { NavLink } from 'react-router-dom'
 function SideBar() {
     return (
         <aside
-            className="flex flex-col sticky top-0 items-center w-16 h-screen py-8 bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-gray-900 dark:border-gray-700">
+            className="flex flex-col sticky top-0 items-center w-16 h-screen mt-[-10vh] py-8 bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-gray-900 dark:border-gray-700">
             <div className="flex flex-col flex-1 space-y-6">
-                <NavLink to="/AdminHome">
+                <NavLink to="/">
                     <img className="w-10 h-10 mb-5" src={logo} alt=""/>
                 </NavLink>
                 <NavLink to="/AdminHome"

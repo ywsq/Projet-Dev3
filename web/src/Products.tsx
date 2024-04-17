@@ -24,7 +24,6 @@ const Products: React.FC = () => {
                 if (xhr.status === 200) {
                     //console.log(xhr.responseText);
                     setDataCategories(JSON.parse(xhr.responseText));
-
                 }
             };
             xhr.send();

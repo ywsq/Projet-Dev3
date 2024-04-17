@@ -50,6 +50,7 @@ root.render(
                 <Route path="/AdminOrders" element={<AdminOrders />} />
                 <Route path="/AdminProducts" element={<AdminProducts />} />
             </Routes>
+            <Footer/>
             </body>
         </Router>
     </React.StrictMode>

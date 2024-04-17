@@ -4,7 +4,6 @@
     color: #333333;
     font-family: Verdana ;
     font-size: 1.4em;
-
 }
 .categories{
     margin: 30px 0;
@@ -46,8 +45,9 @@
 }
 
 #allArticles{
-    margin: 50px auto;
-    max-width: 1000px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px;
 }
 
 .displayNone{
