@@ -7,11 +7,11 @@ import Banniere from './Banniere';
 function AccountCreation() {
 
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
         companyName: '',
-        vat: ''
+        country: '',
+        address:'',
+        email: '',
+        password: ''
     });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,16 +52,12 @@ function AccountCreation() {
                             src="https://jasper-pimstorage-skullcandy.s3.us-west-1.amazonaws.com/bd2253a9671dac36a95faf821b52e78935050140be1718ce001f6aace45cf25c.png"
                             className="h-96 absolute right-5 mr-5"/>
                         <div className="w-full  max-w-md z-10">
-                            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">Reference site about
-                                Lorem Ipsum..
+                            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">
+                                THE WEBSITE FOR OUR PARTNER
                             </div>
-                            <div className="sm:text-sm xl:text-md text-gray-200 font-normal"> What is Lorem Ipsum Lorem
-                                Ipsum is simply dummy
-                                text of the printing and typesetting industry Lorem Ipsum has been the industry
-                                standard dummy text ever
-                                since the 1500s when an unknown printer took a galley of type and scrambled it to make a
-                                type specimen book it
-                                has?
+                            <div className="sm:text-sm xl:text-md text-gray-200 font-normal">
+                                To become a partner, you must apply with the following form. Your application need to be checked and approved in order to access all the catalog in our website.
+
                             </div>
                         </div>
                         <ul className="circles">
@@ -97,7 +93,7 @@ function AccountCreation() {
                                     </div>
                                     <div className="">
                                         <input required
-                                               name="Country"
+                                               name="country"
                                                className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                                type="text" placeholder="Country"/>
                                     </div>
@@ -108,17 +104,26 @@ function AccountCreation() {
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                            type="text" placeholder="Address"/>
                                 </div>
-                                <div className="">
-                                    <input required
-                                           name="email"
-                                           className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
-                                           type="email" placeholder="Email"/>
+                                <div className="grid grid-cols-2 space-x-2">
+                                    <div className="">
+                                        <input required
+                                               name="email"
+                                               className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
+                                               type="email" placeholder="Email"/>
+                                    </div>
+                                    <div className="">
+                                        <input required
+                                               name="phone"
+                                               className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
+                                               type="tel" placeholder="Phone Number"/>
+                                    </div>
                                 </div>
                                 <div className="">
                                     <input required
-                                           name="phone"
+                                           id="password"
+                                           name="password"
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
-                                           type="" placeholder="Phone Number"/>
+                                           type="password" placeholder="Password"/>
                                 </div>
                                 <div>
                                     <button type="submit"

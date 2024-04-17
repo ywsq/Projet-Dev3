@@ -564,19 +564,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "Society_Name": {
+                "companyName": {
                   "example": "any"
                 },
-                "Mail_Address": {
+                "country": {
                   "example": "any"
                 },
-                "Addresse": {
+                "address": {
                   "example": "any"
                 },
-                "ID_Country": {
+                "email": {
                   "example": "any"
                 },
-                "Phone_Number": {
+                "phone": {
+                  "example": "any"
+                },
+                "password": {
                   "example": "any"
                 }
               }
