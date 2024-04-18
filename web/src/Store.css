@@ -1,0 +1,30 @@
+.google-map {
+    padding-bottom: 50%;
+    position: relative;
+    max-width: 50%;
+    width: 45%;
+    margin: 0 2.5%;
+}
+
+.google-map iframe {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+
+
+.buttonAddress{
+    font-style: "Verdana";
+    font-size: 1em;
+    cursor: copy;
+    color: dodgerblue;
+}
+.copyIcon{
+    marging: 0 10px;
+}
+
+.openHours{
+    padding: 20px 10px;
+}
