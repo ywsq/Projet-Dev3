@@ -67,12 +67,12 @@ function Article() {
                     <img src={dataArticle[0].Image} alt="product image"
                     className="md:w-96 md:h-96"/>
                 </div>
-                <div className="w-1/2">
-                    <h1 className="text-3xl font-semibold pb-5">{dataArticle[0].Name}</h1>
+                <div className="w-1/2 text-gray-800">
+                    <h1 className="text-4xl font-bold pb-5">{dataArticle[0].Name}</h1>
                     <hr/>
                     <div className="flex py-10 px-4">
                         <div className="w-2/5 flex flex-col">
-                            <p className="text-3xl mb-8">{dataArticle[0].Single_Price} $</p>
+                            <p className="text-3xl font-semibold mb-8">{dataArticle[0].Single_Price} $</p>
                             <label htmlFor="quantity"
                             className="text-gray-500 font-semibold mb-1">
                                 Quantity
