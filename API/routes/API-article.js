@@ -25,6 +25,21 @@ router.get("/articleID/:id", (req, res) => {
 });
 
 
+router.get("/articleDetails/:id", (req, res) => {
+    let sql = "select * \n" +
+        "from tb_articles\n" +
+        "join tb_category\n" +
+        "ON tb_articles.ID_Category = tb_category.ID_Category \n" +
+        "join tb_brands\n" +
+        "ON tb_articles.ID_Brand = tb_brands.ID_Brand \n" +
+        "join tb_image_article\n" +
+        "ON tb_articles.ID_Article = tb_image_article.ID_Article where tb_articles.ID_Article like " + req.params.id;
+    connection.query(sql, function (err, result, fields) {
+        res.send(result);
+    });
+});
+
+
 router.get("/articleName/:name", (req, res) => {
     let sql = "select * from tb_articles where Name like " + req.params.name;
     connection.query(sql, function (err, result, fields) {
