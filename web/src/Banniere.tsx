@@ -5,6 +5,7 @@ import burgerMenu from './assets/menu_FILL0_wght400_GRAD0_opsz24.svg'
 import expand from './assets/expand_more_FILL0_wght400_GRAD0_opsz24.svg'
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
+import Partnership from "./Partnership";
 
 function Banniere() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Banniere() {
     };
 
     return (
-        <header className="bg-white">
+        <header className="bg-white sticky">
             <nav className="flex px-4 border-b items-center relative">
                 <div className="text-lg font-bold md:py-2 py-4">
                     <a href={"/"}>
@@ -53,7 +54,7 @@ function Banniere() {
                         <a href="/Store" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Stores</a>
                     </li>
                     <li>
-                        <a href="/Contact" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Contact</a>
+                        <a href="/Partnership" className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Partnership</a>
                     </li>
                     <li>
                         <a href="/Login" className={`flex md:inline-flex p-4 items-center hover:bg-sky-400 hover:text-white text-sky-500 ${menuVisible ? 'bg-white text-sky-400' : 'hover:bg-sky-400'} focus:ring-4 focus:outline-none focus:ring-sky-300 font-semibold rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-200`}>
