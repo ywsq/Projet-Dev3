@@ -9,12 +9,18 @@ router.get("/client", (req, res) => {
 });
 
 router.get("/all-clients", (req, res) => {
-    let sql = "select * from tb_clients";
+    let sql = "select * from tb_clients;";
     connection.query(sql, function (err, result, fields) {
         res.send(result);
     });
 });
 
+router.get("/login/:email", (req, res) => {
+    let sql = "select * from tb_clients natural join tb_Login where Mail_Address like " + req.params.email;
+    connection.query(sql, function (err, result, fields) {
+        res.send(result);
+    });
+});
 
 router.get("/clientID/:id", (req, res) => {
     let sql = "select * from tb_clients where id_client like " + req.params.id;

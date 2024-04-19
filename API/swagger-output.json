@@ -55,6 +55,24 @@
         }
       }
     },
+    "/API/login/{email}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/API/clientID/{id}": {
       "get": {
         "description": "",
