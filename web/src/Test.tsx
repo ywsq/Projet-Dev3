@@ -53,7 +53,6 @@ const Test: React.FC = () => {
 */
     return (
         <div>
-            <Banniere />
             <button onClick={handleClickGetData}>Get Data</button>
             {data ? (
                 <div>

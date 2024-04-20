@@ -63,7 +63,6 @@ const Products: React.FC = () => {
 
 
     return (
-        <><Banniere/>
             <div>
 
                 {dataCategories ? (
@@ -116,7 +115,6 @@ const Products: React.FC = () => {
                     <div>Loading...</div>
                 )}
             </div>
-        </>
             );
 };
 

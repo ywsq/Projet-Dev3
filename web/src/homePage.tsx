@@ -10,7 +10,6 @@ function HomePage() {
 
 
     return (
-        <><Banniere/>
             <section>
                 <div className='center headerBackground'>
                     <h1 id="HomePageTitle"> Grow your business with <br/>
@@ -66,7 +65,6 @@ function HomePage() {
                     </div>
                 </div>
             </section>
-        </>
     );
 }
 

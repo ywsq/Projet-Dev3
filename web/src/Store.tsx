@@ -28,7 +28,6 @@ function Store() {
     }
 
     return (
-        <><Banniere/>
             <section>
                 <div className='components'>
                     <div className='componentsText'>
@@ -136,7 +135,6 @@ function Store() {
                 <div style={{padding: '20px 0'}}></div>
 
             </section>
-        </>
     );
 }
 
