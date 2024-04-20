@@ -1,7 +1,8 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
-
 // basic url : /API/
 
 router.get("/client", (req, res) => {
@@ -15,12 +16,35 @@ router.get("/all-clients", (req, res) => {
     });
 });
 
-router.get("/login/:email", (req, res) => {
-    let sql = "select * from tb_clients natural join tb_Login where Mail_Address like " + req.params.email;
-    connection.query(sql, function (err, result, fields) {
-        res.send(result);
-    });
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
+        const [user] = await connection.promise().query("SELECT * FROM tb_clients natural join tb_Login WHERE Mail_Address = ?", [email]);
+
+        // Vérifier si l'utilisateur existe
+        if (user.length === 0) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        // Comparer le mot de passe fourni avec le mot de passe haché stocké en base de données
+        const isMatch = await bcrypt.compare(password, user[0].Password);
+
+        // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
+        if (isMatch) {
+            const token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
+            return res.json({ token });
+        } else {
+            // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+    } catch (error) {
+        console.error("Error logging in:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
 });
+
 
 router.get("/clientID/:id", (req, res) => {
     let sql = "select * from tb_clients where id_client like " + req.params.id;

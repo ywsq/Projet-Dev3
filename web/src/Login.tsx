@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 import Banniere from "./Banniere";
 
 function Login() {
@@ -13,19 +12,19 @@ function Login() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch(`API/login/${email}`, {
-                method: 'GET',
+            const response = await fetch(`/API/login`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify({ email, password })
             });
             const data = await response.json();
-            if (data.Password === password) {
-                const token = jwt.sign({ email }, 'your_secret_key', { expiresIn: '1h' });
-                localStorage.setItem('token', token);
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
                 setLoggedIn(true);
             } else {
-                setError('Invalid email or password');
+                setError(data.error);
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -34,13 +33,11 @@ function Login() {
     };
 
     if (loggedIn) {
-        navigate("/"); // Utilisez navigate pour rediriger l'utilisateur
+        navigate("/");
+        window.location.reload();
     }
 
     return (
-        <>
-            <Banniere />
-            <body>
             <section className="flex flex-col items-center h-screen">
                 <h1 className="mt-14 text-6xl font-bold">WELCOME</h1>
                 <h2 className="text-2xl text-gray-400 block text-center font-medium">Login to your account</h2>
@@ -65,8 +62,6 @@ function Login() {
                     <a href="/AccountCreation" className="mt-5 text-gray-400 hover:underline hover:text-sky-600 transition ease-in duration-200">Don&apos;t have an account?</a>
                 </article>
             </section>
-            </body>
-        </>
     );
 }
 

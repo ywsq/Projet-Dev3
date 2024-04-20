@@ -54,7 +54,6 @@ function Article() {
 
     return (
         <div>
-            <Banniere />
             <div className="flex space-x-2 mt-10 ml-10">
                 <a href="#" className="hover:underline">Catalog</a>
                 <p>-</p>

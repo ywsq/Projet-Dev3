@@ -1,7 +1,9 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AccountCreation.css';
 import Banniere from './Banniere';
+import bcrypt from 'bcryptjs';
 
 
 function AccountCreation() {
@@ -14,23 +16,25 @@ function AccountCreation() {
         phone: '',
         password: ''
     });
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const hashedPassword = await bcrypt.hash(formData.password, 10);
+
+        const formDataWithHashedPassword = { ...formData, password: hashedPassword };
+
         try {
-            const response = await axios.post('API/add-request', formData); // Envoi des données du formulaire vers la route /add-request
+            const response = await axios.post('API/add-request', formDataWithHashedPassword);
             console.log('Request sent successfully:', response.data);
-            // Ici, vous pouvez gérer la réponse de la requête, par exemple afficher un message de succès à l'utilisateur
+            navigate("/");
         } catch (error) {
             console.error('Error sending request:', error);
-            // Ici, vous pouvez gérer les erreurs, par exemple afficher un message d'erreur à l'utilisateur
         }
     };
 
     return (
-        <>
-            <Banniere/>
             <div className="">
             <div className="min-h-screen flex">
                 <div
@@ -151,7 +155,6 @@ function AccountCreation() {
                 </div>
             </div>
             </div>
-        </>
     );
 }
 
