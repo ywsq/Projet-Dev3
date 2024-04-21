@@ -97,7 +97,6 @@ router.delete("/clients/:id", (req, res) => {
     // Get the client ID to delete from the request parameters
     const clientId = req.params.id;
 
-
     // Create the SQL query to delete the client from the database
     const sql = "DELETE FROM tb_clients WHERE ID_Client = ?";
 
