@@ -26,6 +26,7 @@ const orderAPI = require("./routes/API-order.js")
 const searchAPI = require("./routes/API-search.js")
 const cartAPI = require("./routes/API-cart.js")
 const accountAPI = require("./routes/API-account.js")
+//const refreshToken = require("./middlewares/refreshToken");
 
 
 app.use('/', routerIndex)
