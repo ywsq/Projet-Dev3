@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
 
     try {
         // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
-        const [user] = await connection.promise().query("SELECT * FROM tb_clients natural join tb_Login WHERE Mail_Address = ?", [email]);
+        const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Accept = 1 and Mail_Address = ?", [email]);
 
         // Vérifier si l'utilisateur existe
         if (user.length === 0) {
