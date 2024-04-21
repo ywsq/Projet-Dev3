@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './System.css'
 
 function System() {
+    const [currentTime, setCurrentTime] = useState(getCurrentTime());
+
+    // Fonction pour obtenir l'heure actuelle sous forme de chaîne HH:MM:SS
+    function getCurrentTime() {
+        const date = new Date();
+        return (
+            padWithZero(date.getHours()) +
+            ':' +
+            padWithZero(date.getMinutes()) +
+            ':' +
+            padWithZero(date.getSeconds())
+        );
+    }
+
+    // Fonction pour ajouter un zéro devant les chiffres inférieurs à 10
+    function padWithZero(number: number) {
+        return number < 10 ? '0' + number : number;
+    }
+
+    // Mettre à jour l'heure toutes les secondes
+    useEffect(() => {
+        const timerID = setInterval(() => {
+            setCurrentTime(getCurrentTime());
+        }, 500);
+
+        // Nettoyer le timer lors du démontage du composant
+        return () => clearInterval(timerID);
+    }, []);
+
     return (
         <section className={"System"}>
+            <div className={"Time"}>{currentTime}</div>
             <div className="solar-system">
                 <div id="sun"></div>
 

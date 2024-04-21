@@ -112,7 +112,7 @@ const Products: React.FC = () => {
                     </div>
 
                 ) : (
-                    <div>Loading...</div>
+                    <div className="loader"></div>
                 )}
             </div>
             );

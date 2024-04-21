@@ -1,7 +1,13 @@
 .System {
-    /*width: 1600px;
-    height: 100%;*/
+    width: 100%;
+    height: 100%;
     background-color: #121215;
+}
+
+.Time {
+    position: absolute;
+    align-content: flex-start;
+    background-color: white;
 }
 
 .solar-system {
