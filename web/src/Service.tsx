@@ -1,5 +1,4 @@
 import React from 'react';
-import Banniere from "./Banniere";
 
 function Service() {
     return (
