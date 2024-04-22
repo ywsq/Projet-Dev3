@@ -86,7 +86,6 @@ function Pannier() {
 
     return (
         <div>
-            <BannierePartner />
             <div className="w-full h-full px-10 flex flex-col lg:px-32">
                 <h1 className="flex left-0 my-8 text-xl font-semibold">Your Cart</h1>
                 <div className="w-full h-7">

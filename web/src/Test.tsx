@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Banniere from "./Banniere";
+import './Test.css'
 
 interface IDataItem {
     Amount: number;
@@ -53,7 +54,6 @@ const Test: React.FC = () => {
 */
     return (
         <div>
-            <Banniere />
             <button onClick={handleClickGetData}>Get Data</button>
             {data ? (
                 <div>
@@ -62,7 +62,7 @@ const Test: React.FC = () => {
                     ))}
                 </div>
             ) : (
-                <div>Loading...</div>
+                <div className="loader"></div>
             )}
             <p>----------------------------------------</p>
             <button onClick={handleClickPostData}>Post Data</button>

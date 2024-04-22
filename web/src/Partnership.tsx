@@ -6,7 +6,6 @@ import './Partnership.css'
 
 function Partnership() {
     return (
-        <><Banniere/>
             <section>
 
                 <div className='components'>
@@ -66,7 +65,6 @@ function Partnership() {
                 <button className='applyButton'> APPLY FOR <br/>PARTNERSHIP</button>
                 </div>
             </section>
-        </>
     );
 }
 

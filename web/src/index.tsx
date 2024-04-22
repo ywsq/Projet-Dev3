@@ -22,38 +22,74 @@ import Article from "./Article";
 import AdminCustomers from "./AdminCustomers";
 import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
+import BannierePartner from "./BannierePartner";
+import System from "./System";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
+function isTokenInLocalStorage() {
+    const token = localStorage.getItem('token');
+    return !!token; // Renvoie true si le token existe, sinon false
+}
 
-root.render(
-    <React.StrictMode>
-        <Router>
-            <body>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/App" element={<App />} />
-                <Route path="/Products" element={<Products />} />
-                <Route path="/Article/:id" element={<Article />} />
-                <Route path="/Store" element={<Store />} />
-                <Route path="/Service" element={<Service />} />
-                <Route path="/Partnership" element={<Partnership />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/Contact" element={<Contact />} />
-                <Route path="/AccountCreation" element={<AccountCreation />} />
-                <Route path="/Test" element={<Test />} />
-                <Route path="/AccountRequests" element={<AccountRequests />} />
-                <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
-                <Route path="/AdminHome" element={<AdminHome />} />
-                <Route path="/AdminCustomers" element={<AdminCustomers />} />
-                <Route path="/AdminOrders" element={<AdminOrders />} />
-                <Route path="/AdminProducts" element={<AdminProducts />} />
-            </Routes>
-            <Footer/>
-            </body>
-        </Router>
-    </React.StrictMode>
-);
+if (isTokenInLocalStorage()) {
+    root.render(
+        <React.StrictMode>
+            <Router>
+                <body>
+                <BannierePartner/>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/App" element={<App />} />
+                    <Route path="/Products" element={<Products />} />
+                    <Route path="/Article/:id" element={<Article />} />
+                    <Route path="/Store" element={<Store />} />
+                    <Route path="/Service" element={<Service />} />
+                    <Route path="/Partnership" element={<Partnership />} />
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="/Contact" element={<Contact />} />
+                    <Route path="/AccountCreation" element={<AccountCreation />} />
+                    <Route path="/Test" element={<Test />} />
+                    <Route path="/System" element={<System />} />
+                    <Route path="/AccountRequests" element={<AccountRequests />} />
+                    <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
+                    <Route path="/AdminHome" element={<AdminHome />} />
+                    <Route path="/AdminCustomers" element={<AdminCustomers />} />
+                    <Route path="/AdminOrders" element={<AdminOrders />} />
+                    <Route path="/AdminProducts" element={<AdminProducts />} />
+                </Routes>
+                <Footer/>
+                </body>
+            </Router>
+        </React.StrictMode>
+    );
+} else {
+    root.render(
+        <React.StrictMode>
+            <Router>
+                <body>
+                <Banniere/>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/Products" element={<Products />} />
+                    <Route path="/Article/:id" element={<Article />} />
+                    <Route path="/Store" element={<Store />} />
+                    <Route path="/Service" element={<Service />} />
+                    <Route path="/Partnership" element={<Partnership />} />
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="/Contact" element={<Contact />} />
+                    <Route path="/AccountCreation" element={<AccountCreation />} />
+                    <Route path="/Test" element={<Test />} />
+                    <Route path="/System" element={<System />} />
+                </Routes>
+                <Footer/>
+                </body>
+            </Router>
+        </React.StrictMode>
+    );
+}
+
+
 
 reportWebVitals();
