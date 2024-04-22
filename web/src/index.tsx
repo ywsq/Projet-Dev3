@@ -24,6 +24,7 @@ import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
 import BannierePartner from "./BannierePartner";
 import System from "./System";
+import CustomerLanding from "./CustomerLanding";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -58,6 +59,7 @@ if (isTokenInLocalStorage()) {
                     <Route path="/AdminCustomers" element={<AdminCustomers />} />
                     <Route path="/AdminOrders" element={<AdminOrders />} />
                     <Route path="/AdminProducts" element={<AdminProducts />} />
+                    <Route path="/CustomerLanding" element={<CustomerLanding />} />
                 </Routes>
                 <Footer/>
                 </body>
