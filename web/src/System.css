@@ -75,6 +75,10 @@ and planet size. And colors :) */
     box-shadow: 0 0 34px #3a4385;
 }
 
+#earth:hover {
+
+}
+
 .earth-orbit,
 .earth-spin {
     width: 500px;
