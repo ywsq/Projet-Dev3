@@ -19,7 +19,7 @@ router.get("/all-clients", (req, res) => {
 
 // Fonction pour valider la réponse du captcha côté serveur
 async function validateCaptchaResponse(captchaResponse) {
-    const secretKey = '6LdiX8MpAAAAAA787klNchZ0aiUV0hsw9coioe9x'; // Remplacez par votre clé secrète reCAPTCHA
+    const secretKey = ''; // Remplacez par votre clé secrète reCAPTCHA
 
     try {
         const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
