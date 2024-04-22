@@ -70,7 +70,7 @@ function Login() {
                     <input type="password" placeholder="Enter Password" id="password" name="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-sky-400 rounded-xl transition ease-in duration-200" />
                     <div className="mt-5">
                         <ReCAPTCHA
-                            sitekey="6LdiX8MpAAAAAJDNFu50GupMceOEUF-8YEIIc0UY"
+                            sitekey="" //Replace by the site key
                             onChange={handleCaptchaChange}
                         />
                     </div>
