@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
-const axios = require('axios');
 // basic url : /API/
 
 router.get("/client", (req, res) => {
@@ -17,37 +16,10 @@ router.get("/all-clients", (req, res) => {
     });
 });
 
-// Fonction pour valider la réponse du captcha côté serveur
-async function validateCaptchaResponse(captchaResponse) {
-    const secretKey = ''; // Remplacez par votre clé secrète reCAPTCHA
-
-    try {
-        const response = await axios.post('https://www.google.com/recaptcha/api/siteverify', null, {
-            params: {
-                secret: secretKey,
-                response: captchaResponse
-            }
-        });
-
-        const { success } = response.data;
-        return success;
-    } catch (error) {
-        console.error('Error validating captcha:', error);
-        return false;
-    }
-}
-
 router.post('/login', async (req, res) => {
-    const { email, password, captchaToken } = req.body;
+    const { email, password } = req.body;
 
     try {
-        // Valider la réponse du captcha côté serveur
-        const captchaValidated = await validateCaptchaResponse(captchaToken);
-
-        if (!captchaValidated) {
-            return res.status(400).json({ error: 'Captcha verification failed' });
-        }
-
         // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
         const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Accept = 1 and Mail_Address = ?", [email]);
 
@@ -132,8 +104,3 @@ router.delete("/clients/:id", (req, res) => {
     connection.query(sql, [clientId], (err, result) => {
     });
 });
-
-
-
-module.exports = router;
-
