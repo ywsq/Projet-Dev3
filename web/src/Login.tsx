@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ReCAPTCHA from 'react-google-recaptcha';
 import Banniere from "./Banniere";
 
 function Login() {
@@ -8,8 +7,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [captchaToken, setCaptchaToken] = useState('');
+    const [loading, setLoading] = useState(false); // État pour gérer le chargement
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,29 +17,19 @@ function Login() {
         }
     }, [loggedIn, navigate]);
 
-    const handleCaptchaChange = (token: any) => {
-        setCaptchaToken(token);
-    };
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (loading) return;
+        if (loading) return; // Empêche les soumissions multiples pendant le chargement
 
-        setLoading(true);
+        setLoading(true); // Déclenche le chargement
 
         try {
-            if (!captchaToken) {
-                setError('Please complete the captcha');
-                setLoading(false);
-                return;
-            }
-
             const response = await fetch(`/API/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password, captchaToken })
+                body: JSON.stringify({ email, password })
             });
             const data = await response.json();
             if (response.ok) {
@@ -54,7 +42,10 @@ function Login() {
             console.error('Login error:', error);
             setError('An error occurred while logging in');
         } finally {
-            setLoading(false);
+            // Ajoutez une pause de 2 secondes avant de réactiver le bouton
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
 
@@ -68,12 +59,6 @@ function Login() {
                     <input type="text" placeholder="Enter Email" id="email" name="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-sky-400 rounded-xl transition ease-in duration-200" />
                     <label htmlFor="password" className="block text-base font-semibold mb-2 mt-3 text-gray-500">Password</label>
                     <input type="password" placeholder="Enter Password" id="password" name="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-sky-400 rounded-xl transition ease-in duration-200" />
-                    <div className="mt-5">
-                        <ReCAPTCHA
-                            sitekey="6LdiX8MpAAAAAJDNFu50GupMceOEUF-8YEIIc0UY"
-                            onChange={handleCaptchaChange}
-                        />
-                    </div>
                     <div className="mt-5 flex justify-center">
                         <button type="submit" className={`w-28 h-10 text-white bg-sky-400 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-semibold rounded-xl text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition ease-in duration-300 ${loading ? 'pointer-events-none opacity-50' : ''}`} disabled={loading}>
                             Login
