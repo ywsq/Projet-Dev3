@@ -29,13 +29,13 @@ const accountAPI = require("./routes/API-account.js")
 //const refreshToken = require("./middlewares/refreshToken");
 
 
-app.use('/', routerIndex)
-app.use('/API', clientAPI)
-app.use('/API', articleAPI)
-app.use('/API', orderAPI)
-app.use('/API', searchAPI)
-app.use('/API', cartAPI)
-app.use('/API', accountAPI)
+app.use('/', routerIndex);
+app.use('/API', clientAPI);
+app.use('/API', articleAPI);
+app.use('/API', orderAPI);
+app.use('/API', searchAPI);
+app.use('/API', cartAPI);
+app.use('/API', accountAPI);
 
 
 // start your Express app

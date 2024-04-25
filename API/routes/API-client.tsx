@@ -104,3 +104,7 @@ router.delete("/clients/:id", (req, res) => {
     connection.query(sql, [clientId], (err, result) => {
     });
 });
+
+
+
+module.exports = router;
