@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const connection = require("../DataBaseConnection/connection");
 
 const accessTokenSecret = 'Votre_Clef_Secrète_pour_le_JWT';
 const refreshTokenSecret = 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement';
@@ -20,10 +21,14 @@ const authenticateJWT = async (req, res, next) => {
                             return res.sendStatus(403);
                         }
 
+                        // get email
                         email = jwt.decode(token).email
+                        // get ID user
+                        clientID = jwt.decode(token).clientID
+                        console.log(jwt.decode(token))
 
-                        const newAccessToken = jwt.sign({ email }, accessTokenSecret, { expiresIn: '30s' });
-                        const newRefreshToken = jwt.sign({ email }, refreshTokenSecret, { expiresIn: '1D' });
+                        const newAccessToken = jwt.sign({ 'email':email, 'clientID':clientID}, accessTokenSecret, { expiresIn: '30s' });
+                        const newRefreshToken = jwt.sign({ 'email':email, 'clientID':clientID}, refreshTokenSecret, { expiresIn: '1D' });
 
                         // Replace the old refresh token with a new one and send it back
                         const refreshTokenIndex = refreshTokens.indexOf(refreshToken);

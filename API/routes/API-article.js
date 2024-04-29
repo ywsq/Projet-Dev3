@@ -35,10 +35,36 @@ router.get("/articleDetails/:id", (req, res) => {
         "ON tb_articles.ID_Brand = tb_brands.ID_Brand \n" +
         "join tb_image_article\n" +
         "ON tb_articles.ID_Article = tb_image_article.ID_Article where tb_articles.ID_Article like " + req.params.id;
+
     connection.query(sql, function (err, result, fields) {
-        res.send(result);
+        if (result.length == 0){
+
+            let fallbackSql = "select * \n" +
+                "from tb_articles\n" +
+                "join tb_category\n" +
+                "ON tb_articles.ID_Category = tb_category.ID_Category \n" +
+                "join tb_brands\n" +
+                "ON tb_articles.ID_Brand = tb_brands.ID_Brand \n" +
+                "where tb_articles.ID_Article like " + req.params.id;
+
+            connection.query(fallbackSql, function (fallbackErr, fallbackResult, fallbackFields) {
+                if (fallbackErr) {
+                    console.error("Fallback query failed:", fallbackErr);
+                    // Handle fallback query failure appropriately
+                    res.status(500).send("Error fetching data");
+                } else {
+                    // Send the result of the fallback query
+                    res.send(fallbackResult);
+                }
+            });
+        } else {
+            // Send the result if the query was successful
+            res.send(result);
+        }
     });
 });
+
+
 
 
 router.get("/articleName/:name", (req, res) => {

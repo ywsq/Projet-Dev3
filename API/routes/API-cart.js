@@ -3,6 +3,7 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const jwt = require("jsonwebtoken");
 
 router.use(bodyParser.json());
 
@@ -14,9 +15,16 @@ router.get("/all-carts", (req, res) => {
 });
 
 // GET the user's shopping cart content
-router.get("/cart/:id", (req, res) => {
-    let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE ?";
-    connection.query(sql, req.params.id, function (err, result) {
+router.get("/cart", (req, res) => {
+
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    const clientID =jwt.decode(token).clientID
+
+
+
+    let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
+    connection.query(sql, function (err, result) {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
             console.error("Error retrieving shopping cart content:", err);

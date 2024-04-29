@@ -56,7 +56,7 @@ function Pannier() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('API/cart/1');
+                const response = await axios.get('API/cart');
                 setData(response.data);
             } catch (error) {
                 // Gérer les erreurs, par exemple :

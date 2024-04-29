@@ -43,10 +43,27 @@ router.post('/login', async (req, res) => {
             const isMatch = await bcrypt.compare(password, user[0].Password);
 
 
+            // recevoir le client ID pour le mettre dans le token
+            let clientID = undefined;
+            const sql = "SELECT ID_Client FROM tb_clients WHERE Mail_Address = ?";
+            const result = await new Promise((resolve, reject) => {
+                connection.query(sql, [email], (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+
+            clientID = result[0].ID_Client;
+
+
+
             // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
             if (isMatch) {
-                const auth_token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '30s' });
-                const refresh_auth_token = jwt.sign({ email }, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', { expiresIn: '1D' });
+                const auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '30s' });
+                const refresh_auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', { expiresIn: '1D' });
                 return res.json({ auth_token, refresh_auth_token });
             } else {
                 // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
