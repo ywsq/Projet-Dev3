@@ -3,6 +3,7 @@ import Banniere from "./Banniere";
 import BannierePartner from "./BannierePartner";
 import './Article.css';
 import {link} from "fs";
+import axios from 'axios';
 
 interface ArticleData {
     Name: string;
@@ -33,13 +34,8 @@ function Article() {
                 const decodedUrl = decodeURIComponent(specificPart.replace(/%20/g, ' '));
                 const url = decodedUrl.toString();
 
-                const response = await fetch(`/API/articleDetails/${url}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch article data');
-                }
-
-                const responseData = await response.json();
-                setDataArticle(responseData);
+                const response = await axios.get(`/API/articleDetails/${url}`);
+                setDataArticle(response.data);
             } catch (error) {
                 console.error('Error fetching article data:', error);
             }

@@ -16,8 +16,8 @@ function AccountRequests() {
             } else if (filter === 'Refused') {
                 endpoint = 'API/display-request/refused';
             }
-            const response = await fetch(endpoint);
-            const responseData = await response.json();
+            const response = await axios.get(endpoint);
+            const responseData = response.data;
             setData(responseData);
         } catch (error) {
             console.error('Error fetching data:', error);

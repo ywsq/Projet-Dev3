@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Banniere from "./Banniere";
 import "./Store.css"
 
+
 function Store() {
+
 
     function copyTextToClipboard(text:string) {
         const textarea = document.createElement('textarea');
@@ -26,6 +28,8 @@ function Store() {
     function openGoogleMapsLiege() {
         window.open('https://maps.app.goo.gl/Udg5Anndv9HVXQc18', '_blank');
     }
+
+
 
     return (
             <section>

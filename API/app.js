@@ -6,7 +6,8 @@ const DataBaseConnection = require('./DataBaseConnection/connection.js');
 const app = express();
 const port = 8080;
 const bodyParser = require('body-parser');
-const authenticateJWT = require('./middlewares/authenticateJWT');
+//const authenticateJWT = require('./middlewares/authenticateJWT');
+
 
 // swagger documentation
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJson));
