@@ -32,23 +32,25 @@ router.post("/add-request", (req, res) => {
                     res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients_accept'.");
                 } else {
                     console.log("Nouveau client ajouté avec succès !");
-                    res.status(200).send("Nouveau client ajouté avec succès !");
+
+                    // Insérer le password pour le client dans la table 'tb_Login'
+                    let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
+                    let passwordValues = [clientId, password];
+
+                    connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
+                        if (acceptErr) {
+                            console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
+                            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
+                        } else {
+                            console.log("Password ajouté avec succès !");
+                            res.status(200).send("Nouveau client ajouté avec succès !");
+                        }
+                    })
+
                 }
             });
 
-            // Insérer le password pour le client dans la table 'tb_Login'
-            let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
-            let passwordValues = [clientId, password];
 
-            connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
-                if (acceptErr) {
-                    console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
-                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
-                } else {
-                    console.log("Password ajouté avec succès !");
-                    res.status(200).send("Password ajouté avec succès !");
-                }
-            })
         }
     });
 });

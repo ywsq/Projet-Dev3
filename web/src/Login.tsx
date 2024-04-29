@@ -36,7 +36,8 @@ function Login() {
                 }
             });
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
+                console.log(response.data)
+                localStorage.setItem('auth_token', response.data.auth_token);
                 setLoggedIn(true);
             } else {
                 setError(response.data.error);

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
+const authenticateJWT = require("../middlewares/authenticateJWT");
 
 // basic url : /API/
 
@@ -48,7 +49,7 @@ router.get("/articleName/:name", (req, res) => {
 });
 
 
-router.get("/article/categories", (req, res) => {
+router.get("/article/categories",authenticateJWT, (req, res) => {
     let sql = "select Category_Name from tb_category";
     connection.query(sql, function (err, result, fields) {
         res.send(result);

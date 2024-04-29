@@ -18,26 +18,40 @@ router.get("/all-clients", (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password)
 
     try {
         // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
-        const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Accept = 1 and Mail_Address = ?", [email]);
+        const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Mail_Address = ?", [email]);
 
+        console.log(user)
         // Vérifier si l'utilisateur existe
         if (user.length === 0) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
+        if (user[0]["Accept"] != 1){
+            if (user[0]["Accept"] == 0){
+                //user not validate by admin
+                return res.status(203).json({ error: 'Admin have Not validate your account yet' });
+            }else if(user[0]["Accept"] == 2){
+                //user redused by admin
+                return res.status(203).json({ error: 'Admin have REFUSED your account' });
+            }
+        }else{
+            //user accept by admin
 
-        // Comparer le mot de passe fourni avec le mot de passe haché stocké en base de données
-        const isMatch = await bcrypt.compare(password, user[0].Password);
+            // Comparer le mot de passe fourni avec le mot de passe haché stocké en base de données
+            const isMatch = await bcrypt.compare(password, user[0].Password);
 
-        // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
-        if (isMatch) {
-            const token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
-            return res.json({ token });
-        } else {
-            // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
-            return res.status(401).json({ error: 'Invalid email or password' });
+
+            // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
+            if (isMatch) {
+                const auth_token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
+                return res.json({ auth_token });
+            } else {
+                // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
+                return res.status(401).json({ error: 'Invalid email or password' });
+            }
         }
     } catch (error) {
         console.error("Error logging in:", error);
