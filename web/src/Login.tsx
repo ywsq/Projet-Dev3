@@ -38,6 +38,7 @@ function Login() {
             if (response.status === 200) {
                 console.log(response.data)
                 localStorage.setItem('auth_token', response.data.auth_token);
+                localStorage.setItem('refresh_auth_token', response.data.refresh_auth_token);
                 setLoggedIn(true);
             } else {
                 setError(response.data.error);

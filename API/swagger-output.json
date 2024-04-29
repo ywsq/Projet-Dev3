@@ -288,6 +288,11 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "refresh_auth_token",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -299,9 +304,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }

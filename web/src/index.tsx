@@ -35,10 +35,15 @@ const root = createRoot(container!);
 
 axios.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("auth_token");
-        console.log(config)
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        const auth_token = localStorage.getItem("auth_token");
+        const refresh_auth_token = localStorage.getItem("refresh_auth_token");
+        if (auth_token) {
+            config.headers.Authorization = `Bearer ${auth_token}`;
+        }
+
+        if (refresh_auth_token) {
+            // Assuming the header key for the refresh token is 'Refresh-Token'
+            config.headers['refresh_auth_token'] = `Bearer ${refresh_auth_token}`;
         }
         return config;
     },
@@ -46,6 +51,18 @@ axios.interceptors.request.use(
         return "test";
     }
 );
+axios.interceptors.response.use((response) => {
+    console.log(response.headers)
+    const auth_token = response.headers['auth_token'];
+    const refresh_auth_token = response.headers['refresh_auth_token'];
+
+    if (auth_token && refresh_auth_token) {
+        localStorage.setItem('auth_token', auth_token);
+        localStorage.setItem('refresh_auth_token', refresh_auth_token);
+    }
+
+    return response;
+})
 
 
 

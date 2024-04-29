@@ -18,13 +18,12 @@ router.get("/all-clients", (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password)
+
 
     try {
         // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
         const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Mail_Address = ?", [email]);
 
-        console.log(user)
         // Vérifier si l'utilisateur existe
         if (user.length === 0) {
             return res.status(401).json({ error: 'Invalid email or password' });
@@ -46,8 +45,9 @@ router.post('/login', async (req, res) => {
 
             // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
             if (isMatch) {
-                const auth_token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
-                return res.json({ auth_token });
+                const auth_token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '30s' });
+                const refresh_auth_token = jwt.sign({ email }, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', { expiresIn: '1D' });
+                return res.json({ auth_token, refresh_auth_token });
             } else {
                 // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
                 return res.status(401).json({ error: 'Invalid email or password' });
