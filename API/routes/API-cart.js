@@ -69,22 +69,41 @@ router.delete("/delete/:articleId/:cartId", (req, res) => {
 
 router.post("/add", (req, res) => {
     // Supposons que vous receviez les données nécessaires dans le corps de la requête
-    const { ID_Shopping_Cart, ID_Article, Amount } = req.body;
+    const {ID_Article, Amount } = req.body;
 
-    // Assurez-vous d'effectuer une validation des données avant l'insertion
+    const authHeader = req.headers.authorization;
 
-    let sql = "INSERT INTO tb_shopping_cart_article (ID_Shopping_Cart, ID_Article, Amount) VALUES (?, ?, ?)";
-    let values = [ID_Shopping_Cart, ID_Article, Amount];
+    const token = authHeader.split(' ')[1];
+    const clientID = jwt.decode(token).clientID
 
-    connection.query(sql, values, function (err, result) {
+    let sqlFindCartId = "select ID_Shopping_Cart from tb_cart_client_link where ID_Client = " + clientID
+
+    connection.query(sqlFindCartId, function (err, result) {
         if (err) {
-            console.error("Erreur lors de l'insertion dans la base de données : ", err);
-            res.status(500).send("Erreur lors de l'insertion dans la base de données.");
+            console.error("Erreur lors de la recherche du cart du client : ", err);
+            res.status(400).send("Erreur lors de l'insertion dans la base de données.");
         } else {
-            console.log("Nouvel article ajouté au panier !");
-            res.status(200).send("Nouvel article ajouté au panier !");
+            ID_Shopping_Cart = result[0]["ID_Shopping_Cart"]
+
+
+            let sql = "INSERT INTO tb_shopping_cart_article (ID_Shopping_Cart, ID_Article, Amount) VALUES (?, ?, ?)";
+            let values = [ID_Shopping_Cart, ID_Article, Amount];
+
+            connection.query(sql, values, function (err, result) {
+                if (err) {
+                    res.status(409).send("Erreur lors de l'insertion dans la base de données.");
+                } else {
+                    console.log("Nouvel article ajouté au panier !");
+                    res.status(200).send("Nouvel article ajouté au panier !");
+                }
+            });
+
+
         }
     });
+
+
+    // Assurez-vous d'effectuer une validation des données avant l'insertion
 });
 
 // GET the user's shopping cart content

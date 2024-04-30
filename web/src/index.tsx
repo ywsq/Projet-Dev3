@@ -51,7 +51,6 @@ axios.interceptors.request.use(
     }
 );
 axios.interceptors.response.use((response) => {
-    console.log(response.headers)
     const auth_token = response.headers['auth_token'];
     const refresh_auth_token = response.headers['refresh_auth_token'];
 

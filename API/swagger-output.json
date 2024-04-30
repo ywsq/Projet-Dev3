@@ -434,9 +434,6 @@
                 "user": {
                   "example": "any"
                 },
-                "ID_Shopping_Cart": {
-                  "example": "any"
-                },
                 "ID_Article": {
                   "example": "any"
                 },
@@ -451,14 +448,17 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "401": {
             "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
           },
-          "500": {
-            "description": "Internal Server Error"
+          "409": {
+            "description": "Conflict"
           }
         }
       }

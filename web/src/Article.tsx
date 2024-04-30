@@ -48,6 +48,36 @@ function Article() {
         return <div>Loading...</div>;
     }
 
+    const addArticleCart = async () => {
+        try {
+            const response = await axios.post('/API/cart/add', { 'ID_Article': dataArticle[0].ID_Article, 'Amount': quantity });
+
+            const AddCartElementSUCCES = document.getElementById("AddCartElementSUCCES");
+            const AddCartElementFAIL = document.getElementById("AddCartElementFAIL");
+
+
+            if (AddCartElementSUCCES && AddCartElementFAIL&& response.status === 200) {
+                AddCartElementFAIL.innerHTML = ""
+                AddCartElementSUCCES.innerHTML = "Added to Cart SUCCESSFUL";
+            }
+        } catch (error) {
+            const AddCartElementFAIL = document.getElementById("AddCartElementFAIL");
+            const AddCartElementSUCCES = document.getElementById("AddCartElementSUCCES");
+
+
+            if (AddCartElementFAIL && AddCartElementSUCCES) {
+                AddCartElementSUCCES.innerHTML = "";
+                AddCartElementFAIL.innerHTML = "ALREADY added to Cart"
+            }
+
+        }
+
+    }
+
+
+
+
+
     return (
         <div>
             <div className="flex space-x-2 mt-10 ml-10">
@@ -85,20 +115,25 @@ function Article() {
                         </div>
                         <div className="flex flex-col relative w-3/5 items-center border shadow-lg rounded-xl">
                             <p
-                            className="text-2xl font-semibold text-center mt-3">
+                                className="text-2xl font-semibold text-center mt-3">
                                 Total<br/>$ {quantity * dataArticle[0].Single_Price}</p>
                             <button
-                                className="flex justify-center  absolute bottom-0 items-center w-3/4 max-w-44 h-12 mb-4 cursor-pointer rounded-xl shadow-2xl text-white font-semibold bg-gradient-to-r from-sky-300 via-sky-400 to-sky-500 hover:shadow-xl hover:shadow-sky-300 hover:scale-105 duration-300 hover:from-sky-400 hover:to-sky-500">
+                                id="buttonAddCart"
+                                onClick={addArticleCart}
+                                className="flex justify-center absolute bottom-0 items-center w-3/4 max-w-44 h-12 mb-4 cursor-pointer rounded-xl shadow-2xl text-white font-semibold bg-gradient-to-r from-sky-300 via-sky-400 to-sky-500 hover:shadow-xl hover:shadow-sky-300 hover:scale-105 duration-300 hover:from-sky-400 hover:to-sky-500">
                                 Add to Cart
                             </button>
+                            <div id="AddCartElementFAIL" style={{color: 'red'}}></div>
+                            <div id="AddCartElementSUCCES" style={{color: 'green'}}></div>
                         </div>
                     </div>
                 </div>
             </div>
             <details className="w-full px-4 hover:bg-gray-100">
-                <summary className="flex items-center text-xl font-semibold text-gray-700 h-14 select-none">Product Details
+                <summary className="flex items-center text-xl font-semibold text-gray-700 h-14 select-none">Product
+                    Details
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
-                    className="fill-current text-gray-700"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+                         className="fill-current text-gray-700"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>
                 </summary>
                 <hr/>
                 <div className="py-4">
