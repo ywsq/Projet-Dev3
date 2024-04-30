@@ -1,0 +1,117 @@
+
+.center {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#HomePageTitle {
+    font-family: Verdana;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 48px;
+    padding: 10px 15px;
+    text-align: center;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+    backdrop-filter: invert(80%);
+    border-radius: 10px;
+}
+
+.headerBackground {
+    background-image: url("assets/pcBackground.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+.components {
+    display: flex;
+    height: auto;
+    margin: 60px 50px 0;
+    justify-content: space-between
+}
+
+.componentsImage {
+    max-width: 50%;
+    width: 45%;
+    height: max-content;
+    margin: 0 2.5%;
+}
+
+.componentsText {
+    max-width: 50%;
+    padding: 4%;
+}
+
+.componentsTextTitle{
+    font-style: "Verdana";
+    font-size: 2em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 8px;
+
+}
+
+.componentsTextExplication{
+    font-style: "Verdana";
+    font-size: 1em;
+    margin-bottom: 30px;
+}
+
+.componentsTextButton{
+    margin: 0 0 0 0px;
+}
+
+.componentsTextEnd {
+    max-width: 75%;
+    padding: 4% 0 5% calc(100% - 95% + 4%);
+}
+
+
+
+
+
+/* button */
+.btn {
+    padding: 12px 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    letter-spacing: 3px;
+    transition: all .4s ease-in-out;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 17px;
+    text-decoration: none;
+    color: #555;
+}
+
+.btn-mid {
+    padding: 14px 21px;
+    font-size: 13px;
+    line-height: 25px;
+}
+
+.btn:hover {
+    transition: all .4s ease-in-out;
+}
+
+.btn-dark {
+    background: transparent;
+    border-color: #1f1f1f;
+    color: #1f1f1f;
+}
+
+.btn-dark:hover,
+.btn-dark.active {
+    background: #1f1f1f;
+    color: #fff;
+}
+
+
+

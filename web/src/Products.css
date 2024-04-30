@@ -1,0 +1,51 @@
+.categories{
+    margin: 30px 0;
+}
+
+#article {
+    scrollbar-color: gray transparent;
+    scrollbar-width: thin
+}
+
+.articleName{
+    color: black;
+    align-self: flex-end;
+    text-align: center;
+    width: 100%;
+    padding: 6px 5px;
+}
+
+.displayNone{
+    display: none;
+}
+.bold{
+    font-size: 1.3em;
+    font-weight: bold;
+    display: inline-block;
+    color: black;
+
+}
+#headerProducts{
+    display: flex;
+    justify-content: space-between;
+}
+
+#visitStarMobile{
+    margin: 70px 40px 0 0;
+    color: #333333;
+    font-family: Verdana ;
+
+}
+
+#findStore{
+    color: #ff745c;
+    cursor: pointer;
+}
+#findStore:hover{
+    color: orangered;
+}
+
+.categoriesHeader{
+    display: flex;
+    justify-content: space-between;
+}
