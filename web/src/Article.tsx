@@ -34,7 +34,7 @@ function Article() {
                 const decodedUrl = decodeURIComponent(specificPart.replace(/%20/g, ' '));
                 const url = decodedUrl.toString();
 
-                const response = await axios.get(`/API/articleDetails/${url}`);
+                const response = await axios.get(`/API/article/all-infos/${url}`);
                 setDataArticle(response.data);
             } catch (error) {
                 console.error('Error fetching article data:', error);

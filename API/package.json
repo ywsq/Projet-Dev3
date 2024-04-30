@@ -8,6 +8,7 @@
     "node": "^22.0.0",
     "supertest": "^6.3.4",
     "swagger-autogen": "^2.23.7",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {

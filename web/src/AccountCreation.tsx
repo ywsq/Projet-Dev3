@@ -26,10 +26,10 @@ function AccountCreation() {
         const formDataWithHashedPassword = { ...formData, password: hashedPassword };
         console.log(formDataWithHashedPassword)
         try {
-            const response = await axios.post('API/add-request', formDataWithHashedPassword);
+            const response = await axios.post('API/client/new', formDataWithHashedPassword);
             console.log('Request sent successfully:', response.data);
 
-            navigate("/");
+            navigate("/Login");
         } catch (error) {
             console.error('Error sending request:', error);
         }

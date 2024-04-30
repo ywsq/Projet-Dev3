@@ -36,7 +36,7 @@ export async function handleQuantityChange(
     setQuantities(newQuantities);
 
     try {
-        await axios.put(`API/update-cart-article/${idCart}/${idArticle}`, {
+        await axios.put(`API/cart/update/${idCart}/${idArticle}`, {
             newAmount: newQuantities[index]
         }, {
             headers: {
@@ -78,7 +78,7 @@ function Pannier() {
 
     const handleRemoveItem = async (idArticle: number, idCart: number) => {
         try {
-            await axios.delete(`API/cart/${idArticle}/${idCart}`);
+            await axios.delete(`API/cart/delete/${idArticle}/${idCart}`);
             const updatedData = data.filter(item => !(item.ID_Article === idArticle && item.ID_Shopping_Cart === idCart));
             setData(updatedData);
             console.log("Item removed successfully " + idArticle + " " + idCart);

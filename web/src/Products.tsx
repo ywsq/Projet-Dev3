@@ -20,7 +20,7 @@ const Products: React.FC = () => {
     useEffect(() => {
         const fetchDataCategories = async () => {
             try {
-                const response = await axios.get('API/article/categories');
+                const response = await axios.get('API/article/all-categories');
                 setDataCategories(response.data);
             } catch (error) {
                 // Gérer les erreurs, par exemple :
@@ -29,7 +29,7 @@ const Products: React.FC = () => {
         };
         const fetchDataArticles = async () => {
             try {
-                const response = await axios.get('API/articles');
+                const response = await axios.get('API/article/all');
                 setDataArticles(response.data);
             } catch (error) {
                 // Gérer les erreurs, par exemple :

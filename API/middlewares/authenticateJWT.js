@@ -25,7 +25,6 @@ const authenticateJWT = async (req, res, next) => {
                         email = jwt.decode(token).email
                         // get ID user
                         clientID = jwt.decode(token).clientID
-                        console.log(jwt.decode(token))
 
                         const newAccessToken = jwt.sign({ 'email':email, 'clientID':clientID}, accessTokenSecret, { expiresIn: '30s' });
                         const newRefreshToken = jwt.sign({ 'email':email, 'clientID':clientID}, refreshTokenSecret, { expiresIn: '1D' });

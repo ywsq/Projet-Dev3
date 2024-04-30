@@ -32,7 +32,6 @@ const root = createRoot(container!);
 
 
 
-
 axios.interceptors.request.use(
     (config) => {
         const auth_token = localStorage.getItem("auth_token");

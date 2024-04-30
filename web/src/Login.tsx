@@ -27,7 +27,7 @@ function Login() {
         setLoading(true); // Déclenche le chargement
 
         try {
-            const response = await axios.post(`/API/login`, {
+            const response = await axios.post(`/API/client/login`, {
                 email: email,
                 password: password
             }, {
