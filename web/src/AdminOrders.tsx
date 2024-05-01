@@ -19,10 +19,10 @@ function AdminOrders() {
                 </div>
                 <div className="w-full h-7">
                     <div className="flex pl-2">
+                        <h3 className="font-semibold text-gray-500 text-xs uppercase w-2/12">ID</h3>
                         <h3 className="font-semibold text-gray-500 text-xs uppercase w-3/12">Company</h3>
                         <h3 className="font-semibold text-gray-500 text-xs uppercase w-3/12">Shipping Address</h3>
                         <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-2/12">Total</h3>
-                        <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-2/12">ID</h3>
                         <h3 className="font-semibold text-center text-gray-500 text-xs uppercase w-2/12">Status</h3>
                         <h3 className="w-10"></h3>
                     </div>
@@ -31,6 +31,9 @@ function AdminOrders() {
 
                 <hr/>
                 <div className="items-center flex pl-2 py-4 hover:bg-gray-100">
+                    <div className="flex w-2/12">
+                        <p>#ID108</p>
+                    </div>
                     <div className="flex w-3/12">
                         <p>Stark Industries</p>
                     </div>
@@ -39,9 +42,6 @@ function AdminOrders() {
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p>$ 9,2k</p>
-                    </div>
-                    <div className="flex justify-center w-2/12">
-                        <p>#ID108</p>
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p className="bg-sky-200 text-sky-900 h-fit p-1 rounded-xl">Delivered</p>
@@ -66,6 +66,9 @@ function AdminOrders() {
 
                 <hr/>
                 <div className="items-center flex pl-2 py-4 hover:bg-gray-100">
+                    <div className="flex w-2/12">
+                        <p>#ID109</p>
+                    </div>
                     <div className="flex w-3/12">
                         <p>Stark Industries</p>
                     </div>
@@ -74,9 +77,6 @@ function AdminOrders() {
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p>$ 7,5k</p>
-                    </div>
-                    <div className="flex justify-center w-2/12">
-                        <p>#ID109</p>
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p className="bg-orange-200 text-orange-900 h-fit p-1 rounded-xl">In Transit</p>
@@ -101,6 +101,9 @@ function AdminOrders() {
 
                 <hr/>
                 <div className="items-center flex pl-2 py-4 hover:bg-gray-100">
+                    <div className="flex w-2/12">
+                        <p>#ID110</p>
+                    </div>
                     <div className="flex w-3/12">
                         <p>Stark Industries</p>
                     </div>
@@ -109,9 +112,6 @@ function AdminOrders() {
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p>$ 8,3k</p>
-                    </div>
-                    <div className="flex justify-center w-2/12">
-                        <p>#ID110</p>
                     </div>
                     <div className="flex justify-center w-2/12">
                         <p className="bg-gray-200 h-fit p-1 rounded-xl">Ordered</p>

@@ -116,8 +116,6 @@ router.get("/", (req, res) => {
 
     //rajouter quand le client est pas connecter un if aussinon la requete sql foire
 
-
-
     let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
     connection.query(sql, function (err, result) {
         if (err) {

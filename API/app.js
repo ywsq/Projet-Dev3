@@ -24,7 +24,7 @@ const articleAPI = require("./routes/API-article.js")
 const orderAPI = require("./routes/API-order.js")
 const cartAPI = require("./routes/API-cart.js")
 const adminManageOrderAPI = require("./routes/API-ADMIN-manage-Order.js")
-const adminManageAccountAPI = require("./routes/API-ADMIN-manage-account.js")
+const adminManageAccountAPI = require("./routes/API-ADMIN-manage-account.tsx")
 
 
 
@@ -33,8 +33,8 @@ app.use('/API/article', articleAPI)
 app.use('/API/order', authenticateJWT, orderAPI)
 app.use('/API/cart', authenticateJWT, cartAPI)
 
-app.use('/API/admin/manage-orders', adminManageOrderAPI) //only admin to have accès
-app.use('/API/admin/manage-accounts', adminManageAccountAPI)
+app.use('/API/admin/manage-orders', authenticateJWT, adminManageOrderAPI) //only admin to have accès
+app.use('/API/admin/manage-accounts', authenticateJWT, adminManageAccountAPI)
 
 app.use('/', (req, res, next) => {
     res.redirect("/api-docs");

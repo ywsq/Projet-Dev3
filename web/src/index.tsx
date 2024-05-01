@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createRoot } from 'react-dom/client';
 import './index.css';
@@ -23,14 +23,12 @@ import AdminCustomers from "./AdminCustomers";
 import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
 import BannierePartner from "./BannierePartner";
+import Profile from "./Profile"
 import System from "./System";
 import axios from "axios";
+import {verifyConnect, useAdminConnect} from './verifyConnection'
 const container = document.getElementById('root');
 const root = createRoot(container!);
-
-
-
-
 
 axios.interceptors.request.use(
     (config) => {
@@ -58,46 +56,76 @@ axios.interceptors.response.use((response) => {
         localStorage.setItem('auth_token', auth_token);
         localStorage.setItem('refresh_auth_token', refresh_auth_token);
     }
-
     return response;
 })
 
+const AppContainer = () => {
+    const connect = verifyConnect();
+    const admin = useAdminConnect();
 
+    return (
+        <React.StrictMode>
+            <Router>
+                <body>
+                <Banniere/>
+                <Routes>
+                    {admin ? (
+                        <>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/Cart" element={<App />} />
+                            <Route path="/Products" element={<Products />} />
+                            <Route path="/Article/:id" element={<Article />} />
+                            <Route path="/Store" element={<Store />} />
+                            <Route path="/Service" element={<Service />} />
+                            <Route path="/Partnership" element={<Partnership />} />
+                            <Route path="/Contact" element={<Contact />} />
+                            <Route path="/Test" element={<Test />} />
+                            <Route path="/System" element={<System />} />
+                            <Route path="/Login" element={<Login />} />
+                            <Route path="/Profile" element={<Profile />} />
+                            <Route path="/AccountCreation" element={<AccountCreation />} />
+                            <Route path="/AccountRequests" element={<AccountRequests />} />
+                            <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
+                            <Route path="/AdminHome" element={<AdminHome />} />
+                            <Route path="/AdminCustomers" element={<AdminCustomers />} />
+                            <Route path="/AdminOrders" element={<AdminOrders />} />
+                            <Route path="/AdminProducts" element={<AdminProducts />} />
+                        </>
+                    ) : connect ? (
+                        <>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/Cart" element={<App />} />
+                            <Route path="/Products" element={<Products />} />
+                            <Route path="/Article/:id" element={<Article />} />
+                            <Route path="/Store" element={<Store />} />
+                            <Route path="/Service" element={<Service />} />
+                            <Route path="/Partnership" element={<Partnership />} />
+                            <Route path="/Contact" element={<Contact />} />
+                            <Route path="/Profile" element={<Profile />} />
+                            <Route path="/System" element={<System />} />
+                        </>
+                    ) : (
+                        <>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/Products" element={<Products />} />
+                            <Route path="/Article/:id" element={<Article />} />
+                            <Route path="/Store" element={<Store />} />
+                            <Route path="/Service" element={<Service />} />
+                            <Route path="/Partnership" element={<Partnership />} />
+                            <Route path="/Login" element={<Login />} />
+                            <Route path="/Contact" element={<Contact />} />
+                            <Route path="/AccountCreation" element={<AccountCreation />} />
+                            <Route path="/System" element={<System />} />
+                        </>
+                    )}
+                </Routes>
+                <Footer/>
+                </body>
+            </Router>
+        </React.StrictMode>
+    );
+}
 
-
-//<BannierePartner/>
-
-root.render(
-    <React.StrictMode>
-        <Router>
-            <body>
-            <Banniere/>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/App" element={<App />} />
-                <Route path="/Products" element={<Products />} />
-                <Route path="/Article/:id" element={<Article />} />
-                <Route path="/Store" element={<Store />} />
-                <Route path="/Service" element={<Service />} />
-                <Route path="/Partnership" element={<Partnership />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/Contact" element={<Contact />} />
-                <Route path="/AccountCreation" element={<AccountCreation />} />
-                <Route path="/Test" element={<Test />} />
-                <Route path="/System" element={<System />} />
-                <Route path="/AccountRequests" element={<AccountRequests />} />
-                <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
-                <Route path="/AdminHome" element={<AdminHome />} />
-                <Route path="/AdminCustomers" element={<AdminCustomers />} />
-                <Route path="/AdminOrders" element={<AdminOrders />} />
-                <Route path="/AdminProducts" element={<AdminProducts />} />
-            </Routes>
-            <Footer/>
-            </body>
-        </Router>
-    </React.StrictMode>
-);
-
-
+root.render(<AppContainer />);
 
 reportWebVitals();
