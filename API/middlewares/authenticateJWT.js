@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const connection = require('../DataBaseConnection/connection'); // Importez votre module de connexion à la base de données
+const connection = require("../DataBaseConnection/connection");
 
 const accessTokenSecret = 'Votre_Clef_Secrète_pour_le_JWT';
 const refreshTokenSecret = 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement';
@@ -12,36 +12,41 @@ const authenticateJWT = async (req, res, next) => {
     if (authHeader) {
         const token = authHeader.split(' ')[1];
 
-        jwt.verify(token, accessTokenSecret, async (err, decoded) => {
+        jwt.verify(token, accessTokenSecret, async (err, user) => {
             if (err) {
-                const refreshToken = req.body.refreshToken;
-                if (refreshToken && refreshTokens.includes(refreshToken)) {
-                    jwt.verify(refreshToken, refreshTokenSecret, async (err, decoded) => {
+                const refreshToken = req.headers["refresh_auth_token"].split(' ')[1];
+                if (refreshToken) {
+                    jwt.verify(refreshToken, refreshTokenSecret, async (err, user) => {
                         if (err) {
                             return res.sendStatus(403);
                         }
 
-                        // Récupérez les informations de l'utilisateur depuis la base de données
-                        try {
-                            const [user] = await connection.promise().query("SELECT * FROM tb_clients WHERE id = ?", [decoded.id]);
-                            if (user.length === 0) {
-                                return res.status(401).json({ error: 'Invalid token' });
-                            }
+                        // get email
+                        email = jwt.decode(token).email
+                        // get ID user
+                        clientID = jwt.decode(token).clientID
 
-                            // Stockez les informations de l'utilisateur dans la requête
-                            req.body.user = user[0];
-                            next();
-                        } catch (error) {
-                            console.error("Error fetching user information:", error);
-                            return res.status(500).json({ message: "Internal Server Error" });
-                        }
+                        const newAccessToken = jwt.sign({ 'email':email, 'clientID':clientID}, accessTokenSecret, { expiresIn: '30s' });
+                        const newRefreshToken = jwt.sign({ 'email':email, 'clientID':clientID}, refreshTokenSecret, { expiresIn: '1D' });
+
+                        // Replace the old refresh token with a new one and send it back
+                        const refreshTokenIndex = refreshTokens.indexOf(refreshToken);
+                        refreshTokens[refreshTokenIndex] = newRefreshToken;
+
+                        // Set the new tokens in response headers
+                        res.setHeader("auth_token", newAccessToken);
+                        res.setHeader("refresh_auth_token", newRefreshToken);
+
+                        // Send back the response with updated headers
+                        // Call next() after sending the response to continue to the next middleware or route handler
+                        next();
                     });
                 } else {
                     return res.sendStatus(403);
                 }
             } else {
                 // Stockez les informations de l'utilisateur dans la requête
-                req.body.user = decoded;
+                req.body.user = user;
                 next();
             }
         });

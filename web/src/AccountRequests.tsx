@@ -10,14 +10,14 @@ function AccountRequests() {
 
     const fetchData = async () => {
         try {
-            let endpoint = 'API/display-request';
+            let endpoint = 'API/admin/manage-accounts/waiting';
             if (filter === 'Accepted') {
-                endpoint = 'API/display-request/accepted';
+                endpoint = 'API/admin/manage-accounts/accepted';
             } else if (filter === 'Refused') {
-                endpoint = 'API/display-request/refused';
+                endpoint = 'API/admin/manage-accounts/refused';
             }
-            const response = await fetch(endpoint);
-            const responseData = await response.json();
+            const response = await axios.get(endpoint);
+            const responseData = response.data;
             setData(responseData);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -30,7 +30,7 @@ function AccountRequests() {
 
     const handleClickAcceptRequest = async (clientId: number) => {
         try {
-            await axios.put(`API/accept-request/${clientId}`);
+            await axios.put(`API/admin/manage-accounts/new-accept/${clientId}`);
             console.log('Data updated successfully');
             // Rafraîchir les données après l'acceptation d'une demande
             fetchData();
@@ -41,7 +41,7 @@ function AccountRequests() {
 
     const handleClickRefuseRequest = async (clientId: number) => {
         try {
-            await axios.put(`API/refuse-request/${clientId}`);
+            await axios.put(`API/admin/manage-accounts/new-refuse/${clientId}`);
             console.log('Data updated successfully');
             // Rafraîchir les données après le refus d'une demande
             fetchData();

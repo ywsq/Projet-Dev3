@@ -1,6 +1,7 @@
 import React, {useState, useEffect, SetStateAction, Dispatch} from 'react';
 import './Pannier.css';
 import BannierePartner from './BannierePartner'
+import axios from 'axios';
 
 export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
     if ((quantity * price) > 0) {
@@ -35,12 +36,12 @@ export async function handleQuantityChange(
     setQuantities(newQuantities);
 
     try {
-        await fetch(`API/update-cart-article/${idCart}/${idArticle}`, {
-            method: 'PUT',
+        await axios.put(`API/cart/update/${idCart}/${idArticle}`, {
+            newAmount: newQuantities[index]
+        }, {
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ newAmount: newQuantities[index] })
+            }
         });
         console.log("Item quantity updated successfully.");
     } catch (error) {
@@ -54,9 +55,13 @@ function Pannier() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('API/cart/1');
-            const responseData = await response.json();
-            setData(responseData);
+            try {
+                const response = await axios.get('API/cart');
+                setData(response.data);
+            } catch (error) {
+                // Gérer les erreurs, par exemple :
+                console.error('Erreur lors de la récupération des données:', error);
+            }
         };
 
         fetchData();
@@ -73,9 +78,7 @@ function Pannier() {
 
     const handleRemoveItem = async (idArticle: number, idCart: number) => {
         try {
-            await fetch(`API/cart/${idArticle}/${idCart}`, {
-                method: 'DELETE'
-            });
+            await axios.delete(`API/cart/delete/${idArticle}/${idCart}`);
             const updatedData = data.filter(item => !(item.ID_Article === idArticle && item.ID_Shopping_Cart === idCart));
             setData(updatedData);
             console.log("Item removed successfully " + idArticle + " " + idCart);

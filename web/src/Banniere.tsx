@@ -6,6 +6,7 @@ import expand from './assets/expand_more_FILL0_wght400_GRAD0_opsz24.svg'
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
 import Partnership from "./Partnership";
+import axios from "axios";
 
 function Banniere() {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -13,6 +14,8 @@ function Banniere() {
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
     };
+
+
 
 
     return (

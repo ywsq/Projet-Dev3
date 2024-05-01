@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Banniere from "./Banniere";
+import axios from 'axios';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -17,6 +18,8 @@ function Login() {
         }
     }, [loggedIn, navigate]);
 
+
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (loading) return; // Empêche les soumissions multiples pendant le chargement
@@ -24,30 +27,33 @@ function Login() {
         setLoading(true); // Déclenche le chargement
 
         try {
-            const response = await fetch(`/API/login`, {
-                method: 'POST',
+            const response = await axios.post(`/API/client/login`, {
+                email: email,
+                password: password
+            }, {
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
+                }
             });
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
+            if (response.status === 200) {
+                console.log(response.data)
+                localStorage.setItem('auth_token', response.data.auth_token);
+                localStorage.setItem('refresh_auth_token', response.data.refresh_auth_token);
                 setLoggedIn(true);
             } else {
-                setError(data.error);
+                setError(response.data.error);
             }
         } catch (error) {
-            console.error('Login error:', error);
-            setError('An error occurred while logging in');
+            console.error('Erreur de connexion :', error);
+            setError('Une erreur s\'est produite lors de la connexion');
         } finally {
             // Ajoutez une pause de 2 secondes avant de réactiver le bouton
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 2000);
         }
     };
+
 
     return (
         <section className="flex flex-col items-center h-screen">

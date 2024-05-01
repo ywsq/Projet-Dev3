@@ -2,6 +2,7 @@ import React, { useState, useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import "./Products.css"
 import Banniere from "./Banniere";
+import axios from 'axios';
 
 interface IDataItem {
     ID_Article: number;
@@ -18,29 +19,23 @@ const Products: React.FC = () => {
 
     useEffect(() => {
         const fetchDataCategories = async () => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'API/article/categories');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    //console.log(xhr.responseText);
-                    setDataCategories(JSON.parse(xhr.responseText));
-                }
-            };
-            xhr.send();
-        }
-
+            try {
+                const response = await axios.get('API/article/all-categories');
+                setDataCategories(response.data);
+            } catch (error) {
+                // Gérer les erreurs, par exemple :
+                console.error('Erreur lors de la récupération des catégories :', error);
+            }
+        };
         const fetchDataArticles = async () => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'API/articles');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    //console.log(xhr.responseText);
-                    setDataArticles(JSON.parse(xhr.responseText));
-                }
-            };
-            xhr.send();
-
-        }
+            try {
+                const response = await axios.get('API/article/all');
+                setDataArticles(response.data);
+            } catch (error) {
+                // Gérer les erreurs, par exemple :
+                console.error('Erreur lors de la récupération des articles :', error);
+            }
+        };
 
 
 
@@ -56,10 +51,8 @@ const Products: React.FC = () => {
         dataCategories?.forEach(category => {
             tablePerArticle[category.Category_Name] = 0;
         });
-        console.log(tablePerArticle)
+        //console.log(tablePerArticle)
     }
-
-
 
 
     return (
@@ -91,7 +84,7 @@ const Products: React.FC = () => {
                                         {dataArticles.map((itemArticle, indexArticle) => {
                                             if (itemArticle.Category_Name === itemCartegory.Category_Name && tablePerArticle[itemArticle.Category_Name] < 5) {
                                                 tablePerArticle[itemArticle.Category_Name] += 1
-                                                console.log(tablePerArticle)
+                                                //console.log(tablePerArticle)
                                                 return (
                                                     <Link key={itemArticle.ID_Article} to={`/article/${itemArticle.ID_Article}`}>
                                                         <div key={indexArticle} className="w-52 h-72 mr-10 bg-white bg-contain bg-no-repeat shadow-md border border-gray-200 rounded-xl flex hover:scale-105 transition duration-200"
