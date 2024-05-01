@@ -4,8 +4,9 @@ import BannierePartner from './BannierePartner'
 import axios from 'axios';
 
 export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
-    if ((quantity * price) > 0) {
-        return quantity * price;
+    const totalPrice = quantity * price;
+    if (totalPrice > 0) {
+        return totalPrice.toFixed(2); // Limiter à deux décimales
     } else {
         return 0;
     }
@@ -134,14 +135,23 @@ function Pannier() {
                                     />
                                 </div>
                                 <div className="flex flex-col justify-center items-center w-1/5 space-y-1">
-                                    <p className="">${calculateTotalPrice({
+                                    <p className="">
+                                        ${parseFloat(calculateTotalPrice({
                                         quantity: quantities[index],
                                         price: item.Single_Price
-                                    })}</p>
-                                    <p className="text-gray-400">${calculateTotalPrice({
-                                        quantity: quantities[index],
-                                        price: item.Single_Price
-                                    }) - (21 / 100 * calculateTotalPrice({ quantity: quantities[index], price: item.Single_Price }))}</p>
+                                    }) as string).toFixed(2)}
+                                    </p>
+                                    <p className="text-gray-400">
+                                        ${(
+                                        parseFloat(calculateTotalPrice({
+                                            quantity: quantities[index],
+                                            price: item.Single_Price
+                                        }) as string) - (0.21 * parseFloat(calculateTotalPrice({
+                                            quantity: quantities[index],
+                                            price: item.Single_Price
+                                        }) as string))
+                                    ).toFixed(2)}
+                                    </p>
                                 </div>
                                 <div className="flex w-1/5 items-center justify-center">
                                     <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)} className=" text-gray-400 text-xl hover:text-red-500 h-8 w-8">X</button>
@@ -154,10 +164,10 @@ function Pannier() {
                     <div className="flex flex-col p-5 mt-10 border rounded-xl w-9/12 max-w-96 md:w-96 xl:mr-14 shadow-lg">
                         <div className="font-semibold flex justify-between">
                             <p>Subtotal</p>
-                            <p>$ {data.reduce((total, item, index) => total + calculateTotalPrice({
+                            <p>$ {data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({
                                 quantity: quantities[index],
                                 price: item.Single_Price
-                            }), 0)}</p>
+                            }) as string), 0).toFixed(2)}</p>
                         </div>
                         <div className="flex justify-between text-gray-500">
                             <p>VAT excl.</p>
@@ -165,7 +175,7 @@ function Pannier() {
                                 const totalPriceWithoutVAT = item.Single_Price - (0.21 * item.Single_Price);
                                 const totalItemPrice = totalPriceWithoutVAT * quantities[index];
                                 return total + totalItemPrice;
-                            }, 0)}</p>
+                            }, 0).toFixed(2)}</p>
                         </div>
                         <div className="flex justify-center mt-8">
                             <button

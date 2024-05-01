@@ -4,6 +4,7 @@ import BannierePartner from "./BannierePartner";
 import './Article.css';
 import {link} from "fs";
 import axios from 'axios';
+import {verifyConnect} from './verifyConnection'
 
 interface ArticleData {
     Name: string;
@@ -17,6 +18,7 @@ interface ArticleData {
 
 function Article() {
     const [quantity, setQuantity] = useState(1); // Initialisez la quantité à 0
+    const connect = verifyConnect();
 
 // Handler pour mettre à jour la quantité lorsque l'utilisateur change la valeur du champ
     const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +97,8 @@ function Article() {
                 <div className="w-1/2 text-gray-800">
                     <h1 className="text-4xl font-bold pb-5">{dataArticle[0].Name}</h1>
                     <hr/>
+                    {connect ? (
+                        <>
                     <div className="flex py-10 px-4">
                         <div className="w-2/5 flex flex-col">
                             <p className="text-3xl font-semibold mb-8">{dataArticle[0].Single_Price} $</p>
@@ -127,8 +131,16 @@ function Article() {
                             <div id="AddCartElementSUCCES" style={{color: 'green'}}></div>
                         </div>
                     </div>
+                        </>
+                        ) : (
+                            <div className="py-4">
+                                {dataArticle[0].Name}.<br/>
+                                {dataArticle[0].Description}
+                            </div>
+                        )}
                 </div>
             </div>
+            {connect ? (
             <details className="w-full px-4 hover:bg-gray-100">
                 <summary className="flex items-center text-xl font-semibold text-gray-700 h-14 select-none">Product
                     Details
@@ -141,6 +153,9 @@ function Article() {
                     {dataArticle[0].Description}
                 </div>
             </details>
+                ) : (
+                    <></>
+                )}
         </div>
     );
 }

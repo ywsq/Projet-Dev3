@@ -6,6 +6,29 @@ const connection = require("../DataBaseConnection/connection");
 const authenticateJWT = require("../middlewares/authenticateJWT");
 
 
+router.get('/', authenticateJWT, async (req,res) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        // Si l'en-tête Authorization est manquant, renvoyer une erreur 401 Unauthorized
+        return res.status(401).json({error: "Authorization header is missing"});
+    }
+
+    const token = authHeader.split(' ')[1];
+    const clientID = jwt.decode(token).clientID;
+
+    let sql = "select * from tb_clients natural join tb_country where ID_Client like ?;"
+    connection.query(sql, [clientID], function (err, result) {
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving client data:", err);
+            res.status(500).json({error: "Error retrieving client data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client
+            res.status(200).json(result);
+        }
+    })
+})
 
 
 router.post('/login', async (req, res) => {
@@ -53,7 +76,7 @@ router.post('/login', async (req, res) => {
 
             // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
             if (isMatch) {
-                const auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '30s' });
+                const auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
                 const refresh_auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', { expiresIn: '1D' });
                 return res.json({ auth_token, refresh_auth_token });
             } else {
@@ -66,10 +89,6 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
-
-
-
 
 
 router.post("/new", (req, res) => {
@@ -137,7 +156,6 @@ router.post("/new", (req, res) => {
 });
 
 
-
 // Update the information of a specific client by ID
 router.put("/update", authenticateJWT, (req, res) => {
     // Get the client ID to update from the request parameters
@@ -158,4 +176,3 @@ router.put("/update", authenticateJWT, (req, res) => {
 
 
 module.exports = router;
-
