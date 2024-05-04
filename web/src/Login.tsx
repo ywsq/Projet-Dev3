@@ -12,7 +12,7 @@ function Login() {
 
     useEffect(() => {
         if (loggedIn) {
-            navigate("/");
+            navigate("/CustomerLanding");
             window.location.reload();
         }
     }, [loggedIn, navigate]);

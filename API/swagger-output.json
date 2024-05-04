@@ -241,6 +241,16 @@
         }
       }
     },
+    "/API/articlesDetails": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/API/articleDetails/{id}": {
       "get": {
         "description": "",
@@ -643,6 +653,16 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/display-customers": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

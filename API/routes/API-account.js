@@ -53,6 +53,14 @@ router.post("/add-request", (req, res) => {
     });
 });
 
+router.get("/display-customers", (req, res) => {
+    // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
+    let sql = "SELECT * FROM tb_clients join tb_clients_accept on tb_clients.ID_Client = tb_clients_accept.ID_Client join tb_Login on tb_clients.ID_Client = tb_Login.ID_Client join tb_country on tb_clients.ID_Country = tb_country.ID_Country WHERE Accept = 1 AND admin = 0";
+    connection.query(sql, function (err, result) {
+        res.send(result);
+    });
+});
+
 router.get("/display-request", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_clients natural join tb_clients_accept WHERE Accept = 0";
