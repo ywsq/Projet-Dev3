@@ -18,10 +18,12 @@ const Test: React.FC = () => {
 
     const handleClickGetData = async () => {
         try {
-            const response = await axios.get<IDataItem[]>('API/all-carts');
+            const response = await axios.get('API/client/');
+            console.log(response);
             setData(response.data);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            // Gérer les erreurs, par exemple :
+            console.error('Erreur lors de la récupération des données:', error);
         }
     };
 

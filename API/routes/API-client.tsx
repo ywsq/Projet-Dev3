@@ -3,41 +3,86 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
-// basic url : /API/
+const authenticateJWT = require("../middlewares/authenticateJWT");
 
-router.get("/client", (req, res) => {
-    res.send("You are in the API/client page");
-});
 
-router.get("/all-clients", (req, res) => {
-    let sql = "select * from tb_clients;";
-    connection.query(sql, function (err, result, fields) {
-        res.send(result);
-    });
-});
+router.get('/', authenticateJWT, async (req,res) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        // Si l'en-tête Authorization est manquant, renvoyer une erreur 401 Unauthorized
+        return res.status(401).json({error: "Authorization header is missing"});
+    }
+
+    const token = authHeader.split(' ')[1];
+    const clientID = jwt.decode(token).clientID;
+
+    let sql = "select * from tb_clients natural join tb_country where ID_Client like ?;"
+    connection.query(sql, [clientID], function (err, result) {
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving client data:", err);
+            res.status(500).json({error: "Error retrieving client data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client
+            res.status(200).json(result);
+        }
+    })
+})
+
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
         // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
-        const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Accept = 1 and Mail_Address = ?", [email]);
+        const [user] = await connection.promise().query("SELECT * FROM tb_clients_accept natural join tb_clients natural join tb_Login WHERE Mail_Address = ?", [email]);
 
         // Vérifier si l'utilisateur existe
         if (user.length === 0) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
+        if (user[0]["Accept"] != 1){
+            if (user[0]["Accept"] == 0){
+                //user not validate by admin
+                return res.status(203).json({ error: 'Admin have Not validate your account yet' });
+            }else if(user[0]["Accept"] == 2){
+                //user redused by admin
+                return res.status(203).json({ error: 'Admin have REFUSED your account' });
+            }
+        }else{
+            //user accept by admin
 
-        // Comparer le mot de passe fourni avec le mot de passe haché stocké en base de données
-        const isMatch = await bcrypt.compare(password, user[0].Password);
+            // Comparer le mot de passe fourni avec le mot de passe haché stocké en base de données
+            const isMatch = await bcrypt.compare(password, user[0].Password);
 
-        // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
-        if (isMatch) {
-            const token = jwt.sign({ email }, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
-            return res.json({ token });
-        } else {
-            // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
-            return res.status(401).json({ error: 'Invalid email or password' });
+
+            // recevoir le client ID pour le mettre dans le token
+            let clientID = undefined;
+            const sql = "SELECT ID_Client FROM tb_clients WHERE Mail_Address = ?";
+            const result = await new Promise((resolve, reject) => {
+                connection.query(sql, [email], (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+
+            clientID = result[0].ID_Client;
+
+
+
+            // Si les mots de passe correspondent, créer un token JWT et le renvoyer au client
+            if (isMatch) {
+                const auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Clef_Secrète_pour_le_JWT', { expiresIn: '1h' });
+                const refresh_auth_token = jwt.sign({ 'email':email, 'clientID':clientID}, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', { expiresIn: '1D' });
+                return res.json({ auth_token, refresh_auth_token });
+            } else {
+                // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
+                return res.status(401).json({ error: 'Invalid email or password' });
+            }
         }
     } catch (error) {
         console.error("Error logging in:", error);
@@ -46,37 +91,73 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.get("/clientID/:id", (req, res) => {
-    let sql = "select * from tb_clients where id_client like " + req.params.id;
-    connection.query(sql, function (err, result, fields) {
-        res.send(result);
-    });
-});
+router.post("/new", (req, res) => {
+    // Supposons que vous receviez les données nécessaires dans le corps de la requête
+    const { companyName, country, address, email, phone, password } = req.body;
+    // Assurez-vous d'effectuer une validation des données avant l'insertion
+    let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
+    let values = [ companyName, email, address, country, phone ];
 
-// Create a new client
-router.post("/clients", async (req, res) => {
-    try {
-        // Get data of the new client from the request body
-        const { Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number } = req.body;
-
-        // Create the SQL query to insert the new client into the database
-        const [result] = await connection.promise().query("INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)", [Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number]);
-
-        // Check if the insertion was successful and send the response
-        if (result.affectedRows > 0) {
-            res.status(201).json({ message: "Client created successfully", clientId: result.insertId });
+    //insersion client infos
+    connection.query(sql, values, function (err, clientResult) {
+        if (err) {
+            console.error("Erreur lors de l'insertion dans la table 'tb_clients' : ", err);
+            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients'.");
         } else {
-            res.status(500).json({ message: "Failed to create client" });
+            // Récupérer l'ID du client nouvellement inséré
+            const clientId = clientResult.insertId;
+
+            // Insérer la valeur d'acceptation pour le client dans la table 'tb_clients_accept'
+            let acceptSql = "INSERT INTO tb_clients_accept (ID_Client, Accept) VALUES (?, ?)";
+            let acceptValues = [clientId, 0];
+
+            //insersion tableau acceptation par admin
+            connection.query(acceptSql, acceptValues, function (acceptErr, acceptResult) {
+                if (acceptErr) {
+                    console.error("Erreur lors de l'insertion dans la table 'tb_clients_accept' : ", acceptErr);
+                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients_accept'.");
+                } else {
+                    console.log("Nouveau client ajouté avec succès !");
+
+                    // Insérer le password pour le client dans la table 'tb_Login'
+                    let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
+                    let passwordValues = [clientId, password];
+
+                    //insersion du password hasé
+                    connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
+                        if (acceptErr) {
+                            console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
+                            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
+                        } else {
+                            console.log("Password ajouté avec succès !");
+
+                            let shoppingCartsql =  "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
+                            let shoppingCartValues =[clientId,clientId]
+
+                            //insertion du shopping cart
+                            connection.query(shoppingCartsql,shoppingCartValues, function (acceptErr, acceptResult) {
+                                if (acceptErr) {
+                                    console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
+                                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_cart_client_link'.");
+                                } else {
+                                    console.log("le cart à été ajouter avec succes !");
+
+                                    res.status(200).send("Nouveau client ajouté avec succès !");
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+
+
         }
-    } catch (error) {
-        console.error("Error creating client:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
+    });
 });
 
 
 // Update the information of a specific client by ID
-router.put("/clients/:id", (req, res) => {
+router.put("/update", authenticateJWT, (req, res) => {
     // Get the client ID to update from the request parameters
     const clientId = req.params.id;
 
@@ -92,20 +173,6 @@ router.put("/clients/:id", (req, res) => {
     });
 });
 
-// Delete a specific client by ID
-router.delete("/clients/:id", (req, res) => {
-    // Get the client ID to delete from the request parameters
-    const clientId = req.params.id;
-
-    // Create the SQL query to delete the client from the database
-    const sql = "DELETE FROM tb_clients WHERE ID_Client = ?";
-
-    // Execute the SQL query with the client ID to delete
-    connection.query(sql, [clientId], (err, result) => {
-    });
-});
-
 
 
 module.exports = router;
-

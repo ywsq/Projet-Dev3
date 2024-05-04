@@ -2,8 +2,8 @@ const swaggerAutogen = require("swagger-autogen")();
 
 const doc = {
     info: {
-        title: "E-Organizer API",
-        description: "API defined for a sample project during the course 'Développement Informatique III' à l'EPHEC Louvain-la-Neuve",
+        title: "Star Mobile API",
+        description: "This API is use by the Star Mobile site",
         version: "1.0.0" // Define a valid version field
     },
     host: "54.37.12.177:8080",
