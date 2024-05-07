@@ -7,6 +7,13 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.json());
 
 
+router.get("/all-requests", (req, res) => {
+    // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
+    let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept";
+    connection.query(sql, function (err, result) {
+        res.send(result);
+    });
+});
 
 router.get("/waiting", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
@@ -58,6 +65,21 @@ router.get("/admin", (req, res) => {
     });
 });
 
+router.get("/customers", (req, res) => {
+    // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
+    let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND admin = 0;";
+    connection.query(sql, function (err, result) {
+        res.send(result);
+    });
+});
+
+router.get("/admin-team", (req, res) => {
+    // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
+    let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND admin = 1;";
+    connection.query(sql, function (err, result) {
+        res.send(result);
+    });
+});
 
 router.put("/new-accept/:id", (req, res) => {
     const clientId = req.params.id;

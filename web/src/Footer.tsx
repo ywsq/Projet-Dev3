@@ -3,21 +3,20 @@ import './Footer.css';
 
 function Footer() {
     return (
-
-        <footer className="footer border-t">
-            <div className="flex w-full px-10 pt-10 pb-4 items-center justify-between">
-                <div className="space-x-10 text-gray-500">
-                    <a href="#" className="hover:text-black transition duration-500">About</a>
-                    <a href="#" className="hover:text-black transition duration-500">Returns Policy</a>
-                    <a href="#" className="hover:text-black transition duration-500">FAQs</a>
+        <footer className="footer">
+            <div className="flex w-full pb-4 items-center space-x-10 px-10 xl:px-24">
+                <div className="w-full flex space-x-10 text-slate-500">
+                    <a href="/Service" className="hover:text-slate-700 transition duration-500">Services</a>
+                    <a href="/Stores" className="hover:text-slate-700 transition duration-500">Stores</a>
+                    <a href="#" className="hover:text-slate-700 transition duration-500">Returns Policy</a>
                 </div>
                 <div>
                     <a href="#"
-                    className="border-b shadow-md py-3 px-5 rounded-xl bg-white text-gray-500 hover:text-gray-700 hover:shadow-sm transition duration-500">
+                       className=" border-b shadow-md py-3 px-5 rounded-xl bg-white text-slate-500 hover:text-slate-700 hover:shadow-sm transition duration-500">
                         Contact</a>
                 </div>
             </div>
-            <p className="select-none">&copy; Copyright 2024 Star Mobile All Rights Reserved.</p>
+            <p className="flex items-center text-slate-500 justify-center select-none">&copy; Copyright 2024 Star Mobile All Rights Reserved.</p>
         </footer>
     );
 }

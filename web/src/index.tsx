@@ -22,7 +22,9 @@ import Article from "./Article";
 import AdminCustomers from "./AdminCustomers";
 import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
+import AdminManagement from "./AdminManagement";
 import BannierePartner from "./BannierePartner";
+import CustomerLanding from "./CustomerLanding";
 import Profile from "./Profile"
 import System from "./System";
 import axios from "axios";
@@ -67,9 +69,10 @@ const AppContainer = () => {
         <React.StrictMode>
             <Router>
                 <body>
-                <Banniere/>
+                {!admin && <Banniere />} {/* Ne pas afficher la bannière si l'utilisateur est administrateur */}
                 <Routes>
-                    {admin ? (
+                    {/* Routes pour les administrateurs */}
+                    {admin && (
                         <>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/Cart" element={<App />} />
@@ -90,8 +93,12 @@ const AppContainer = () => {
                             <Route path="/AdminCustomers" element={<AdminCustomers />} />
                             <Route path="/AdminOrders" element={<AdminOrders />} />
                             <Route path="/AdminProducts" element={<AdminProducts />} />
+                            <Route path="/AdminManagement" element={<AdminManagement />} />
                         </>
-                    ) : connect ? (
+                    )}
+
+                    {/* Routes pour les utilisateurs connectés non administrateurs */}
+                    {connect && !admin && (
                         <>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/Cart" element={<App />} />
@@ -103,8 +110,12 @@ const AppContainer = () => {
                             <Route path="/Contact" element={<Contact />} />
                             <Route path="/Profile" element={<Profile />} />
                             <Route path="/System" element={<System />} />
+                            <Route path="/CustomerLanding" element={<CustomerLanding/>} />
                         </>
-                    ) : (
+                    )}
+
+                    {/* Routes pour les utilisateurs non connectés */}
+                    {!connect && (
                         <>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/Products" element={<Products />} />
@@ -119,7 +130,7 @@ const AppContainer = () => {
                         </>
                     )}
                 </Routes>
-                <Footer/>
+                {!admin && <Footer />} {/* Ne pas afficher le Footer si l'utilisateur est administrateur */}
                 </body>
             </Router>
         </React.StrictMode>

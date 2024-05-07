@@ -62,7 +62,12 @@ router.get("/all", (req, res) => {
     });
 });
 
-
+router.get("/articlesDetails", (req, res) => {
+    let sql = "select * from tb_articles join tb_category ON tb_articles.ID_Category = tb_category.ID_Category join tb_brands ON tb_articles.ID_Brand = tb_brands.ID_Brand join tb_image_article ON tb_articles.ID_Article = tb_image_article.ID_Article";
+    connection.query(sql, function (err, result, fields) {
+        res.send(result);
+    });
+});
 
 router.get("/Category/:name", (req, res) => {
     let sql = "select * from tb_category natural join tb_articles where Category_Name like '" + req.params.name +"'";
@@ -77,6 +82,25 @@ router.get("/:id", (req, res) => {
     let sql = "select * from tb_articles where id_article like " + req.params.id;
     connection.query(sql, function (err, result, fields) {
         res.send(result);
+    });
+});
+
+router.put("/editingArticle/:id", (req, res) => {
+    const id = req.params.id;
+    const { Name, Stock, Single_Price } = req.body;
+
+    // Construire la requête SQL pour mettre à jour l'article avec les nouvelles données
+    const sql = `UPDATE tb_articles SET Name = ?, Stock = ?, Single_Price = ? WHERE ID_Article = ?`;
+
+    // Exécuter la requête SQL avec les valeurs mises à jour
+    connection.query(sql, [Name, Stock, Single_Price, id], function (err, result, fields) {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'article:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'article');
+        } else {
+            // Envoyer une réponse de succès si la mise à jour a réussi
+            res.status(200).send('Article mis à jour avec succès');
+        }
     });
 });
 

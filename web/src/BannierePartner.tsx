@@ -16,10 +16,10 @@ function BannierePartner() {
     };
 
     return (
-        <header>
+        <header className="bg-white sticky z-50 top-0">
             <nav className="flex px-4 py-1 border-b justify-between items-center relative">
                 <div className="flex flex-col md:flex-row items-center flex-grow">
-                    <NavLink to="/" className="xl:ml-20 lg:ml-14 md:ml-5">
+                    <NavLink to="/CustomerLanding" className="xl:ml-20 lg:ml-14 md:ml-5">
                         <img className="h-12 max-w-xs" src={Logo} alt="Logo"/>
                     </NavLink>
                     <ul className={`items-center bg-white md:px-2 ml-5 md:flex md:space-x-2 ${menuVisible ? '' : 'hidden md:block'}`}>

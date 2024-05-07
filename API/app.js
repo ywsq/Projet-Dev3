@@ -33,7 +33,7 @@ app.use('/API/article', articleAPI)
 app.use('/API/order', authenticateJWT, orderAPI)
 app.use('/API/cart', authenticateJWT, cartAPI)
 
-app.use('/API/admin/manage-orders', authenticateJWT, adminManageOrderAPI) //only admin to have accès
+app.use('/API/admin/manage-orders', authenticateJWT, adminManageOrderAPI) //only admin to have access
 app.use('/API/admin/manage-accounts', authenticateJWT, adminManageAccountAPI)
 
 app.use('/', (req, res, next) => {

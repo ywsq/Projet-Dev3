@@ -11,14 +11,6 @@ function Login() {
     const [loading, setLoading] = useState(false); // État pour gérer le chargement
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (loggedIn) {
-            navigate("/");
-            window.location.reload();
-        }
-    }, [loggedIn, navigate]);
-
-
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,7 +31,12 @@ function Login() {
                 console.log(response.data)
                 localStorage.setItem('auth_token', response.data.auth_token);
                 localStorage.setItem('refresh_auth_token', response.data.refresh_auth_token);
-                setLoggedIn(true);
+                const isAdmin = response.data.isAdmin;
+                if (isAdmin) {
+                    navigate("/AdminHome");
+                } else {
+                    navigate("/CustomerLanding");
+                }
             } else {
                 setError(response.data.error);
             }
