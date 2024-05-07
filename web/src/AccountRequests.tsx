@@ -86,13 +86,13 @@ function AccountRequests() {
                     </nav>
                     {data.map((item: any, index: number) => (
                         <div key={index} className="flex justify-between items-center border-t hover:bg-gray-100">
-                            <p className="p-3 px-5 bg-transparent">{item.Society_Name}<br />{item.Mail_Address}<br />{item.Phone_Number}<br />{item.Country_Name}</p>
+                            <p className="p-3 px-5 bg-transparent">{item.Society_Name}<br/>{item.Mail_Address}<br/>{item.Phone_Number}<br />{item.Country_Name}</p>
 
                             {/* Condition pour afficher les boutons en fonction du filtre */}
 
                             {filter === 'All' && item.Accept === 1 ? (
                                 <div className="p-3 px-5 flex items-center space-x-10">
-                                    <div className="text-sm text-slate-400 flex flex-col justify-center items-center">
+                                    <div className="select-none text-sm text-slate-400 flex flex-col justify-center items-center">
                                         <p>Account</p>
                                         <p>Accepted</p>
                                     </div>
@@ -103,7 +103,7 @@ function AccountRequests() {
                                 </div>
                             ) : filter === 'All' && item.Accept === 2 ? (
                                 <div className="p-3 px-5 flex items-center space-x-10">
-                                    <div className="text-sm text-slate-400 flex flex-col justify-center items-center">
+                                    <div className="select-none text-sm text-slate-400 flex flex-col justify-center items-center">
                                         <p>Account</p>
                                         <p>Refused</p>
                                     </div>

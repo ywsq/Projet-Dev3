@@ -85,6 +85,25 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.put("/editingArticle/:id", (req, res) => {
+    const id = req.params.id;
+    const { Name, Stock, Single_Price } = req.body;
+
+    // Construire la requête SQL pour mettre à jour l'article avec les nouvelles données
+    const sql = `UPDATE tb_articles SET Name = ?, Stock = ?, Single_Price = ? WHERE ID_Article = ?`;
+
+    // Exécuter la requête SQL avec les valeurs mises à jour
+    connection.query(sql, [Name, Stock, Single_Price, id], function (err, result, fields) {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'article:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'article');
+        } else {
+            // Envoyer une réponse de succès si la mise à jour a réussi
+            res.status(200).send('Article mis à jour avec succès');
+        }
+    });
+});
+
 
 
 module.exports = router

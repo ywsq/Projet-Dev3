@@ -14,7 +14,7 @@ function SideBar() {
 
     return (
         <aside
-            className="flex flex-col sticky top-0 items-center w-16 h-screen mt-[-10vh] py-8 bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-gray-900 dark:border-gray-700">
+            className="flex flex-col sticky top-0 items-center w-16 h-screen py-8 bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-gray-900 dark:border-gray-700">
             <div className="flex flex-col flex-1 space-y-6">
                 <Link to="/">
                     <img className="w-10 h-10 mb-5" src={logo} alt=""/>
@@ -35,17 +35,18 @@ function SideBar() {
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                          className="w-7 h-7 hover:scale-125 duration-200 fill-current text-gray-400 hover:text-sky-500"><path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/></svg>
                 </Link>
+                <hr/>
                 <Link to="/AdminCustomers"
                    className="p-1.5 text-gray-700 focus:outline-nones transition-colors duration-200 rounded-xl dark:text-gray-200 dark:bg-gray-800 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
                     className="w-7 h-7 hover:scale-125 duration-200 fill-current text-gray-400 hover:text-sky-500"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>
                 </Link>
-                <hr/>
                 <Link to="/AdminManagement"
                       className="p-1.5 text-gray-700 focus:outline-nones transition-colors duration-200 rounded-xl dark:text-gray-200 dark:bg-gray-800 hover:bg-gray-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
-                    className="w-7 h-7 hover:scale-125 duration-200 fill-current text-gray-400 hover:text-sky-500"><path d="M200-160v-240h120v240H200Zm240 0v-440h120v440H440Zm240 0v-640h120v640H680Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#"
+                         className="w-7 h-7 hover:scale-125 duration-200 fill-current text-gray-400 hover:text-sky-500"><path d="M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z"/></svg>
                 </Link>
+                <hr/>
                 <Link to="/AccountRequests"
                          className="p-1.5 text-gray-700 focus:outline-nones transition-colors duration-200 rounded-xl dark:text-gray-200 dark:bg-gray-800 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
