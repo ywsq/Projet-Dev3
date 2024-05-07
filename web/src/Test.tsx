@@ -18,7 +18,7 @@ const Test: React.FC = () => {
 
     const handleClickGetData = async () => {
         try {
-            const response = await axios.get('API/client/');
+            const response = await axios.get('API/admin/manage-accounts/customers');
             console.log(response);
             setData(response.data);
         } catch (error) {

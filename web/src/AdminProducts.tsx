@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import SideBar from "./sideBar";
+import axios from "axios";
 
 function AdminProducts() {
 
     const [data, setData] = useState<any[]>([]);
 
-    const fetchData = async () => {
-        try {
-            const endpoint = 'API/articlesDetails';
-            const response = await fetch(endpoint);
-            const responseData = await response.json();
-            setData(responseData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('API/article/articlesDetails');
+                setData(response.data);
+            } catch (error) {
+                // Gérer les erreurs, par exemple :
+                console.error('Erreur lors de la récupération des données:', error);
+            }
+        };
+
         fetchData();
     }, []);
 
