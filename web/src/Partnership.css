@@ -1,5 +1,4 @@
 .adventageTitle{
-    font-style: "Verdana";
     font-size: 1.4em;
     text-transform: uppercase;
     font-weight: bold;
@@ -9,7 +8,6 @@
 
 }
 .adventageText{
-    font-style: "Verdana";
     font-size: 1em;
     margin: 0 40px 10px;
     text-align: center;
@@ -24,19 +22,4 @@
 }
 .advantage{
     flex: 1
-}
-
-.applyButtonParent{
-    display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
-    margin: 30px 0 50px;
-}
-
-.applyButton {
-    padding: 5px 30px;
-    width: fit-content;
-    border-radius: 10px;
-    background-color: #eb6601;
-    color: white;
 }

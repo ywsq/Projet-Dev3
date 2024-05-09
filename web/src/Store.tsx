@@ -57,7 +57,7 @@ function Store() {
 
                             </div>
                         </div>
-                        <button className='btn btn-dark btn-mid componentsTextButton' onClick={openGoogleMapsBrussel}>GO
+                        <button className='w-52 px-7 py-3 bg-white border border-gray-900 text-gray-900 hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:ring-4 hover:ring-sky-200 transition duration-500 rounded-full text-center' onClick={openGoogleMapsBrussel}>GO
                             TO
                         </button>
                     </div>
@@ -98,7 +98,7 @@ function Store() {
 
                             </div>
                         </div>
-                        <button className='btn btn-dark btn-mid componentsTextButton'
+                        <button className='w-52 px-7 py-3 bg-white border border-gray-900 text-gray-900 hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:ring-4 hover:ring-sky-200 transition duration-500 rounded-full text-center'
                                 onClick={openGoogleMapsMaastricht}>GO TO
                         </button>
                     </div>
@@ -125,7 +125,7 @@ function Store() {
                                 Sunday: Closed<br/>
                             </div>
                         </div>
-                        <button className='btn btn-dark btn-mid componentsTextButton' onClick={openGoogleMapsLiege}>GO
+                        <button className='w-52 px-7 py-3 bg-white border border-gray-900 text-gray-900 hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:ring-4 hover:ring-sky-200 transition duration-500 rounded-full text-center' onClick={openGoogleMapsLiege}>GO
                             TO
                         </button>
                     </div>
