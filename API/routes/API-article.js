@@ -87,13 +87,13 @@ router.get("/:id", (req, res) => {
 
 router.put("/editingArticle/:id", (req, res) => {
     const id = req.params.id;
-    const { Name, Stock, Single_Price } = req.body;
+    const {Image, Name, Stock, Single_Price } = req.body;
 
     // Construire la requête SQL pour mettre à jour l'article avec les nouvelles données
-    const sql = `UPDATE tb_articles SET Name = ?, Stock = ?, Single_Price = ? WHERE ID_Article = ?`;
+    const sql = `UPDATE tb_articles SET Image = ?, Name = ?, Stock = ?, Single_Price = ? WHERE ID_Article = ?`;
 
     // Exécuter la requête SQL avec les valeurs mises à jour
-    connection.query(sql, [Name, Stock, Single_Price, id], function (err, result, fields) {
+    connection.query(sql, [Image, Name, Stock, Single_Price, id], function (err, result, fields) {
         if (err) {
             console.error('Erreur lors de la mise à jour de l\'article:', err);
             res.status(500).send('Erreur lors de la mise à jour de l\'article');
@@ -104,6 +104,35 @@ router.put("/editingArticle/:id", (req, res) => {
     });
 });
 
+router.post("/addArticle", (req, res) => {
+    // Get data from request body
+    const { Image, ID_Category, ID_Brand, Name, Small_Description, Description, Single_Price, Min_To_Buy, Stock, On_Market } = req.body;
+
+    // Insert article into database
+    const sqlArticle = "INSERT INTO tb_articles (ID_Category, ID_Brand, Name, Small_Description, Description, Single_Price, Min_To_Buy, Stock, On_Market) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    // Execute article insertion
+    connection.query(sqlArticle, [ID_Category, ID_Brand, Name, Small_Description, Description, Single_Price, Min_To_Buy, Stock, On_Market], (err, result) => {
+        if (err) {
+            res.status(500).send("Error creating article.");
+            return;
+        }
+
+        // Get the ID of the newly created article
+        const articleId = result.ID_Article;
+
+        // Insert image into tb_image_article using the articleId
+        const sqlImage = "INSERT INTO tb_image_article (ID_Article, Image, `Order`) VALUES (?, ?, ?)";
+        connection.query(sqlImage, [articleId, Image, '1'], (err, result) => {
+            if (err) {
+                res.status(500).send("Error adding image.");
+                return;
+            }
+
+            res.status(200).send("Article and image added successfully.");
+        });
+    });
+});
 
 
 module.exports = router

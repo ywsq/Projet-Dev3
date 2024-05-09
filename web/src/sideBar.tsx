@@ -16,7 +16,7 @@ function SideBar() {
         <aside
             className="flex flex-col sticky top-0 items-center w-16 h-screen py-8 bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-gray-900 dark:border-gray-700">
             <div className="flex flex-col flex-1 space-y-6">
-                <Link to="/">
+                <Link to="/AdminHome">
                     <img className="w-10 h-10 mb-5" src={logo} alt=""/>
                 </Link>
                 <Link to="/AdminHome"

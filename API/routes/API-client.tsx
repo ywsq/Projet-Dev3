@@ -158,6 +158,70 @@ router.post("/new", (req, res) => {
     });
 });
 
+// Client ajouté par l'admin, Accept égale 1
+router.post("/addClient", (req, res) => {
+    // Supposons que vous receviez les données nécessaires dans le corps de la requête
+    const { companyName, country, address, email, phone, password } = req.body;
+    // Assurez-vous d'effectuer une validation des données avant l'insertion
+    let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
+    let values = [ companyName, email, address, country, phone ];
+
+    //insersion client infos
+    connection.query(sql, values, function (err, clientResult) {
+        if (err) {
+            console.error("Erreur lors de l'insertion dans la table 'tb_clients' : ", err);
+            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients'.");
+        } else {
+            // Récupérer l'ID du client nouvellement inséré
+            const clientId = clientResult.insertId;
+
+            // Insérer la valeur d'acceptation pour le client dans la table 'tb_clients_accept'
+            let acceptSql = "INSERT INTO tb_clients_accept (ID_Client, Accept) VALUES (?, ?)";
+            let acceptValues = [clientId, 1];
+
+            //insersion tableau acceptation par admin
+            connection.query(acceptSql, acceptValues, function (acceptErr, acceptResult) {
+                if (acceptErr) {
+                    console.error("Erreur lors de l'insertion dans la table 'tb_clients_accept' : ", acceptErr);
+                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients_accept'.");
+                } else {
+                    console.log("Nouveau client ajouté avec succès !");
+
+                    // Insérer le password pour le client dans la table 'tb_Login'
+                    let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
+                    let passwordValues = [clientId, password];
+
+                    //insersion du password hasé
+                    connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
+                        if (acceptErr) {
+                            console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
+                            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
+                        } else {
+                            console.log("Password ajouté avec succès !");
+
+                            let shoppingCartsql =  "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
+                            let shoppingCartValues =[clientId,clientId]
+
+                            //insertion du shopping cart
+                            connection.query(shoppingCartsql,shoppingCartValues, function (acceptErr, acceptResult) {
+                                if (acceptErr) {
+                                    console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
+                                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_cart_client_link'.");
+                                } else {
+                                    console.log("le cart à été ajouter avec succes !");
+
+                                    res.status(200).send("Nouveau client ajouté avec succès !");
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+
+
+        }
+    });
+});
 
 // Update the information of a specific client by ID
 router.put("/update", authenticateJWT, (req, res) => {
