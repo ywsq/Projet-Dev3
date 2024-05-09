@@ -63,7 +63,7 @@ const Products: React.FC = () => {
                         <div className="flex justify-between mt-12 mb-10 items-center">
                             <div className="">
                                 <p className="text-4xl font-bold">Star Mobile.
-                                <span className="font-semibold text-4xl text-gray-500">The best way to buy <br/>
+                                <span className="font-semibold text-4xl text-slate-500">The best way to buy <br/>
                                     the products you need</span></p>
                             </div>
                             <div className="">
@@ -82,7 +82,7 @@ const Products: React.FC = () => {
                                 {dataArticles ? (
                                     <div id="article" className="flex overflow-x-scroll py-5 px-2 items-center">
                                         {dataArticles.map((itemArticle, indexArticle) => {
-                                            if (itemArticle.Category_Name === itemCartegory.Category_Name && tablePerArticle[itemArticle.Category_Name] < 5) {
+                                            if (itemArticle.Category_Name === itemCartegory.Category_Name && tablePerArticle[itemArticle.Category_Name] < 6) {
                                                 tablePerArticle[itemArticle.Category_Name] += 1
                                                 //console.log(tablePerArticle)
                                                 return (

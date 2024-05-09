@@ -1,7 +1,5 @@
 import React from 'react';
-import Banniere from "./Banniere";
-import clavierDessin from './assets/clavierDessin.jpg'
-import phoneCase from './assets/phoneCase.png'
+import logo from './assets/LogoStar.png'
 import './homePage.css'
 
 
@@ -10,12 +8,20 @@ function HomePage() {
 
 
     return (
-            <section>
-                <div className='center headerBackground'>
-                    <h1 id="HomePageTitle"> Grow your business with <br/>
-                        our trusted B2B partnership</h1>
+            <div>
+                <div className='relative'>
+                    <img
+                        src="https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Background"
+                        className=" w-full object-cover"
+                    />
+                    <div className="absolute flex flex-col items-center sm:top-1/4 lg:top-80 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+                        <h1 className="text-5xl text-white font-bold select-none">Grow Your Business With <br /> Our Trusted B2B Partnership</h1>
+                        <a href="/Partnership" className="block flex justify-center w-20 mt-8 px-10 py-4 bg-white text-gray-900 hover:bg-sky-500 hover:text-white hover:ring-2 hover:ring-sky-200 transition duration-500 rounded-full">GO</a>
+                    </div>
                 </div>
-                <div className='components'>
+
+                <div className='flex bg-gradient-to-b from-sky-200 to-sky-100 text-slate-700'>
                     <div className='componentsText'>
                         <div className='componentsTextTitle'>Need components <br/>
                             for your devices ?
@@ -27,13 +33,13 @@ function HomePage() {
                             expansive collection where excellence meets affordability, ensuring that you secure not
                             just the best, but the best at a price point that exceeds all expectations.
                         </div>
-                        <a className='btn btn-dark btn-mid componentsTextButton' href='/Products'>see more</a>
+                        <a className='w-52 px-7 py-3 text-sky-500 border-sky-400 border-2 hover:bg-sky-400 hover:border-sky-400 hover:text-white rounded-2xl transition duration-500 text-center' href='/Products'>see more</a>
                     </div>
-                    <img src={clavierDessin} className='componentsImage' alt="image clavier"/>
+                    <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=1084&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className='w-1/2 object-cover' alt="image clavier"/>
                 </div>
 
-                <div className='components'>
-                    <img src={phoneCase} className='componentsImage' alt="image clavier"/>
+                <div className='flex bg-gradient-to-b from-white to-[#f6f6f6] text-slate-700'>
+                    <img src="https://images.unsplash.com/photo-1554672408-730436b60dde?q=80&w=1326&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className='w-1/2 object-cover' alt="image clavier"/>
                     <div className='componentsText'>
                         <div className='componentsTextTitle'>Or phone cases ...
                         </div>
@@ -45,11 +51,11 @@ function HomePage() {
                             Elevate your phone&apos;s look and safeguard it with the perfect case, all at a price that
                             defies comparison.
                         </div>
-                        <a className='btn btn-dark btn-mid componentsTextButton' href='/Products'>see more</a>
+                        <a className='w-52 px-7 py-3 text-slate-900 border-slate-900 border-2 hover:bg-slate-900 hover:text-white rounded-2xl transition duration-500 text-center' href='/Products'>see more</a>
                     </div>
                 </div>
-                <div className='componentsTextEnd'>
-                    <div className='componentsTextTitle'>The product for your bisiness
+                <div className='p-20 text-white bg-slate-950'>
+                    <div className='componentsTextTitle'>The Product For Your Business
                     </div>
                     <div className='componentsTextExplication'>
 
@@ -63,8 +69,13 @@ function HomePage() {
                         success
                         and achieve your goals, all in one place.
                     </div>
+                    <div className='my-10 flex flex-col justify-center items-center space-y-10'>
+                        <img className="w-20 h-20" src={logo}/>
+                        <p className="text-3xl font-semibold">Apply for partnership</p>
+                        <a href="/AccountCreation" className='w-52 px-7 py-3 bg-white text-gray-900 hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-500 rounded-full text-center'>CREATE YOUR<br/>ACCOUNT</a>
+                    </div>
                 </div>
-            </section>
+            </div>
     );
 }
 
