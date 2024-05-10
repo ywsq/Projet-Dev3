@@ -248,7 +248,7 @@ function AdminManagement() {
                                     <div className="flex w-full justify-center">
                                         <button
                                             onClick={() => handleClickRemoveAdmin(admin.ID_Client)}
-                                            className="h-1/2 text-sm font-semibold bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:bg-red-700 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Downgrade</button>
+                                            className="h-1/2 text-sm font-semibold bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:bg-red-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Downgrade</button>
                                     </div>
                                 </div>
                             </div>
