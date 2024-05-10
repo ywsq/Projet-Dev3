@@ -11,7 +11,7 @@ function HomePage() {
             <div>
                 <div className='relative'>
                     <img
-                        src="https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        src="https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Background"
                         className=" w-full object-cover"
                     />
@@ -39,7 +39,7 @@ function HomePage() {
                 </div>
 
                 <div className='flex bg-gradient-to-b from-white to-[#f6f6f6] text-slate-700'>
-                    <img src="https://images.unsplash.com/photo-1554672408-730436b60dde?q=80&w=1326&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className='w-1/2 object-cover' alt="image clavier"/>
+                    <img src="https://images.unsplash.com/photo-1535157412991-2ef801c1748b?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className='w-1/2 object-cover' alt="image clavier"/>
                     <div className='componentsText'>
                         <div className='componentsTextTitle'>Or phone cases ...
                         </div>
