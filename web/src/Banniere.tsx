@@ -40,23 +40,10 @@ function Banniere() {
                            className="flex md:inline-flex p-4 items-center hover:bg-gray-200 rounded-xl">Products</a>
                     </li>
                     <li className="relative parent">
-                        <a
-                           onClick={() => setMenuVisible(!menuVisible)}
+                        <a href="/Service"
                            className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-200 space-x-2 rounded-xl">
                             <span>Services</span>
-                            <img className={`w-4 h-4 ${!menuVisible ? 'rotate-90' : !''}`} src={expand} alt="Expand icon"/>
                         </a>
-                        <ul className={`child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ${menuVisible ? 'block' : 'hidden'}`}>
-                            <li>
-                                <a href="#" className="flex p-4 hover:bg-gray-200 rounded-xl">Devices</a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex p-4 hover:bg-gray-200 rounded-xl">Components</a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex p-4 hover:bg-gray-200 rounded-xl">Accessories</a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="/Store"
