@@ -34,8 +34,10 @@ function Login() {
                 const isAdmin = response.data.isAdmin;
                 if (isAdmin) {
                     navigate("/AdminHome");
+                    window.location.reload();
                 } else {
                     navigate("/CustomerLanding");
+                    window.location.reload();
                 }
             } else {
                 setError(response.data.error);
