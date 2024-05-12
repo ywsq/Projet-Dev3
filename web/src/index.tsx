@@ -23,8 +23,8 @@ import AdminCustomers from "./AdminCustomers";
 import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
 import AdminManagement from "./AdminManagement";
-import BannierePartner from "./BannierePartner";
 import CustomerLanding from "./CustomerLanding";
+import ReturnPolicy from "./ReturnPolicy";
 import Profile from "./Profile"
 import System from "./System";
 import axios from "axios";
@@ -111,6 +111,7 @@ const AppContainer = () => {
                             <Route path="/Profile" element={<Profile />} />
                             <Route path="/System" element={<System />} />
                             <Route path="/CustomerLanding" element={<CustomerLanding/>} />
+                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
                         </>
                     )}
 
@@ -127,6 +128,7 @@ const AppContainer = () => {
                             <Route path="/Contact" element={<Contact />} />
                             <Route path="/AccountCreation" element={<AccountCreation />} />
                             <Route path="/System" element={<System />} />
+                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
                         </>
                     )}
                 </Routes>

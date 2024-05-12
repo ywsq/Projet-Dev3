@@ -8,10 +8,10 @@ function Footer() {
                 <div className="w-full flex space-x-10 text-slate-500">
                     <a href="/Service" className="hover:text-slate-700 transition duration-500">Services</a>
                     <a href="/Store" className="hover:text-slate-700 transition duration-500">Stores</a>
-                    <a href="#" className="hover:text-slate-700 transition duration-500">Returns Policy</a>
+                    <a href="/ReturnPolicy" className="hover:text-slate-700 transition duration-500">Returns Policy</a>
                 </div>
                 <div>
-                    <a href="#"
+                    <a href="/Contact"
                        className=" border-b shadow-md py-3 px-5 rounded-xl bg-white text-slate-500 hover:text-slate-700 hover:shadow-sm transition duration-500">
                         Contact</a>
                 </div>
