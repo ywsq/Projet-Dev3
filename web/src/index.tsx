@@ -23,12 +23,13 @@ import AdminCustomers from "./AdminCustomers";
 import AdminOrders from "./AdminOrders";
 import AdminProducts from "./AdminProducts";
 import AdminManagement from "./AdminManagement";
-import BannierePartner from "./BannierePartner";
 import CustomerLanding from "./CustomerLanding";
+import ReturnPolicy from "./ReturnPolicy";
 import Profile from "./Profile"
 import System from "./System";
 import axios from "axios";
 import {verifyConnect, useAdminConnect} from './verifyConnection'
+import FAQ from "./FAQ";
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
@@ -111,6 +112,8 @@ const AppContainer = () => {
                             <Route path="/Profile" element={<Profile />} />
                             <Route path="/System" element={<System />} />
                             <Route path="/CustomerLanding" element={<CustomerLanding/>} />
+                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
+                            <Route path="/FAQ" element={<FAQ/>} />
                         </>
                     )}
 
@@ -127,6 +130,7 @@ const AppContainer = () => {
                             <Route path="/Contact" element={<Contact />} />
                             <Route path="/AccountCreation" element={<AccountCreation />} />
                             <Route path="/System" element={<System />} />
+                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
                         </>
                     )}
                 </Routes>
