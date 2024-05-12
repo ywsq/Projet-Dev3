@@ -4,7 +4,7 @@ import Banniere from "./Banniere";
 function Contact() {
     return (
         <div className="container">
-            <form action="action_page.php">
+            <form action="">
 
                 <label htmlFor="fname">First Name</label>
                 <input type="text" id="fname" name="firstname" placeholder="Your name.."/>
@@ -21,7 +21,7 @@ function Contact() {
                         <label htmlFor="subject">Subject</label>
                         <textarea id="subject" name="subject" placeholder="Write something.."></textarea>
 
-                        <input type="submit" value="Submit"/>
+                        <input type="button" value="Submit"/>
 
             </form>
         </div>
