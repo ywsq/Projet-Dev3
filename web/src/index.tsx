@@ -29,6 +29,7 @@ import Profile from "./Profile"
 import System from "./System";
 import axios from "axios";
 import {verifyConnect, useAdminConnect} from './verifyConnection'
+import FAQ from "./FAQ";
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
@@ -112,6 +113,7 @@ const AppContainer = () => {
                             <Route path="/System" element={<System />} />
                             <Route path="/CustomerLanding" element={<CustomerLanding/>} />
                             <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
+                            <Route path="/FAQ" element={<FAQ/>} />
                         </>
                     )}
 
