@@ -7,7 +7,7 @@ function Footer() {
             <div className="pt-3 flex w-full pb-4 items-center space-x-10 px-10 xl:px-24">
                 <div className="w-full flex space-x-10 text-slate-500">
                     <a href="/Service" className="hover:text-slate-700 transition duration-500">Services</a>
-                    <a href="/Stores" className="hover:text-slate-700 transition duration-500">Stores</a>
+                    <a href="/Store" className="hover:text-slate-700 transition duration-500">Stores</a>
                     <a href="#" className="hover:text-slate-700 transition duration-500">Returns Policy</a>
                 </div>
                 <div>
