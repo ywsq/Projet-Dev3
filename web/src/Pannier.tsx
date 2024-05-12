@@ -88,6 +88,34 @@ function Pannier() {
         }
     };
 
+    const proceedCheckout = async () => {
+        const currentDate = new Date();
+
+        const oneWeekLater = new Date(currentDate);
+        oneWeekLater.setDate(oneWeekLater.getDate() + 7);
+
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const year = String(currentDate.getFullYear()).slice(-2); // Récupère les deux derniers chiffres de l'année
+
+        const sevenDay = String(oneWeekLater.getDate()).padStart(2, '0');
+        const sevenMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const sevenYear = String(currentDate.getFullYear()).slice(-2); // Récupère les deux derniers chiffres de l'année
+
+        const Price = data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({quantity: quantities[index], price: item.Single_Price}) as string), 0).toFixed(2);
+        console.log(Price)
+        const Order_Date = `${year}/${month}/${day}`;
+
+        const Availability_Date = `${sevenYear}/${sevenMonth}/${sevenDay}`;
+
+        try {
+            await axios.post(`API/order/add`, { Order_Date, Availability_Date, Price });
+            console.log("Order placed successfully.");
+        } catch (error) {
+            console.error("Error placing order:", error);
+        }
+    };
+
     return (
         <div>
             <div className="w-full h-full px-10 flex flex-col lg:px-32">
@@ -179,6 +207,7 @@ function Pannier() {
                         </div>
                         <div className="flex justify-center mt-8">
                             <button
+                                onClick={() => proceedCheckout()}
                                 className="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-sky-400  duration-500 before:duration-500 hover:duration-500  hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur  origin-left relative bg-sky-500 hover:bg-white border-4 border-sky-100 h-16 w-64 text-left p-3 text-white hover:text-sky-500 font-bold rounded-xl  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-orange-400 after:right-8 after:top-3 after:rounded-full after:blur-lg">
                                 Checkout
                             </button>

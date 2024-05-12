@@ -129,7 +129,20 @@ router.get("/", (req, res) => {
     });
 });
 
-
+router.get("/admin/:id", (req, res) => {
+    const clientID = req.params.id;
+    let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
+    connection.query(sql, function (err, result) {
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving shopping cart content:", err);
+            res.status(500).json({ error: "Error retrieving shopping cart content from the database" });
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du panier d'achat
+            res.status(200).json(result);
+        }
+    });
+});
 
 
 
