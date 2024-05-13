@@ -104,35 +104,6 @@ router.put("/editingArticle/:id", (req, res) => {
     });
 });
 
-router.post("/addArticle", (req, res) => {
-    // Get data from request body
-    const { Image, ID_Category, ID_Brand, Name, Small_Description, Description, Single_Price, Min_To_Buy, Stock, On_Market } = req.body;
-
-    // Insert article into database
-    const sqlArticle = "INSERT INTO tb_articles (ID_Category, ID_Brand, Name, Small_Description, Description, Single_Price, Min_To_Buy, Stock, On_Market) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    // Execute article insertion
-    connection.query(sqlArticle, [ID_Category, ID_Brand, Name, Small_Description, Description, Single_Price, Min_To_Buy, Stock, On_Market], (err, result) => {
-        if (err) {
-            res.status(500).send("Error creating article.");
-            return;
-        }
-
-        // Get the ID of the newly created article
-        const articleId = result.ID_Article;
-
-        // Insert image into tb_image_article using the articleId
-        const sqlImage = "INSERT INTO tb_image_article (ID_Article, Image, `Order`) VALUES (?, ?, ?)";
-        connection.query(sqlImage, [articleId, Image, '1'], (err, result) => {
-            if (err) {
-                res.status(500).send("Error adding image.");
-                return;
-            }
-
-            res.status(200).send("Article and image added successfully.");
-        });
-    });
-});
 
 
 module.exports = router
