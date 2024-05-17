@@ -7,6 +7,8 @@ function AdminProducts() {
     const [editingArticle, seteditingArticle] = useState<any>(null);
     const [editedImage, setEditedImage] = useState("");
     const [editedName, setEditedName] = useState("");
+    const [editedDescription, setEditedDescription] = useState("");
+    const [editedSmallDescription, setEditedSmallDescription] = useState("");
     const [editedStock, setEditedStock] = useState("");
     const [editedPrice, setEditedPrice] = useState("");
     const [expandedAddCustomers, setExpandedAddCustomers] = useState<boolean>(false); // Un simple booléen pour savoir si la section est étendue ou non
@@ -22,12 +24,80 @@ function AdminProducts() {
         Stock: '',
         On_Market: ''
     });
+    const [currentPage, setCurrentPage] = useState(1);
+    const articlesPerPage = 10;
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    const indexOfLastArticle = currentPage * articlesPerPage;
+    const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+    const currentArticles = data.slice(indexOfFirstArticle, indexOfLastArticle);
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [sortField, setSortField] = useState<"id" | "name" | "stock" | "price">("id");
+
+
+// Fonction pour trier les articles par ID en fonction de l'ordre actuel
+    const SortById = () => {
+        const sortedData = [...data].sort((a, b) => {
+            if (sortOrder === "asc") {
+                return a.ID_Article - b.ID_Article;
+            } else {
+                return b.ID_Article - a.ID_Article;
+            }
+        });
+        setData(sortedData);
+        // Inverser l'ordre de tri pour le prochain clic
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        setSortField("id");
+    };
+
+    // Fonction pour trier les articles par nom en fonction de l'ordre actuel
+    const SortByName = () => {
+        const sortedData = [...data].sort((a, b) => {
+            if (sortOrder === "asc") {
+                return a.Name.localeCompare(b.Name);
+            } else {
+                return b.Name.localeCompare(a.Name);
+            }
+        });
+        setData(sortedData);
+        // Inverser l'ordre de tri pour le prochain clic
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        setSortField("name");
+    };
+
+    // Fonction pour trier les articles par stock en fonction de l'ordre actuel
+    const SortByStock = () => {
+        const sortedData = [...data].sort((a, b) => {
+            if (sortOrder === "asc") {
+                return a.Stock - b.Stock;
+            } else {
+                return b.Stock - a.Stock;
+            }
+        });
+        setData(sortedData);
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        setSortField("stock");
+    };
+
+    // Fonction pour trier les articles par prix en fonction de l'ordre actuel
+    const SortByPrice = () => {
+        const sortedData = [...data].sort((a, b) => {
+            if (sortOrder === "asc") {
+                return a.Single_Price - b.Single_Price;
+            } else {
+                return b.Single_Price - a.Single_Price;
+            }
+        });
+        setData(sortedData);
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        setSortField("price");
+    };
+
 
     const handleSubmit = async () => {
         try {
             const response = await axios.post('API/article/addArticle');
             console.log('Request sent successfully:', response.data);
-            const refresh = await axios.get('API/article/articlesDetails');
+            const refresh = await axios.get('API/article/all');
             setData(refresh.data);
         } catch (error) {
             console.error('Error sending request:', error);
@@ -37,7 +107,7 @@ function AdminProducts() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('API/article/articlesDetails');
+                const response = await axios.get('API/article/all');
                 setData(response.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données:', error);
@@ -53,6 +123,8 @@ function AdminProducts() {
         setEditedName(item.Name);
         setEditedStock(item.Stock);
         setEditedPrice(item.Single_Price);
+        setEditedDescription(item.Description);
+        setEditedSmallDescription(item.Small_Description);
     };
 
     const handleConfirmEdit = async (ID_Article: number) => {
@@ -61,7 +133,9 @@ function AdminProducts() {
                 Image: editedImage,
                 Name: editedName,
                 Stock: editedStock,
-                Single_Price: editedPrice
+                Single_Price: editedPrice,
+                Description: editedDescription,
+                Small_Description: editedSmallDescription
             });
             // Rafraîchir les données après la modification
             const response = await axios.get('API/article/articlesDetails');
@@ -182,19 +256,19 @@ function AdminProducts() {
                     </div>
                 )}
                 <div className="">
-                    <div className="flex pl-2 h-14 items-center border-b mb-2">
-                        <h3 className="font-semibold text-slate-500 text-xs uppercase w-1/12">ID</h3>
+                    <div className="select-none flex pl-2 h-14 items-center border-b mb-2">
+                        <h3 onClick={SortById} className="font-semibold text-slate-500 text-xs uppercase w-1/12 hover:bg-sky-100">ID</h3>
                         <h3 className="font-semibold text-center text-slate-500 text-xs uppercase w-2/12">Image</h3>
-                        <h3 className="font-semibold text-center text-slate-500 text-xs uppercase w-4/12">Name</h3>
-                        <h3 className="font-semibold text-center text-slate-500 text-xs uppercase w-2/12">Stock</h3>
-                        <h3 className="font-semibold text-center text-slate-500 text-xs uppercase w-2/12">Price</h3>
+                        <h3 onClick={SortByName} className="font-semibold text-center text-slate-500 text-xs uppercase w-4/12 hover:bg-sky-100">Name</h3>
+                        <h3 onClick={SortByStock} className="font-semibold text-center text-slate-500 text-xs uppercase w-2/12 hover:bg-sky-100">Stock</h3>
+                        <h3 onClick={SortByPrice} className="font-semibold text-center text-slate-500 text-xs uppercase w-2/12 hover:bg-sky-100">Price</h3>
                         <h3 className="w-1/12"></h3>
                     </div>
                 </div>
 
-                {data.map((item: any, index: number) => (
+                {currentArticles.map((item: any, index: number) => (
                     <div key={index}>
-                        <div className="items-center flex pl-2 py-4 text-sm rounded-xl hover:bg-slate-100">
+                        <div className="items-center flex pl-2 py-4 text-sm rounded-xl hover:bg-sky-100">
                             <div className="flex w-1/12">
                                     <p>{item.ID_Article}</p>
                             </div>
@@ -202,12 +276,19 @@ function AdminProducts() {
                                 {editingArticle === item ? (
                                     <input className="text-center w-1/2 h-8 border rounded-xl" type="text" value={editedImage} onChange={(e) => setEditedImage(e.target.value)} />
                                 ) : (
-                                    <img className="md:h-32 md:w-32" src={item.Image}/>
+                                    <img className="md:h-16 md:w-16 hover:scale-150" src={item.Image}/>
                                 )}
                             </div>
                             <div className="flex justify-center w-4/12">
                                 {editingArticle === item ? (
-                                    <input className="text-center w-11/12 h-8 border rounded-xl" type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} />
+                                    <div className="flex flex-col">
+                                        <p className="pt-3 text-slate-500">Name</p>
+                                        <input className="text-center w-11/12 h-8 border rounded-xl" type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} />
+                                        <p className="pt-3 text-slate-500">Description</p>
+                                        <input className="text-center w-11/12 h-8 border rounded-xl" type="text" value={editedSmallDescription} onChange={(e) => setEditedSmallDescription(e.target.value)} />
+                                        <p className="pt-3 text-slate-500">Details</p>
+                                        <input className="text-center w-11/12 h-8 border rounded-xl" type="text" value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} />
+                                    </div>
                                 ) : (
                                     <p>{item.Name}</p>
                                 )}
@@ -242,7 +323,12 @@ function AdminProducts() {
                         </div>
                     </div>
                 ))}
-
+                {/*Pagination*/}
+                <div className="flex justify-center my-10">
+                    {Array.from({ length: Math.ceil(data.length / articlesPerPage) }, (_, i) => (
+                        <button key={i} onClick={() => paginate(i + 1)} className="mx-1 px-4 py-2 border-2 rounded-xl bg-gray-50 hover:bg-gray-200">{i + 1}</button>
+                    ))}
+                </div>
             </div>
         </div>
     );
