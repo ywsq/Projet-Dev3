@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {createRoot} from 'react-dom/client';
 import './index.css';
 import App from './Pannier';
 import reportWebVitals from './reportWebVitals';
@@ -30,6 +30,7 @@ import System from "./System";
 import axios from "axios";
 import {verifyConnect, useAdminConnect} from './verifyConnection'
 import FAQ from "./FAQ";
+
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
@@ -47,7 +48,7 @@ axios.interceptors.request.use(
         }
         return config;
     },
-    (error) => {
+    () => {
         return "test";
     }
 );
@@ -70,76 +71,76 @@ const AppContainer = () => {
         <React.StrictMode>
             <Router>
                 <body>
-                {!admin && <Banniere />} {/* Ne pas afficher la bannière si l'utilisateur est administrateur */}
+                {!admin && <Banniere/>} {/* Ne pas afficher la bannière si l'utilisateur est administrateur */}
                 <Routes>
                     {/* Routes pour les administrateurs */}
                     {admin && (
                         <>
-                            <Route path="/AdminHome" element={<AdminHome />} />
-                            <Route path="/Cart" element={<App />} />
-                            <Route path="/Products" element={<Products />} />
-                            <Route path="/Article/:id" element={<Article />} />
-                            <Route path="/Store" element={<Store />} />
-                            <Route path="/Service" element={<Service />} />
-                            <Route path="/Partnership" element={<Partnership />} />
-                            <Route path="/Contact" element={<Contact />} />
-                            <Route path="/Test" element={<Test />} />
-                            <Route path="/System" element={<System />} />
-                            <Route path="/Login" element={<Login />} />
-                            <Route path="/Profile" element={<Profile />} />
-                            <Route path="/AccountCreation" element={<AccountCreation />} />
-                            <Route path="/AccountRequests" element={<AccountRequests />} />
-                            <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
-                            <Route path="/AdminCustomers" element={<AdminCustomers />} />
-                            <Route path="/AdminOrders" element={<AdminOrders />} />
-                            <Route path="/AdminProducts" element={<AdminProducts />} />
-                            <Route path="/AdminManagement" element={<AdminManagement />} />
+                            <Route path="/AdminHome" element={<AdminHome/>}/>
+                            <Route path="/Cart" element={<App/>}/>
+                            <Route path="/Products" element={<Products/>}/>
+                            <Route path="/Article/:id" element={<Article/>}/>
+                            <Route path="/Store" element={<Store/>}/>
+                            <Route path="/Service" element={<Service/>}/>
+                            <Route path="/Partnership" element={<Partnership/>}/>
+                            <Route path="/Contact" element={<Contact/>}/>
+                            <Route path="/Test" element={<Test/>}/>
+                            <Route path="/System" element={<System/>}/>
+                            <Route path="/Login" element={<Login/>}/>
+                            <Route path="/Profile" element={<Profile/>}/>
+                            <Route path="/AccountCreation" element={<AccountCreation/>}/>
+                            <Route path="/AccountRequests" element={<AccountRequests/>}/>
+                            <Route path="/AdminAnalytics" element={<AdminAnalytics/>}/>
+                            <Route path="/AdminCustomers" element={<AdminCustomers/>}/>
+                            <Route path="/AdminOrders" element={<AdminOrders/>}/>
+                            <Route path="/AdminProducts" element={<AdminProducts/>}/>
+                            <Route path="/AdminManagement" element={<AdminManagement/>}/>
                         </>
                     )}
 
                     {/* Routes pour les utilisateurs connectés non administrateurs */}
                     {connect && !admin && (
                         <>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/Cart" element={<App />} />
-                            <Route path="/Products" element={<Products />} />
-                            <Route path="/Article/:id" element={<Article />} />
-                            <Route path="/Store" element={<Store />} />
-                            <Route path="/Service" element={<Service />} />
-                            <Route path="/Partnership" element={<Partnership />} />
-                            <Route path="/Contact" element={<Contact />} />
-                            <Route path="/Profile" element={<Profile />} />
-                            <Route path="/System" element={<System />} />
-                            <Route path="/CustomerLanding" element={<CustomerLanding/>} />
-                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
-                            <Route path="/FAQ" element={<FAQ/>} />
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/Cart" element={<App/>}/>
+                            <Route path="/Products" element={<Products/>}/>
+                            <Route path="/Article/:id" element={<Article/>}/>
+                            <Route path="/Store" element={<Store/>}/>
+                            <Route path="/Service" element={<Service/>}/>
+                            <Route path="/Partnership" element={<Partnership/>}/>
+                            <Route path="/Contact" element={<Contact/>}/>
+                            <Route path="/Profile" element={<Profile/>}/>
+                            <Route path="/System" element={<System/>}/>
+                            <Route path="/CustomerLanding" element={<CustomerLanding/>}/>
+                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>}/>
+                            <Route path="/FAQ" element={<FAQ/>}/>
                         </>
                     )}
 
                     {/* Routes pour les utilisateurs non connectés */}
                     {!connect && (
                         <>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/Products" element={<Products />} />
-                            <Route path="/Article/:id" element={<Article />} />
-                            <Route path="/Store" element={<Store />} />
-                            <Route path="/Service" element={<Service />} />
-                            <Route path="/Partnership" element={<Partnership />} />
-                            <Route path="/Login" element={<Login />} />
-                            <Route path="/Contact" element={<Contact />} />
-                            <Route path="/AccountCreation" element={<AccountCreation />} />
-                            <Route path="/System" element={<System />} />
-                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>} />
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/Products" element={<Products/>}/>
+                            <Route path="/Article/:id" element={<Article/>}/>
+                            <Route path="/Store" element={<Store/>}/>
+                            <Route path="/Service" element={<Service/>}/>
+                            <Route path="/Partnership" element={<Partnership/>}/>
+                            <Route path="/Login" element={<Login/>}/>
+                            <Route path="/Contact" element={<Contact/>}/>
+                            <Route path="/AccountCreation" element={<AccountCreation/>}/>
+                            <Route path="/System" element={<System/>}/>
+                            <Route path="/ReturnPolicy" element={<ReturnPolicy/>}/>
                         </>
                     )}
                 </Routes>
-                {!admin && <Footer />} {/* Ne pas afficher le Footer si l'utilisateur est administrateur */}
+                {!admin && <Footer/>} {/* Ne pas afficher le Footer si l'utilisateur est administrateur */}
                 </body>
             </Router>
         </React.StrictMode>
     );
 }
 
-root.render(<AppContainer />);
+root.render(<AppContainer/>);
 
 reportWebVitals();

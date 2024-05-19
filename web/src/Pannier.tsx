@@ -2,7 +2,7 @@ import React, {useState, useEffect, SetStateAction, Dispatch} from 'react';
 import './Pannier.css';
 import axios from 'axios';
 
-export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
+export function calculateTotalPrice({quantity, price}: { quantity: any, price: any }) {
     const totalPrice = quantity * price;
     if (totalPrice > 0) {
         return totalPrice.toFixed(2); // Limiter à deux décimales
@@ -120,14 +120,17 @@ function Pannier() {
         const sevenMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
         const sevenYear = String(currentDate.getFullYear()).slice(-2); // Récupère les deux derniers chiffres de l'année
 
-        const Price = data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({quantity: quantities[index], price: item.Single_Price}) as string), 0).toFixed(2);
+        const Price = data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({
+            quantity: quantities[index],
+            price: item.Single_Price
+        }) as string), 0).toFixed(2);
         console.log(Price)
         const Order_Date = `${year}/${month}/${day}`;
 
         const Availability_Date = `${sevenYear}/${sevenMonth}/${sevenDay}`;
 
         try {
-            await axios.post(`API/order/add`, { Order_Date, Availability_Date, Price });
+            await axios.post(`API/order/add`, {Order_Date, Availability_Date, Price});
         } catch (error) {
             console.error("Error placing order:", error);
         }
@@ -176,7 +179,8 @@ function Pannier() {
                                         <img className="h-24" src="#" alt=""/>
                                     </div>
                                     <div className="flex ml-4">
-                                        <a href={`/Article/${item.ID_Article}`} className="w-2/5 flex-grow">{item.Name}</a>
+                                        <a href={`/Article/${item.ID_Article}`}
+                                           className="w-2/5 flex-grow">{item.Name}</a>
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-center items-center w-1/5 space-y-1">
@@ -214,14 +218,17 @@ function Pannier() {
                                     </p>
                                 </div>
                                 <div className="flex w-1/5 items-center justify-center">
-                                    <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)} className=" text-gray-400 text-xl hover:text-red-500 h-8 w-8">X</button>
+                                    <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)}
+                                            className=" text-gray-400 text-xl hover:text-red-500 h-8 w-8">X
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     ))
                 )}
                 <div className="flex justify-end">
-                    <div className="flex flex-col p-5 mt-10 border rounded-xl w-9/12 max-w-96 md:w-96 xl:mr-14 shadow-lg">
+                    <div
+                        className="flex flex-col p-5 mt-10 border rounded-xl w-9/12 max-w-96 md:w-96 xl:mr-14 shadow-lg">
                         <div className="font-semibold flex justify-between">
                             <p>Subtotal</p>
                             <p>$ {data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({
