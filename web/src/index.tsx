@@ -75,7 +75,7 @@ const AppContainer = () => {
                     {/* Routes pour les administrateurs */}
                     {admin && (
                         <>
-                            <Route path="/" element={<HomePage />} />
+                            <Route path="/AdminHome" element={<AdminHome />} />
                             <Route path="/Cart" element={<App />} />
                             <Route path="/Products" element={<Products />} />
                             <Route path="/Article/:id" element={<Article />} />
@@ -90,7 +90,6 @@ const AppContainer = () => {
                             <Route path="/AccountCreation" element={<AccountCreation />} />
                             <Route path="/AccountRequests" element={<AccountRequests />} />
                             <Route path="/AdminAnalytics" element={<AdminAnalytics />} />
-                            <Route path="/AdminHome" element={<AdminHome />} />
                             <Route path="/AdminCustomers" element={<AdminCustomers />} />
                             <Route path="/AdminOrders" element={<AdminOrders />} />
                             <Route path="/AdminProducts" element={<AdminProducts />} />

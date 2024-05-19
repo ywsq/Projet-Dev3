@@ -1,6 +1,5 @@
 import React, {useState, useEffect, SetStateAction, Dispatch} from 'react';
 import './Pannier.css';
-import BannierePartner from './BannierePartner'
 import axios from 'axios';
 
 export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
@@ -52,6 +51,7 @@ export async function handleQuantityChange(
 
 function Pannier() {
     const [data, setData] = useState<any[]>([]);
+    //const [ID, setID] = useState<any[]>([]);
     const [quantities, setQuantities] = useState<number[]>([]);
 
     useEffect(() => {
@@ -67,6 +67,24 @@ function Pannier() {
 
         fetchData();
     }, []);
+
+    /*useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('API/cart/ID');
+                let ID = response.data[0].ID_Shopping_Cart
+                setID(ID);
+            } catch (error) {
+                // Gérer les erreurs, par exemple :
+                console.error('Erreur lors de la récupération des données:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+*/
+
+    //console.log(ID)
 
     // Utiliser useEffect pour mettre à jour quantities lorsque data change
     useEffect(() => {
@@ -110,11 +128,25 @@ function Pannier() {
 
         try {
             await axios.post(`API/order/add`, { Order_Date, Availability_Date, Price });
-            console.log("Order placed successfully.");
         } catch (error) {
             console.error("Error placing order:", error);
         }
     };
+
+    const deleteItems = async (ID_Shopping_Cart: number) => {
+        try {
+            await axios.delete(`API/cart/delete-all/${ID_Shopping_Cart}`)
+        } catch (error) {
+            console.error("Error placing order:", error);
+        }
+    }
+
+
+    const handleCheckout = (ID_Shopping_Cart: number) => {
+        proceedCheckout();
+        deleteItems(ID_Shopping_Cart);
+    }
+
 
     return (
         <div>
@@ -207,7 +239,7 @@ function Pannier() {
                         </div>
                         <div className="flex justify-center mt-8">
                             <button
-                                onClick={() => proceedCheckout()}
+                                onClick={() => handleCheckout(data[0].ID_Shopping_Cart)}
                                 className="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-sky-400  duration-500 before:duration-500 hover:duration-500  hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur  origin-left relative bg-sky-500 hover:bg-white border-4 border-sky-100 h-16 w-64 text-left p-3 text-white hover:text-sky-500 font-bold rounded-xl  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-orange-400 after:right-8 after:top-3 after:rounded-full after:blur-lg">
                                 Checkout
                             </button>

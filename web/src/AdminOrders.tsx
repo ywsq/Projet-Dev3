@@ -5,7 +5,9 @@ import axios from "axios";
 function AdminOrders() {
     const [data, setData] = useState<any[]>([]);
     const [order, setOrder] = useState<any[]>([]);
-    const [expandedCustomers, setExpandedCustomers] = useState<{[key: number]: boolean}>({});
+    const [expandedCustomers, setExpandedCustomers] = useState<{ [key: number]: boolean }>({});
+    const [expandedEdit, setExpandedEdit] = useState<{ [key: number]: boolean }>({});
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,14 +28,29 @@ function AdminOrders() {
             [index]: !prevState[index]
         }));
     };
+    const toggleEditExpand = (index: number) => {
+        setExpandedEdit(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
+    };
 
     const handleClickGetData = async (ID_Client: number) => {
         try {
             const response = await axios.get(`API/cart/admin/${ID_Client}`);
-            console.log(response);
             setOrder(response.data);
         } catch (error) {
             // Gérer les erreurs, par exemple :
+            console.error('Erreur lors de la récupération des données:', error);
+        }
+    };
+
+    const handleClickDeleteData = async (ID_Order: number) => {
+        try {
+            const response = await axios.delete(`API/order/delete/${ID_Order}`);
+            setOrder(response.data);
+            window.location.reload();
+        } catch (error) {
             console.error('Erreur lors de la récupération des données:', error);
         }
     };
@@ -42,8 +59,6 @@ function AdminOrders() {
         toggleCustomerExpand(index);
         handleClickGetData(ID_Client);
     }
-
-    console.log(order);
 
     return (
         <div className="flex">
@@ -73,13 +88,10 @@ function AdminOrders() {
                         <h3 className="w-10"></h3>
                     </div>
                 </div>
-                {data.length === 0 ? (
-                    <div className="">
+                {data.length === 0 ? <div className="">
                         <hr/>
                         <p className="mt-5">No Clients</p>
-                    </div>
-                ) : (
-                    data.map((item: any, index: number) => <>
+                    </div> : data.map((item: any, index: number) => <>
                         <hr/>
                         <div className="items-center flex pl-2 py-4 hover:bg-gray-100">
                             <div className="flex w-2/12">
@@ -107,11 +119,13 @@ function AdminOrders() {
                                     </svg>
                                     <div
                                         className="absolute bg-white w-20 border-b shadow-md scale-0 group-hover:scale-100  -translate-x-[50%] origin-bottom">
-                                        <button className="block hover:bg-gray-100 w-full p-1">
+                                        <button onClick={() => toggleEditExpand(index)}
+                                                className="block hover:bg-gray-100 w-full p-1">
                                             Edit
                                         </button>
                                         <hr/>
-                                        <button onClick={() => handleClickView(index, item.ID_Client)} className="block hover:bg-gray-100 w-full p-1">
+                                        <button onClick={() => handleClickView(index, item.ID_Client)}
+                                                className="block hover:bg-gray-100 w-full p-1">
                                             view
                                         </button>
                                     </div>
@@ -123,9 +137,13 @@ function AdminOrders() {
                                 <div className="w-1/2 bg-white rounded-xl p-5 border shadow-lg">
                                     <h1 className="text-lg font-semibold flex justify-center mb-4 capitalize">{orders.Name}</h1>
                                     <details className="w-full rounded-xl px-4 hover:bg-gray-100">
-                                        <summary className="flex  items-center font-semibold text-gray-700 h-14 select-none">Details
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
-                                                 className="fill-current text-gray-700"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+                                        <summary
+                                            className="flex  items-center font-semibold text-gray-700 h-14 select-none">Details
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                                                 width="24"
+                                                 className="fill-current text-gray-700">
+                                                <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+                                            </svg>
                                         </summary>
                                         <hr/>
                                         <div className="py-4">
@@ -137,9 +155,29 @@ function AdminOrders() {
                                     </details>
                                 </div>
                             </div>
-                            ))}
-                    </>)
-                )}
+                        ))}
+                        {expandedEdit[index] && (
+                            <div className="w-full flex flex-col items-center  px-10 py-5">
+                                <div className="w-1/2 bg-white rounded-xl p-5 border shadow-lg">
+                                    <h1 className="text-lg font-semibold flex justify-center mb-4 capitalize">DELETE</h1>
+                                    <details className="w-full rounded-xl px-4 hover:bg-gray-100">
+                                        <summary
+                                            className="flex  items-center font-semibold text-gray-700 h-14 select-none">Details
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                                                 width="24"
+                                                 className="fill-current text-gray-700">
+                                                <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+                                            </svg>
+                                        </summary>
+                                        <hr/>
+                                        <div className="py-4">
+                                            <button onClick={() => handleClickDeleteData(item.ID_Orders)}>DELETE</button>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        )}
+                    </>)}
 
             </div>
         </div>
