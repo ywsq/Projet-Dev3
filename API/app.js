@@ -27,7 +27,6 @@ const adminManageOrderAPI = require("./routes/API-ADMIN-manage-Order.js")
 const adminManageAccountAPI = require("./routes/API-ADMIN-manage-account.tsx")
 
 
-
 app.use('/API/client', clientAPI)
 app.use('/API/article', articleAPI)
 app.use('/API/order', authenticateJWT, orderAPI)
@@ -39,8 +38,6 @@ app.use('/API/admin/manage-accounts', authenticateJWT, adminManageAccountAPI)
 app.use('/', (req, res, next) => {
     res.redirect("/api-docs");
 })
-
-
 
 
 // start your Express app

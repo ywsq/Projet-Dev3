@@ -5,11 +5,8 @@ const auth_token = localStorage.getItem("auth_token");
 const refresh_auth_token = localStorage.getItem("refresh_auth_token");
 
 export function verifyConnect() {
-    if(auth_token){
-        if(refresh_auth_token){
-            return true;
-        }
-        return false;
+    if (auth_token) {
+        return !!refresh_auth_token;
     }
     return false;
 }
@@ -34,7 +31,7 @@ export function useAdminConnect() {
     }, [auth_token]);
 
     // Vérification des tokens et retour des données
-    if (auth_token && refresh_auth_token && adminData) {
+    if (auth_token && refresh_auth_token && (adminData || (adminData == 4))) {
         return adminData;
     }
 

@@ -5,7 +5,8 @@ function Service() {
     return (
         <div>
             <div className='flex'>
-                <div className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-700 p-4 bg-gradient-to-b from-[#e6e6e6] to-[#e2e2e2]">
+                <div
+                    className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-700 p-4 bg-gradient-to-b from-[#e6e6e6] to-[#e2e2e2]">
                     <h1 className="text-4xl font-bold">All The Components.<br/>In One Place.</h1>
                     <h2 className="text-xl">Components for repairing Samsung, Apple, etc.</h2>
                 </div>
@@ -47,8 +48,10 @@ function Service() {
             </div>
             <div className="p-20 flex flex-col space-y-10">
                 <div className='flex shadow-lg'>
-                    <div className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-50 p-4 bg-gradient-to-b from-[#222115] to-[#282a23]">
-                        <h1 className="text-4xl font-bold">Shipping<br/><span className="text-yellow-500">Delivery</span>.</h1>
+                    <div
+                        className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-50 p-4 bg-gradient-to-b from-[#222115] to-[#282a23]">
+                        <h1 className="text-4xl font-bold">Shipping<br/><span
+                            className="text-yellow-500">Delivery</span>.</h1>
                         <h2 className="text-xl">Shipment and delivery of large quantity</h2>
                     </div>
                     <img
@@ -57,9 +60,11 @@ function Service() {
                         className="max-h-[350px] w-2/3 object-cover"/>
                 </div>
                 <div className='flex shadow-lg'>
-                    <div className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-700 p-4 bg-[#f6f6f6]">
+                    <div
+                        className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-700 p-4 bg-[#f6f6f6]">
                         <h1 className="text-4xl font-bold">B2B<br/><span className="text-sky-500">Platform</span>.</h1>
-                        <h2 className="text-xl">Access a vast catalog of products<br/>Chosen by experts for your business</h2>
+                        <h2 className="text-xl">Access a vast catalog of products<br/>Chosen by experts for your
+                            business</h2>
                     </div>
                     <img
                         src={productPage}
@@ -67,8 +72,10 @@ function Service() {
                         className="max-h-[350px] w-2/3 object-cover"/>
                 </div>
                 <div className='flex shadow-lg'>
-                    <div className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-700 p-4 bg-gradient-to-b from-[#e6e6e6] to-[#e2e2e2]">
-                        <h1 className="text-4xl font-bold">The Best<br/>For <span className="text-[#7fc701]">Accessories</span>.</h1>
+                    <div
+                        className="flex flex-col space-y-4 items-center justify-center w-1/3 text-center text-slate-700 p-4 bg-gradient-to-b from-[#e6e6e6] to-[#e2e2e2]">
+                        <h1 className="text-4xl font-bold">The Best<br/>For <span
+                            className="text-[#7fc701]">Accessories</span>.</h1>
                         <h2 className="text-xl">Lifestyle for Samsung, Apple, etc.</h2>
                     </div>
                     <img
@@ -79,10 +86,12 @@ function Service() {
             </div>
             <div className='py-20 flex flex-col justify-center items-center space-y-10'>
                 <p className="text-4xl font-semibold text-slate-900">Apply for partnership</p>
-                <a href="/AccountCreation" className=' w-52 px-7 py-3 bg-sky-500 text-white hover:bg-sky-500 hover:text-white hover:ring-8 hover:ring-sky-200 transition duration-500 rounded-full text-center'>CREATE YOUR<br/>ACCOUNT</a>
+                <a href="/AccountCreation"
+                   className=' w-52 px-7 py-3 bg-sky-500 text-white hover:bg-sky-500 hover:text-white hover:ring-8 hover:ring-sky-200 transition duration-500 rounded-full text-center'>CREATE
+                    YOUR<br/>ACCOUNT</a>
             </div>
         </div>
-);
+    );
 }
 
 export default Service;

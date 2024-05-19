@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
             console.error("Error retrieving shopping cart content:", err);
-            res.status(500).json({ error: "Error retrieving shopping cart content from the database" });
+            res.status(500).json({error: "Error retrieving shopping cart content from the database"});
         } else {
             // Si la requête s'est exécutée avec succès, renvoyer les données du panier d'achat
             res.status(200).json(result);
@@ -33,7 +33,7 @@ router.get("/all", (req, res) => {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
             console.error("Error retrieving shopping cart content:", err);
-            res.status(500).json({ error: "Error retrieving shopping cart content from the database" });
+            res.status(500).json({error: "Error retrieving shopping cart content from the database"});
         } else {
             // Si la requête s'est exécutée avec succès, renvoyer les données du panier d'achat
             res.status(200).json(result);
@@ -44,7 +44,7 @@ router.get("/all", (req, res) => {
 
 router.post("/add", (req, res) => {
     // Supposons que vous receviez les données nécessaires dans le corps de la requête
-    const { Order_Date, Availability_Date, Price } = req.body;
+    const {Order_Date, Availability_Date, Price} = req.body;
 
     const authHeader = req.headers.authorization;
 
@@ -68,7 +68,7 @@ router.post("/add", (req, res) => {
                     connection.query(sqlCart, [clientID], function (err, cartResults) {
                         if (err) {
                             console.error("Erreur lors de la récupération du contenu du panier : ", err);
-                            res.status(500).json({ error: "Erreur lors de la récupération du contenu du panier depuis la base de données" });
+                            res.status(500).json({error: "Erreur lors de la récupération du contenu du panier depuis la base de données"});
                         } else {
                             cartResults.forEach(cartItem => {
                                 let articleID = cartItem["ID_Article"];
@@ -89,6 +89,29 @@ router.post("/add", (req, res) => {
         }
     });
 });
+
+router.delete("/delete/:id", (req, res) => {
+    let ID_Order = req.params.id; // Récupérer l'ID de l'article à supprimer
+    console.log(ID_Order)
+    let sqlDelLink = "DELETE FROM tb_article_order_link WHERE ID_Orders = ?;";
+    connection.query(sqlDelLink, [ID_Order], function (err, result) {
+        if (err) {
+            console.error("Erreur lors de la suppression de l'article du panier:", err);
+            res.status(500).send("Erreur lors de la suppression de l'article du panier");
+        } else {
+            let sqlDelOrder = "DELETE FROM tb_orders WHERE ID_Orders = ?;";
+            connection.query(sqlDelOrder, [ID_Order], function (err, result) {
+                if (err) {
+                    console.error("Erreur lors de la suppression de l'article du panier:", err);
+                    res.status(500).send("Erreur lors de la suppression de l'article du panier");
+                } else {
+                    console.log("Order supprimé avec succès");
+                    res.send("Order supprimé avec succès");
+                }
+            });
+        }
+    });
+})
 
 
 module.exports = router;

@@ -28,20 +28,20 @@ router.get("/clients/:id", (req, res) => {
 router.post("/clients", async (req, res) => {
     try {
         // Get data of the new client from the request body
-        const { Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number } = req.body;
+        const {Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number} = req.body;
 
         // Create the SQL query to insert the new client into the database
         const [result] = await connection.promise().query("INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)", [Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number]);
 
         // Check if the insertion was successful and send the response
         if (result.affectedRows > 0) {
-            res.status(201).json({ message: "Client created successfully", clientId: result.insertId });
+            res.status(201).json({message: "Client created successfully", clientId: result.insertId});
         } else {
-            res.status(500).json({ message: "Failed to create client" });
+            res.status(500).json({message: "Failed to create client"});
         }
     } catch (error) {
         console.error("Error creating client:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({message: "Internal Server Error"});
     }
 });
 
@@ -52,7 +52,7 @@ router.put("/clients/:id", (req, res) => {
     const clientId = req.params.id;
 
     // Get the new information of the client from the request body
-    const { Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number } = req.body;
+    const {Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number} = req.body;
 
     // Create the SQL query to update the client information in the database
     const sql = "UPDATE tb_clients SET Society_Name = ?, Mail_Address = ?, Addresse = ?, ID_Country = ?, Phone_Number = ? WHERE ID_Client = ?";
@@ -76,7 +76,6 @@ router.delete("/clients/:id", (req, res) => {
     connection.query(sql, [clientId], (err, result) => {
     });
 });
-
 
 
 module.exports = router;

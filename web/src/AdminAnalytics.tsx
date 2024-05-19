@@ -130,14 +130,20 @@ function AdminAnalytics() {
                                         <div className="rounded-xl-t mb-0 px-4 py-3 bg-transparent">
                                             <div className="flex flex-wrap items-center">
                                                 <div className="relative w-full max-w-full flex-grow flex-1">
-                                                    <h6 className="uppercase mb-1 text-xs font-semibold text-blueGray-200">Sales value</h6>
+                                                    <h6 className="uppercase mb-1 text-xs font-semibold text-blueGray-200">Sales
+                                                        value</h6>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="p-4 flex-auto">
                                             <div className="relative h-350-px">
                                                 <canvas width="496" height="291"
-                                                        style={{ display: 'block', boxSizing: 'border-box', height: '350px', width: '595.5px' }}
+                                                        style={{
+                                                            display: 'block',
+                                                            boxSizing: 'border-box',
+                                                            height: '350px',
+                                                            width: '595.5px'
+                                                        }}
                                                         id="line-chart"></canvas>
                                             </div>
                                         </div>
@@ -149,14 +155,20 @@ function AdminAnalytics() {
                                         <div className="rounded-xl-t mb-0 px-4 py-3 bg-transparent">
                                             <div className="flex flex-wrap items-center">
                                                 <div className="relative w-full max-w-full flex-grow flex-1">
-                                                    <h6 className="uppercase mb-1 text-xs font-semibold text-blueGray-500">Total orders</h6>
+                                                    <h6 className="uppercase mb-1 text-xs font-semibold text-blueGray-500">Total
+                                                        orders</h6>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="p-4 flex-auto">
                                             <div className="relative h-350-px">
                                                 <canvas width="221" height="291"
-                                                        style={{display: 'block', boxSizing: 'border-box', height: '350px', width: '265.7px'}}
+                                                        style={{
+                                                            display: 'block',
+                                                            boxSizing: 'border-box',
+                                                            height: '350px',
+                                                            width: '265.7px'
+                                                        }}
                                                         id="bar-chart"></canvas>
                                             </div>
                                         </div>
@@ -170,7 +182,8 @@ function AdminAnalytics() {
                                         <div className="px-6 py-4 border-0">
                                             <div className="flex flex-wrap items-center">
                                                 <div className="relative w-full max-w-full flex-grow flex-1">
-                                                    <h3 className="font-semibold text-lg text-blueGray-700">Page visits</h3>
+                                                    <h3 className="font-semibold text-lg text-blueGray-700">Page
+                                                        visits</h3>
                                                 </div>
                                             </div>
                                         </div>

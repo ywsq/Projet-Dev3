@@ -11,7 +11,14 @@ router.get("/all-requests", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
@@ -19,7 +26,14 @@ router.get("/waiting", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept WHERE Accept = 0";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
@@ -27,7 +41,14 @@ router.get("/accepted", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept natural join tb_Login WHERE Accept = 1";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
@@ -35,7 +56,14 @@ router.get("/refused", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept WHERE Accept = 2";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
@@ -44,20 +72,20 @@ router.get("/admin", (req, res) => {
 
     if (!authHeader) {
         // Si l'en-tête Authorization est manquant, renvoyer une erreur 401 Unauthorized
-        return res.status(401).json({ error: "Authorization header is missing" });
+        return res.status(401).json({error: "Authorization header is missing"});
     }
 
     const token = authHeader.split(' ')[1];
     const clientID = jwt.decode(token).clientID;
 
     // Requête SQL pour récupérer les données des clients acceptés et administrateurs où l'ID du client correspond à celui du token
-    let sql = "SELECT * FROM tb_Login INNER JOIN tb_clients ON tb_Login.ID_Client = tb_clients.ID_Client INNER JOIN tb_clients_accept ON tb_clients.ID_Client = tb_clients_accept.ID_Client WHERE tb_clients_accept.Accept = 1 AND tb_Login.admin = true AND tb_clients.ID_Client = ?";
+    let sql = "SELECT * FROM tb_Login INNER JOIN tb_clients ON tb_Login.ID_Client = tb_clients.ID_Client INNER JOIN tb_clients_accept ON tb_clients.ID_Client = tb_clients_accept.ID_Client WHERE tb_clients_accept.Accept = 1 AND (tb_Login.admin = true OR admin LIKE 4) AND tb_clients.ID_Client = ?";
 
     connection.query(sql, [clientID], function (err, result) {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
             console.error("Error retrieving admin client data:", err);
-            res.status(500).json({ error: "Error retrieving admin client data from the database" });
+            res.status(500).json({error: "Error retrieving admin client data from the database"});
         } else {
             // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
             res.status(200).json(result);
@@ -69,15 +97,29 @@ router.get("/customers", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND admin = 0;";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
 router.get("/admin-team", (req, res) => {
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
-    let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND admin = 1;";
+    let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND (admin = 1 OR admin LIKE 4);";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
@@ -130,7 +172,7 @@ router.put("/not-admin/:id", (req, res) => {
     const clientId = req.params.id;
 
     // Requête SQL pour mettre à jour la valeur de la colonne Admin à false
-    let sql = "UPDATE tb_Login SET admin = false WHERE ID_Client = ?";
+    let sql = "UPDATE tb_Login SET admin = false WHERE ID_Client = ? and admin not like 4;";
     connection.query(sql, [clientId], function (err, result) {
         if (err) {
             console.error("Error updating client acceptance:", err);
@@ -144,10 +186,10 @@ router.put("/not-admin/:id", (req, res) => {
 // Admin ajouté directement par l'admin sur son interface
 router.post("/addAdmin", (req, res) => {
     // Supposons que vous receviez les données nécessaires dans le corps de la requête
-    const { companyName, country, address, email, phone, password } = req.body;
+    const {companyName, country, address, email, phone, password} = req.body;
     // Assurez-vous d'effectuer une validation des données avant l'insertion
     let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
-    let values = [ companyName, email, address, country, phone ];
+    let values = [companyName, email, address, country, phone];
 
     //insertion client infos
     connection.query(sql, values, function (err, clientResult) {
@@ -182,11 +224,11 @@ router.post("/addAdmin", (req, res) => {
                         } else {
                             console.log("Password ajouté avec succès !");
 
-                            let shoppingCartsql =  "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
-                            let shoppingCartValues =[clientId,clientId]
+                            let shoppingCartsql = "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
+                            let shoppingCartValues = [clientId, clientId]
 
                             //insertion du shopping cart
-                            connection.query(shoppingCartsql,shoppingCartValues, function (acceptErr, acceptResult) {
+                            connection.query(shoppingCartsql, shoppingCartValues, function (acceptErr, acceptResult) {
                                 if (acceptErr) {
                                     console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
                                     res.status(500).send("Erreur lors de l'insertion dans la table 'tb_cart_client_link'.");

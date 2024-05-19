@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import SideBar from "./sideBar";
 import axios from "axios";
 
@@ -14,7 +14,7 @@ function AdminProducts() {
         Image: '',
         ID_Category: '',
         ID_Brand: '',
-        Name:'',
+        Name: '',
         Small_Description: '',
         Description: '',
         Single_Price: '',
@@ -89,19 +89,23 @@ function AdminProducts() {
                         onClick={toggleAddCustomerExpand}
                         className="group p-2 border shadow-lg rounded-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
-                             className="w-7 h-7 fill-current group-hover:scale-125 duration-200 group-hover:text-sky-500"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                        <span className="absolute w-auto h-auto -top-14 -translate-x-[50%] z-20 origin-bottom scale-0 px-3 rounded-xl border border-slate-300 bg-white py-2 text-xs font-semibold shadow-md transition-all duration-300 ease-in-out group-hover:scale-100">
+                             className="w-7 h-7 fill-current group-hover:scale-125 duration-200 group-hover:text-sky-500">
+                            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                        </svg>
+                        <span
+                            className="absolute w-auto h-auto -top-14 -translate-x-[50%] z-20 origin-bottom scale-0 px-3 rounded-xl border border-slate-300 bg-white py-2 text-xs font-semibold shadow-md transition-all duration-300 ease-in-out group-hover:scale-100">
                             Add Product</span>
                     </button>
                 </div>
                 {expandedAddCustomers && ( // Afficher la section lorsque expandedAddCustomers est true
                     <div className="flex w-full justify-center">
-                        <div className="w-full min-w-96 max-w-2xl flex space-x-5 bg-slate-50 p-5 rounded-2xl shadow-lg mb-14">
+                        <div
+                            className="w-full min-w-96 max-w-2xl flex space-x-5 bg-slate-50 p-5 rounded-2xl shadow-lg mb-14">
                             <div className="w-1/2 flex flex-col space-y-4 ">
                                 <select id="category"
                                         name="category"
                                         value={formData.ID_Category}
-                                        onChange={(e) => setFormData({ ...formData, ID_Category: e.target.value })}
+                                        onChange={(e) => setFormData({...formData, ID_Category: e.target.value})}
                                         className="px-4 h-8 border rounded-xl focus:outline-sky-400">
                                     <option value="" disabled selected hidden>Select Category</option>
                                     <option value="1">Smartphones</option>
@@ -120,7 +124,7 @@ function AdminProducts() {
                                 <select id="brand"
                                         name="brand"
                                         value={formData.ID_Brand}
-                                        onChange={(e) => setFormData({ ...formData, ID_Brand: e.target.value })}
+                                        onChange={(e) => setFormData({...formData, ID_Brand: e.target.value})}
                                         className="px-4 h-8 border rounded-xl focus:outline-sky-400">
                                     <option value="" disabled selected hidden>Select Brand</option>
                                     <option value="1">Apple</option>
@@ -135,7 +139,7 @@ function AdminProducts() {
                                 <select id="market"
                                         name="market"
                                         value={formData.On_Market}
-                                        onChange={(e) => setFormData({ ...formData, On_Market: e.target.value })}
+                                        onChange={(e) => setFormData({...formData, On_Market: e.target.value})}
                                         className="px-4 h-8 border rounded-xl focus:outline-sky-400">
                                     <option value="" disabled selected hidden>Status</option>
                                     <option value="1">On Market</option>
@@ -143,42 +147,48 @@ function AdminProducts() {
                                 </select>
                                 <input placeholder="Name"
                                        value={formData.Name}
-                                       onChange={(e) => setFormData({ ...formData, Name: e.target.value })}
+                                       onChange={(e) => setFormData({...formData, Name: e.target.value})}
                                        className="px-4 h-8 border rounded-xl focus:outline-sky-400" type="text"/>
                                 <input placeholder="Small Description"
                                        value={formData.Small_Description}
-                                       onChange={(e) => setFormData({ ...formData, Small_Description: e.target.value })}
+                                       onChange={(e) => setFormData({...formData, Small_Description: e.target.value})}
                                        className="px-4 h-8 border rounded-xl focus:outline-sky-400" type="text"/>
                                 <input placeholder="More Description"
                                        value={formData.Description}
-                                       onChange={(e) => setFormData({ ...formData, Description: e.target.value })}
+                                       onChange={(e) => setFormData({...formData, Description: e.target.value})}
                                        className="px-4 h-8 border rounded-xl focus:outline-sky-400" type="text"/>
                                 <input placeholder="Image URL"
                                        value={formData.Image}
-                                       onChange={(e) => setFormData({ ...formData, Image: e.target.value })}
+                                       onChange={(e) => setFormData({...formData, Image: e.target.value})}
                                        className="px-4 h-8 border rounded-xl focus:outline-sky-400" type="text"/>
                             </div>
                             <div className="flex flex-col w-1/2 space-y-4 border-l-2 pl-5">
                                 <input placeholder="Price"
                                        value={formData.Single_Price}
-                                       onChange={(e) => setFormData({ ...formData, Single_Price: e.target.value })}
-                                       min="0" className="w-1/2 px-4 h-8 border rounded-xl focus:outline-sky-400" type="number"/>
+                                       onChange={(e) => setFormData({...formData, Single_Price: e.target.value})}
+                                       min="0" className="w-1/2 px-4 h-8 border rounded-xl focus:outline-sky-400"
+                                       type="number"/>
                                 <input placeholder="MOQ"
                                        value={formData.Min_To_Buy}
-                                       onChange={(e) => setFormData({ ...formData, Min_To_Buy: e.target.value })}
-                                       min="0" className="w-1/2 px-4 h-8 border rounded-xl focus:outline-sky-400" type="number"/>
+                                       onChange={(e) => setFormData({...formData, Min_To_Buy: e.target.value})}
+                                       min="0" className="w-1/2 px-4 h-8 border rounded-xl focus:outline-sky-400"
+                                       type="number"/>
                                 <input placeholder="Stock"
                                        value={formData.Stock}
-                                       onChange={(e) => setFormData({ ...formData, Stock: e.target.value })}
-                                       min="0" className="w-1/2 px-4 h-8 border rounded-xl focus:outline-sky-400" type="number"/>
+                                       onChange={(e) => setFormData({...formData, Stock: e.target.value})}
+                                       min="0" className="w-1/2 px-4 h-8 border rounded-xl focus:outline-sky-400"
+                                       type="number"/>
                                 <div className="w-full flex flex-col justify-center items-center space-y-2">
                                     <button
                                         onClick={handleSubmit}
-                                        className="w-3/4 py-3 bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center">Add</button>
-                                    <button onClick={() => setExpandedAddCustomers(false)} className="w-3/4 py-3 bg-white border-2 border-slate-400 text-slate-500 font-semibold hover:bg-slate-400 hover:text-white transition duration-300 rounded-2xl text-center">Cancel</button>
+                                        className="w-3/4 py-3 bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center">Add
+                                    </button>
+                                    <button onClick={() => setExpandedAddCustomers(false)}
+                                            className="w-3/4 py-3 bg-white border-2 border-slate-400 text-slate-500 font-semibold hover:bg-slate-400 hover:text-white transition duration-300 rounded-2xl text-center">Cancel
+                                    </button>
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     </div>
                 )}
                 <div className="">
@@ -196,32 +206,36 @@ function AdminProducts() {
                     <div key={index}>
                         <div className="items-center flex pl-2 py-4 text-sm rounded-xl hover:bg-slate-100">
                             <div className="flex w-1/12">
-                                    <p>{item.ID_Article}</p>
+                                <p>{item.ID_Article}</p>
                             </div>
                             <div className="flex justify-center w-2/12">
                                 {editingArticle === item ? (
-                                    <input className="text-center w-1/2 h-8 border rounded-xl" type="text" value={editedImage} onChange={(e) => setEditedImage(e.target.value)} />
+                                    <input className="text-center w-1/2 h-8 border rounded-xl" type="text"
+                                           value={editedImage} onChange={(e) => setEditedImage(e.target.value)}/>
                                 ) : (
-                                    <img className="md:h-32 md:w-32" src={item.Image}/>
+                                    <img className="md:h-32 md:w-32" src={item.Image} alt={"Image"}/>
                                 )}
                             </div>
                             <div className="flex justify-center w-4/12">
                                 {editingArticle === item ? (
-                                    <input className="text-center w-11/12 h-8 border rounded-xl" type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} />
+                                    <input className="text-center w-11/12 h-8 border rounded-xl" type="text"
+                                           value={editedName} onChange={(e) => setEditedName(e.target.value)}/>
                                 ) : (
                                     <p>{item.Name}</p>
                                 )}
                             </div>
                             <div className="flex justify-center w-2/12">
                                 {editingArticle === item ? (
-                                    <input className="text-center w-1/2 h-8 border rounded-xl" type="text" value={editedStock} onChange={(e) => setEditedStock(e.target.value)} />
+                                    <input className="text-center w-1/2 h-8 border rounded-xl" type="text"
+                                           value={editedStock} onChange={(e) => setEditedStock(e.target.value)}/>
                                 ) : (
                                     <p>{item.Stock}</p>
                                 )}
                             </div>
                             <div className="flex justify-center w-2/12">
                                 {editingArticle === item ? (
-                                    <input className="text-center w-1/2 h-8 border rounded-xl" type="text" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} />
+                                    <input className="text-center w-1/2 h-8 border rounded-xl" type="text"
+                                           value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)}/>
                                 ) : (
                                     <p>{item.Single_Price} $</p>
                                 )}
@@ -230,12 +244,21 @@ function AdminProducts() {
                             <div className="flex justify-center w-1/12">
                                 {editingArticle === item ? (
                                     <div className="flex flex-col justify-center space-y-2">
-                                        <button className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl" type="button" onClick={() => handleConfirmEdit(item.ID_Article)}>Confirm</button>
-                                        <button className="font-semibold bg-white border-2 border-slate-300 text-slate-400 hover:bg-slate-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl" type="button" onClick={() => seteditingArticle(null)}>Cancel</button>
+                                        <button
+                                            className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl"
+                                            type="button" onClick={() => handleConfirmEdit(item.ID_Article)}>Confirm
+                                        </button>
+                                        <button
+                                            className="font-semibold bg-white border-2 border-slate-300 text-slate-400 hover:bg-slate-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl"
+                                            type="button" onClick={() => seteditingArticle(null)}>Cancel
+                                        </button>
                                     </div>
                                 ) : (
                                     <div className="flex justify-center w-10">
-                                        <button className="font-semibold bg-white border-2 border-sky-300 text-sky-500 hover:bg-sky-500 hover:border-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl" type="button" onClick={() => handleEdit(item)}>Edit</button>
+                                        <button
+                                            className="font-semibold bg-white border-2 border-sky-300 text-sky-500 hover:bg-sky-500 hover:border-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl"
+                                            type="button" onClick={() => handleEdit(item)}>Edit
+                                        </button>
                                     </div>
                                 )}
                             </div>
