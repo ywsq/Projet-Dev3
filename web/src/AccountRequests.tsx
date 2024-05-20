@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import './AccountRequests.css';
-import SideBar from "./sideBar";
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
+import SideBar from "./sideBar";
 
 function AccountRequests() {
     const [data, setData] = useState<any[]>([]);
-    const [filter, setFilter] = useState<string>('Waiting'); // État pour garder une trace du filtre sélectionné
+    const [filter, setFilter] = useState<string>('All'); // Défaut sur 'All'
 
     const fetchData = async () => {
         try {
-            let endpoint = 'API/admin/manage-accounts/waiting';
-            if (filter === 'Accepted') {
+            let endpoint = 'API/admin/manage-accounts/all-requests'; // Utiliser l'endpoint pour récupérer toutes les demandes
+            if (filter === 'Waiting') {
+                endpoint = 'API/admin/manage-accounts/waiting';
+            } else if (filter === 'Accepted') {
                 endpoint = 'API/admin/manage-accounts/accepted';
             } else if (filter === 'Refused') {
                 endpoint = 'API/admin/manage-accounts/refused';
@@ -25,14 +26,17 @@ function AccountRequests() {
     };
 
     useEffect(() => {
-        fetchData(); // Appel initial pour récupérer les données
+        fetchData();
     }, [filter]);
 
-    const handleClickAcceptRequest = async (clientId: number) => {
+    const handleClickAcceptRequest = async (clientId: number, email: string) => {
         try {
-            await axios.put(`API/admin/manage-accounts/new-accept/${clientId}`);
+            const requestData = {
+                email: email // assuming your server expects the email field
+            };
+
+            await axios.put(`API/admin/manage-accounts/new-accept/${clientId}`, requestData);
             console.log('Data updated successfully');
-            // Rafraîchir les données après l'acceptation d'une demande
             fetchData();
         } catch (error) {
             console.error('Error updating data:', error);
@@ -43,7 +47,6 @@ function AccountRequests() {
         try {
             await axios.put(`API/admin/manage-accounts/new-refuse/${clientId}`);
             console.log('Data updated successfully');
-            // Rafraîchir les données après le refus d'une demande
             fetchData();
         } catch (error) {
             console.error('Error updating data:', error);
@@ -52,41 +55,81 @@ function AccountRequests() {
 
     return (
         <div className="flex">
-            {/* Sidebar */}
             <div className="bg-gray-200">
-                <SideBar />
+                <SideBar/>
             </div>
 
-            {/* Main Content */}
-            <div className="flex-grow p-8 flex flex-col items-center">
+            <div className="w-full py-10 flex flex-col items-center">
                 <h1 className="text-3xl font-bold mb-4">Account Requests</h1>
                 <div className="w-full md:w-10/12 xl:w-7/12 text-md bg-white shadow-md rounded-xl mb-4">
                     <nav className="py-4 px-3">
-                        {/* Filtrer les demandes en fonction du statut */}
-                        <NavLink to="#" className={filter === 'Waiting' ? 'text-left px-5 mx-1 py-2 font-semibold text-gray-600 bg-gray-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-gray-500'} onClick={() => setFilter('Waiting')}>Waiting</NavLink>
-                        <NavLink to="#" className={filter === 'Accepted' ? 'text-left px-5 mx-1 py-2 font-semibold text-sky-600 bg-sky-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-sky-500'} onClick={() => setFilter('Accepted')}>Accepted</NavLink>
-                        <NavLink to="#" className={filter === 'Refused' ? 'text-left px-5 mx-1 py-2 font-semibold text-orange-600 bg-orange-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-orange-400'} onClick={() => setFilter('Refused')}>Refused</NavLink>
+                        <Link to="#"
+                              className={filter === 'All' ? 'text-left px-5 mx-1 py-2 font-semibold text-gray-600 bg-gray-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-gray-500'}
+                              onClick={() => setFilter('All')}>All</Link>
+                        <Link to="#"
+                              className={filter === 'Waiting' ? 'text-left px-5 mx-1 py-2 font-semibold text-orange-600 bg-orange-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-orange-500'}
+                              onClick={() => setFilter('Waiting')}>Waiting</Link>
+                        <Link to="#"
+                              className={filter === 'Accepted' ? 'text-left px-5 mx-1 py-2 font-semibold text-sky-600 bg-sky-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-sky-500'}
+                              onClick={() => setFilter('Accepted')}>Accepted</Link>
+                        <Link to="#"
+                              className={filter === 'Refused' ? 'text-left px-5 mx-1 py-2 font-semibold text-red-600 bg-red-100 rounded-xl active' : 'text-left px-5 mx-1 py-2 hover:text-red-500'}
+                              onClick={() => setFilter('Refused')}>Refused</Link>
                     </nav>
                     {data.map((item: any, index: number) => (
-                        <div key={index} className="flex justify-between border-t hover:bg-gray-100">
-                            <p className="p-3 px-5 bg-transparent">{item.Society_Name}<br />{item.Mail_Address}<br />{item.Phone_Number}<br />{item.ID_Country}</p>
-                            {filter === 'Waiting' ? (
-                                // Code HTML à afficher lorsque le filtre est "Waiting"
-                                <div className="p-3 px-5 flex items-center">
+                        <div key={index} className="flex justify-between items-center border-t hover:bg-gray-100">
+                            <p className="p-3 px-5 bg-transparent">{item.Society_Name}<br/>{item.Mail_Address}<br/>{item.Phone_Number}<br/>{item.Country_Name}
+                            </p>
+
+                            {/* Condition pour afficher les boutons en fonction du filtre */}
+
+                            {filter === 'All' && item.Accept === 1 ? (
+                                <div className="p-3 px-5 flex items-center space-x-10">
+                                    <div
+                                        className="select-none text-sm text-slate-400 flex flex-col justify-center items-center">
+                                        <p>Account</p>
+                                        <p>Accepted</p>
+                                    </div>
                                     <button type="button"
-                                            onClick={() => handleClickAcceptRequest(item.ID_Client)}
-                                            className="h-1/2 mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded-xl focus:outline-none focus:shadow-outline">Accept
+                                            onClick={() => handleClickRefuseRequest(item.ID_Client)}
+                                            className="font-semibold bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Refuse
+                                    </button>
+                                </div>
+                            ) : filter === 'All' && item.Accept === 2 ? (
+                                <div className="p-3 px-5 flex items-center space-x-10">
+                                    <div
+                                        className="select-none text-sm text-slate-400 flex flex-col justify-center items-center">
+                                        <p>Account</p>
+                                        <p>Refused</p>
+                                    </div>
+                                    <button type="button"
+                                            onClick={() => handleClickAcceptRequest(item.ID_Client, item.Mail_Address)}
+                                            className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Accept
+                                    </button>
+                                </div>
+                            ) : filter === 'Waiting' ? (
+                                <div className="p-3 px-5 flex items-center space-x-3">
+                                    <button type="button"
+                                            onClick={() => handleClickAcceptRequest(item.ID_Client, item.Mail_Address)}
+                                            className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Accept
                                     </button>
                                     <button type="button"
                                             onClick={() => handleClickRefuseRequest(item.ID_Client)}
-                                            className="h-1/2 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded-xl focus:outline-none focus:shadow-outline">Refuse
+                                            className="font-semibold bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Refuse
+                                    </button>
+                                </div>
+                            ) : filter === 'Accepted' ? (
+                                <div className="mr-5">
+                                    <button type="button"
+                                            onClick={() => handleClickRefuseRequest(item.ID_Client)}
+                                            className="font-semibold bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Refuse
                                     </button>
                                 </div>
                             ) : (
-                                // Code HTML à afficher lorsque le filtre n'est pas "Waiting"
-                                <div className="flex w-2/12 justify-center w-10">
-                                    <button title="Options">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
+                                <div className="p-3 px-5 flex items-center space-x-10">
+                                    <button type="button"
+                                            onClick={() => handleClickAcceptRequest(item.ID_Client, item.Mail_Address)}
+                                            className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Accept
                                     </button>
                                 </div>
                             )}

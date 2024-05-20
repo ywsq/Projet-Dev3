@@ -1,8 +1,7 @@
-import React, { useState, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, FormEvent} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import './AccountCreation.css';
-import Banniere from './Banniere';
 import bcrypt from 'bcryptjs';
 
 
@@ -11,7 +10,7 @@ function AccountCreation() {
     const [formData, setFormData] = useState({
         companyName: '',
         country: '',
-        address:'',
+        address: '',
         email: '',
         phone: '',
         password: ''
@@ -23,8 +22,7 @@ function AccountCreation() {
 
         const hashedPassword = await bcrypt.hash(formData.password, 10);
 
-        const formDataWithHashedPassword = { ...formData, password: hashedPassword };
-        console.log(formDataWithHashedPassword)
+        const formDataWithHashedPassword = {...formData, password: hashedPassword};
         try {
             const response = await axios.post('API/client/new', formDataWithHashedPassword);
             console.log('Request sent successfully:', response.data);
@@ -36,7 +34,7 @@ function AccountCreation() {
     };
 
     return (
-            <div className="">
+        <div className="">
             <div className="min-h-screen flex">
                 <div
                     className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
@@ -47,7 +45,7 @@ function AccountCreation() {
                             className="absolute bg-gradient-to-b from-sky-500 to-gray-900 opacity-70 inset-0 z-0"></div>
                         <div className="absolute triangle min-h-screen right-0 w-16"></div>
 
-                        <img
+                        <img alt={"Image"}
                             src="https://jasper-pimstorage-skullcandy.s3.us-west-1.amazonaws.com/bd2253a9671dac36a95faf821b52e78935050140be1718ce001f6aace45cf25c.png"
                             className="h-96 absolute right-5 mr-5"/>
                         <div className="w-full  max-w-md z-10">
@@ -55,7 +53,8 @@ function AccountCreation() {
                                 THE WEBSITE FOR OUR PARTNER
                             </div>
                             <div className="sm:text-sm xl:text-md text-gray-200 font-normal">
-                                To become a partner, you must apply with the following form. Your application need to be checked and approved in order to access all the catalog in our website.
+                                To become a partner, you must apply with the following form. Your application need to be
+                                checked and approved in order to access all the catalog in our website.
 
                             </div>
                         </div>
@@ -88,16 +87,16 @@ function AccountCreation() {
                                         <input required
                                                name="companyName"
                                                value={formData.companyName}
-                                               onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                                               onChange={(e) => setFormData({...formData, companyName: e.target.value})}
                                                className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
                                                type="text" placeholder="Company Name"/>
                                     </div>
                                     <select id="country"
                                             name="country"
                                             value={formData.country}
-                                            onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                                            onChange={(e) => setFormData({...formData, country: e.target.value})}
                                             className="appearance-none w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
-                                            style={{ color: formData.country ? 'black' : 'gray' }}>
+                                            style={{color: formData.country ? 'black' : 'gray'}}>
                                         <option value="" disabled selected hidden>Select Country</option>
                                         <option value="260">Belgium</option>
                                         <option value="389">Netherlands</option>
@@ -107,7 +106,7 @@ function AccountCreation() {
                                     <input required
                                            name="address"
                                            value={formData.address}
-                                           onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                                           onChange={(e) => setFormData({...formData, address: e.target.value})}
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                            type="text" placeholder="Address"/>
                                 </div>
@@ -116,7 +115,7 @@ function AccountCreation() {
                                         <input required
                                                name="email"
                                                value={formData.email}
-                                               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                               onChange={(e) => setFormData({...formData, email: e.target.value})}
                                                className="w-full content-center text-base px-4 py-2 border border-gray-200 rounded-2xl focus:outline-none focus:border-sky-400 transition ease-in duration-200"
                                                type="email" placeholder="Email"/>
                                     </div>
@@ -124,7 +123,7 @@ function AccountCreation() {
                                         <input required
                                                name="phone"
                                                value={formData.phone}
-                                               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                               onChange={(e) => setFormData({...formData, phone: e.target.value})}
                                                className=" w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                                type="tel" placeholder="Phone Number"/>
                                     </div>
@@ -134,7 +133,7 @@ function AccountCreation() {
                                            id="password"
                                            name="password"
                                            value={formData.password}
-                                           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                           onChange={(e) => setFormData({...formData, password: e.target.value})}
                                            className="w-full text-base px-4 py-2 border border-gray-200 focus:outline-none rounded-2xl focus:border-sky-400 transition ease-in duration-200"
                                            type="password" placeholder="Password"/>
                                 </div>
@@ -155,7 +154,7 @@ function AccountCreation() {
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     );
 }
 

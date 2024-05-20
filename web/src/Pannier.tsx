@@ -1,11 +1,11 @@
 import React, {useState, useEffect, SetStateAction, Dispatch} from 'react';
 import './Pannier.css';
-import BannierePartner from './BannierePartner'
 import axios from 'axios';
 
-export function calculateTotalPrice({ quantity, price }: { quantity: any, price: any }) {
-    if ((quantity * price) > 0) {
-        return quantity * price;
+export function calculateTotalPrice({quantity, price}: { quantity: any, price: any }) {
+    const totalPrice = quantity * price;
+    if (totalPrice > 0) {
+        return totalPrice.toFixed(2); // Limiter à deux décimales
     } else {
         return 0;
     }
@@ -51,6 +51,7 @@ export async function handleQuantityChange(
 
 function Pannier() {
     const [data, setData] = useState<any[]>([]);
+    //const [ID, setID] = useState<any[]>([]);
     const [quantities, setQuantities] = useState<number[]>([]);
 
     useEffect(() => {
@@ -66,6 +67,24 @@ function Pannier() {
 
         fetchData();
     }, []);
+
+    /*useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('API/cart/ID');
+                let ID = response.data[0].ID_Shopping_Cart
+                setID(ID);
+            } catch (error) {
+                // Gérer les erreurs, par exemple :
+                console.error('Erreur lors de la récupération des données:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+*/
+
+    //console.log(ID)
 
     // Utiliser useEffect pour mettre à jour quantities lorsque data change
     useEffect(() => {
@@ -86,6 +105,51 @@ function Pannier() {
             console.error("Error removing item:", error);
         }
     };
+
+    const proceedCheckout = async () => {
+        const currentDate = new Date();
+
+        const oneWeekLater = new Date(currentDate);
+        oneWeekLater.setDate(oneWeekLater.getDate() + 7);
+
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const year = String(currentDate.getFullYear()).slice(-2); // Récupère les deux derniers chiffres de l'année
+
+        const sevenDay = String(oneWeekLater.getDate()).padStart(2, '0');
+        const sevenMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        const sevenYear = String(currentDate.getFullYear()).slice(-2); // Récupère les deux derniers chiffres de l'année
+
+        const Price = data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({
+            quantity: quantities[index],
+            price: item.Single_Price
+        }) as string), 0).toFixed(2);
+        console.log(Price)
+        const Order_Date = `${year}/${month}/${day}`;
+
+        const Availability_Date = `${sevenYear}/${sevenMonth}/${sevenDay}`;
+
+        try {
+            await axios.post(`API/order/add`, {Order_Date, Availability_Date, Price});
+        } catch (error) {
+            console.error("Error placing order:", error);
+        }
+    };
+
+    const deleteItems = async (ID_Shopping_Cart: number) => {
+        try {
+            await axios.delete(`API/cart/delete-all/${ID_Shopping_Cart}`)
+        } catch (error) {
+            console.error("Error placing order:", error);
+        }
+    }
+
+
+    const handleCheckout = (ID_Shopping_Cart: number) => {
+        proceedCheckout();
+        deleteItems(ID_Shopping_Cart);
+    }
+
 
     return (
         <div>
@@ -115,7 +179,8 @@ function Pannier() {
                                         <img className="h-24" src="#" alt=""/>
                                     </div>
                                     <div className="flex ml-4">
-                                        <a href={`/Article/${item.ID_Article}`} className="w-2/5 flex-grow">{item.Name}</a>
+                                        <a href={`/Article/${item.ID_Article}`}
+                                           className="w-2/5 flex-grow">{item.Name}</a>
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-center items-center w-1/5 space-y-1">
@@ -134,30 +199,42 @@ function Pannier() {
                                     />
                                 </div>
                                 <div className="flex flex-col justify-center items-center w-1/5 space-y-1">
-                                    <p className="">${calculateTotalPrice({
+                                    <p className="">
+                                        ${parseFloat(calculateTotalPrice({
                                         quantity: quantities[index],
                                         price: item.Single_Price
-                                    })}</p>
-                                    <p className="text-gray-400">${calculateTotalPrice({
-                                        quantity: quantities[index],
-                                        price: item.Single_Price
-                                    }) - (21 / 100 * calculateTotalPrice({ quantity: quantities[index], price: item.Single_Price }))}</p>
+                                    }) as string).toFixed(2)}
+                                    </p>
+                                    <p className="text-gray-400">
+                                        ${(
+                                        parseFloat(calculateTotalPrice({
+                                            quantity: quantities[index],
+                                            price: item.Single_Price
+                                        }) as string) - (0.21 * parseFloat(calculateTotalPrice({
+                                            quantity: quantities[index],
+                                            price: item.Single_Price
+                                        }) as string))
+                                    ).toFixed(2)}
+                                    </p>
                                 </div>
                                 <div className="flex w-1/5 items-center justify-center">
-                                    <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)} className=" text-gray-400 text-xl hover:text-red-500 h-8 w-8">X</button>
+                                    <button onClick={() => handleRemoveItem(item.ID_Article, item.ID_Shopping_Cart)}
+                                            className=" text-gray-400 text-xl hover:text-red-500 h-8 w-8">X
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     ))
                 )}
                 <div className="flex justify-end">
-                    <div className="flex flex-col p-5 mt-10 border rounded-xl w-9/12 max-w-96 md:w-96 xl:mr-14 shadow-lg">
+                    <div
+                        className="flex flex-col p-5 mt-10 border rounded-xl w-9/12 max-w-96 md:w-96 xl:mr-14 shadow-lg">
                         <div className="font-semibold flex justify-between">
                             <p>Subtotal</p>
-                            <p>$ {data.reduce((total, item, index) => total + calculateTotalPrice({
+                            <p>$ {data.reduce((total, item, index) => total + parseFloat(calculateTotalPrice({
                                 quantity: quantities[index],
                                 price: item.Single_Price
-                            }), 0)}</p>
+                            }) as string), 0).toFixed(2)}</p>
                         </div>
                         <div className="flex justify-between text-gray-500">
                             <p>VAT excl.</p>
@@ -165,10 +242,11 @@ function Pannier() {
                                 const totalPriceWithoutVAT = item.Single_Price - (0.21 * item.Single_Price);
                                 const totalItemPrice = totalPriceWithoutVAT * quantities[index];
                                 return total + totalItemPrice;
-                            }, 0)}</p>
+                            }, 0).toFixed(2)}</p>
                         </div>
                         <div className="flex justify-center mt-8">
                             <button
+                                onClick={() => handleCheckout(data[0].ID_Shopping_Cart)}
                                 className="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-sky-400  duration-500 before:duration-500 hover:duration-500  hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur  origin-left relative bg-sky-500 hover:bg-white border-4 border-sky-100 h-16 w-64 text-left p-3 text-white hover:text-sky-500 font-bold rounded-xl  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-sky-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-orange-400 after:right-8 after:top-3 after:rounded-full after:blur-lg">
                                 Checkout
                             </button>

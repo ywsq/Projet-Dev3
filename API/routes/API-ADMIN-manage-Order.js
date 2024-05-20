@@ -3,10 +3,17 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 
 // Get all orders data
-router.get("/all",(req, res) => {
+router.get("/all", (req, res) => {
     let sql = "SELECT * FROM tb_orders";
     connection.query(sql, function (err, result) {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 
@@ -20,7 +27,14 @@ router.delete("/delete/:id", (req, res) => {
 
     // Execute SQL request
     connection.query(sql, [orderId], (err, result) => {
-        res.send(result);
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
     });
 });
 

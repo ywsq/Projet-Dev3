@@ -26,7 +26,7 @@ const authenticateJWT = async (req, res, next) => {
                         // get ID user
                         clientID = jwt.decode(token).clientID
 
-                        const newAccessToken = jwt.sign({ 'email':email, 'clientID':clientID}, accessTokenSecret, { expiresIn: '30s' });
+                        const newAccessToken = jwt.sign({ 'email':email, 'clientID':clientID}, accessTokenSecret, { expiresIn: '1h' });
                         const newRefreshToken = jwt.sign({ 'email':email, 'clientID':clientID}, refreshTokenSecret, { expiresIn: '1D' });
 
                         // Replace the old refresh token with a new one and send it back
