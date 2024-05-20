@@ -4,6 +4,39 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 const authenticateJWT = require("../middlewares/authenticateJWT");
+const nodemailer = require('nodemailer');
+
+const sender = "gaetan.carbonnelle1@gmail.com";
+const password = "hsot ijrh dbud rfef";
+
+async function sendEmail(email) {
+    const recipients = [sender, email];
+
+    // Créer un transporteur SMTP
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: sender,
+            pass: password
+        }
+    });
+
+    // Définir le contenu de l'email
+    let mailOptions = {
+        from: sender,
+        to: recipients.join(', '),
+        subject: "Successful account creation on StarMobile",
+        text: `Hello ${email},\n\n You have successfully create your account on StarMobile webpage, \n Please wait for the admin to accept you. \n\n StarMobile`
+    };
+
+    try {
+        // Envoyer l'email
+        let info = await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
+}
+
 
 
 router.get('/', authenticateJWT, async (req, res) => {
@@ -86,6 +119,7 @@ router.post('/login', async (req, res) => {
                     'email': email,
                     'clientID': clientID
                 }, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', {expiresIn: '1D'});
+
                 return res.json({auth_token, refresh_auth_token, isAdmin});
             } else {
                 // Si les mots de passe ne correspondent pas, renvoyer une réponse d'erreur
@@ -148,8 +182,12 @@ router.post("/new", (req, res) => {
                                     console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
                                     res.status(500).send("Erreur lors de l'insertion dans la table 'tb_cart_client_link'.");
                                 } else {
-                                    console.log("le cart à été ajouter avec succes !");
+                                    console.log(`Le client ${companyName} à été ajouter à la DB avec succes !`);
+                                    // envoyer le mail
+                                    // @ts-ignore
+                                    sendEmail(email);
 
+                                    //validation final
                                     res.status(200).send("Nouveau client ajouté avec succès !");
                                 }
                             })

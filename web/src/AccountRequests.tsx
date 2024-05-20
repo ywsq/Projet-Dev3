@@ -29,9 +29,13 @@ function AccountRequests() {
         fetchData();
     }, [filter]);
 
-    const handleClickAcceptRequest = async (clientId: number) => {
+    const handleClickAcceptRequest = async (clientId: number, email: string) => {
         try {
-            await axios.put(`API/admin/manage-accounts/new-accept/${clientId}`);
+            const requestData = {
+                email: email // assuming your server expects the email field
+            };
+
+            await axios.put(`API/admin/manage-accounts/new-accept/${clientId}`, requestData);
             console.log('Data updated successfully');
             fetchData();
         } catch (error) {
@@ -99,14 +103,14 @@ function AccountRequests() {
                                         <p>Refused</p>
                                     </div>
                                     <button type="button"
-                                            onClick={() => handleClickAcceptRequest(item.ID_Client)}
+                                            onClick={() => handleClickAcceptRequest(item.ID_Client, item.Mail_Address)}
                                             className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Accept
                                     </button>
                                 </div>
                             ) : filter === 'Waiting' ? (
                                 <div className="p-3 px-5 flex items-center space-x-3">
                                     <button type="button"
-                                            onClick={() => handleClickAcceptRequest(item.ID_Client)}
+                                            onClick={() => handleClickAcceptRequest(item.ID_Client, item.Mail_Address)}
                                             className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Accept
                                     </button>
                                     <button type="button"
@@ -124,7 +128,7 @@ function AccountRequests() {
                             ) : (
                                 <div className="p-3 px-5 flex items-center space-x-10">
                                     <button type="button"
-                                            onClick={() => handleClickAcceptRequest(item.ID_Client)}
+                                            onClick={() => handleClickAcceptRequest(item.ID_Client, item.Mail_Address)}
                                             className="font-semibold bg-white border-2 border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-200 py-1 px-4 rounded-xl">Accept
                                     </button>
                                 </div>

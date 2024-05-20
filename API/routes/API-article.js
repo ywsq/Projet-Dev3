@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
+const authenticateJWT = require("../middlewares/authenticateJWT");
 
 
 router.get("/all-categories", (req, res) => {
@@ -112,7 +113,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.put("/editingArticle/:id", (req, res) => {
+router.put("/editingArticle/:id", authenticateJWT,(req, res) => {
     const id = req.params.id;
     const {Image, Name, Stock, Single_Price} = req.body;
 
