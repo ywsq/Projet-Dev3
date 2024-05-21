@@ -19,7 +19,7 @@ function SideBar() {
                 <Link to="/AdminHome">
                     <img className="w-10 h-10 mb-5" src={logo} alt=""/>
                 </Link>
-                <Link to="/AdminHome"
+                <Link to="/"
                       className="p-1.5 text-gray-700 focus:outline-nones transition-colors duration-200 rounded-xl dark:text-gray-200 dark:bg-gray-800 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                          className="w-7 h-7 hover:scale-125 duration-200 fill-current text-gray-400 hover:text-sky-500">

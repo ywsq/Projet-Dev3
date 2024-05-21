@@ -1127,6 +1127,16 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"

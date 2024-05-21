@@ -76,7 +76,7 @@ const AppContainer = () => {
                     {/* Routes pour les administrateurs */}
                     {admin && (
                         <>
-                            <Route path="/AdminHome" element={<AdminHome/>}/>
+                            <Route path="/" element={<AdminHome/>}/>
                             <Route path="/Cart" element={<App/>}/>
                             <Route path="/Products" element={<Products/>}/>
                             <Route path="/Article/:id" element={<Article/>}/>

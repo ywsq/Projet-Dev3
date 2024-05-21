@@ -31,7 +31,7 @@ function Login() {
                 localStorage.setItem('refresh_auth_token', response.data.refresh_auth_token);
                 const isAdmin = response.data.isAdmin;
                 if (isAdmin) {
-                    navigate("/AdminHome");
+                    navigate("/");
                     window.location.reload();
                 } else {
                     navigate("/CustomerLanding");

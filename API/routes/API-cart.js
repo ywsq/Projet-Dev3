@@ -161,19 +161,21 @@ router.get("/ID", (req, res) => {
 });
 
 router.get("/admin/:id", (req, res) => {
-    const clientID = req.params.id;
-    let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
-    connection.query(sql, function (err, result) {
+    const orderID = req.params.id;
+    // Utilisation de paramètres préparés pour sécuriser la requête
+    let sql = "SELECT * FROM tb_orders NATURAL JOIN tb_article_order_link NATURAL JOIN tb_articles where  ID_Orders = ?;";
+    connection.query(sql, [orderID], function (err, result) {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
             console.error("Error retrieving shopping cart content:", err);
-            res.status(500).json({error: "Error retrieving shopping cart content from the database"});
+            res.status(500).json({ error: "Error retrieving shopping cart content from the database" });
         } else {
             // Si la requête s'est exécutée avec succès, renvoyer les données du panier d'achat
             res.status(200).json(result);
         }
     });
 });
+
 
 
 module.exports = router;
