@@ -17,6 +17,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -48,6 +58,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -73,6 +93,9 @@
           "401": {
             "description": "Unauthorized"
           },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -83,6 +106,16 @@
       "post": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -114,6 +147,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -126,6 +162,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -157,6 +203,9 @@
           "200": {
             "description": "OK"
           },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -167,6 +216,16 @@
       "put": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -206,11 +265,17 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "401": {
             "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -218,9 +283,27 @@
     "/API/article/all-categories": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -234,11 +317,24 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -249,9 +345,27 @@
     "/API/article/all": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -259,9 +373,27 @@
     "/API/article/articlesDetails": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -275,11 +407,27 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -293,11 +441,27 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -313,6 +477,26 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "refresh_auth_token",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -328,6 +512,9 @@
                   "example": "any"
                 },
                 "Single_Price": {
+                  "example": "any"
+                },
+                "user": {
                   "example": "any"
                 }
               }
@@ -338,59 +525,11 @@
           "200": {
             "description": "OK"
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/API/article/addArticle": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "Image": {
-                  "example": "any"
-                },
-                "ID_Category": {
-                  "example": "any"
-                },
-                "ID_Brand": {
-                  "example": "any"
-                },
-                "Name": {
-                  "example": "any"
-                },
-                "Small_Description": {
-                  "example": "any"
-                },
-                "Description": {
-                  "example": "any"
-                },
-                "Single_Price": {
-                  "example": "any"
-                },
-                "Min_To_Buy": {
-                  "example": "any"
-                },
-                "Stock": {
-                  "example": "any"
-                },
-                "On_Market": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -402,6 +541,16 @@
       "get": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -429,6 +578,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -454,6 +613,16 @@
       "post": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -503,6 +672,60 @@
         }
       }
     },
+    "/API/order/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/API/cart/update/{cartId}/{articleId}": {
       "put": {
         "description": "",
@@ -517,6 +740,16 @@
             "name": "articleId",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
             "type": "string"
           },
           {
@@ -579,6 +812,70 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/cart/delete-all/{cartId}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -616,6 +913,16 @@
       "post": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -664,6 +971,52 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/cart/ID": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -696,6 +1049,16 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -722,6 +1085,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -736,6 +1109,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -748,6 +1124,16 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
             "type": "string"
           },
           {
@@ -777,6 +1163,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -786,6 +1175,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -800,6 +1199,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -809,6 +1211,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -823,6 +1235,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -832,28 +1247,15 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
+            "name": "origin",
             "in": "header",
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "401": {
-            "description": "Unauthorized"
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
           },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/API/admin/manage-accounts/refused": {
-      "get": {
-        "description": "",
-        "parameters": [
           {
             "name": "authorization",
             "in": "header",
@@ -869,6 +1271,45 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/admin/manage-accounts/refused": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -877,6 +1318,16 @@
       "get": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -904,28 +1355,15 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
+            "name": "origin",
             "in": "header",
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "401": {
-            "description": "Unauthorized"
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
           },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/API/admin/manage-accounts/admin-team": {
-      "get": {
-        "description": "",
-        "parameters": [
           {
             "name": "authorization",
             "in": "header",
@@ -941,6 +1379,45 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/API/admin/manage-accounts/admin-team": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -956,6 +1433,16 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -967,6 +1454,9 @@
               "type": "object",
               "properties": {
                 "user": {
+                  "example": "any"
+                },
+                "email": {
                   "example": "any"
                 }
               }
@@ -997,6 +1487,16 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
             "type": "string"
           },
           {
@@ -1044,6 +1544,16 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -1088,6 +1598,16 @@
             "type": "string"
           },
           {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -1125,6 +1645,16 @@
       "post": {
         "description": "",
         "parameters": [
+          {
+            "name": "origin",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "referer",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",

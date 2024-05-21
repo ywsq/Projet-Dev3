@@ -9,7 +9,6 @@ function AdminHome() {
     const [dataAdmin, setDataAdmin] = useState<any[]>([]);
     const [dataRequests, setDataRequests] = useState<any[]>([]);
     const [dataArticle, setDataArticle] = useState<any[]>([]);
-    const [dataOrder, setDataOrder] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,22 +23,9 @@ function AdminHome() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('API/order/');
-                setDataOrder(response.data);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
     const fetchDataArticle = async () => {
         try {
-            const response = await axios.get('API/article/all');
+            const response = await axios.get('API/article/articlesDetails');
             setDataArticle(response.data);
         } catch (error) {
             // Gérer les erreurs, par exemple :
@@ -99,7 +85,7 @@ function AdminHome() {
                         <div className="h-1/2 bg-sky-500 p-5 shadow-xl rounded-xl">
                             <h2 className="text-white text-2xl font-extrabold">Orders</h2>
                             <div className="flex items-end justify-between">
-                                <p className="text-8xl text-white">{dataOrder.length}</p>
+                                <p className="text-8xl text-white">4</p>
                                 <Link className="mb-3 flex items-center justify-center w-28 h-10 text-2xl bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
                                       to="/AdminOrders">GO</Link>
                             </div>

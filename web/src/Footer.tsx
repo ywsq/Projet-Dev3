@@ -16,7 +16,8 @@ function Footer() {
                         Contact</a>
                 </div>
             </div>
-            <p className="flex items-center text-slate-500 justify-center select-none">&copy; Copyright 2024 Star Mobile All Rights Reserved.</p>
+            <p className="flex items-center text-slate-500 justify-center select-none">&copy; Copyright 2024 Star Mobile
+                All Rights Reserved.</p>
         </footer>
     );
 }
