@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import SideBar from "./sideBar";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function AdminHome() {
@@ -9,6 +9,8 @@ function AdminHome() {
     const [dataAdmin, setDataAdmin] = useState<any[]>([]);
     const [dataRequests, setDataRequests] = useState<any[]>([]);
     const [dataArticle, setDataArticle] = useState<any[]>([]);
+    const [dataOrder, setDataOrder] = useState<any[]>([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,9 +25,22 @@ function AdminHome() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('API/order/');
+                setDataOrder(response.data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const fetchDataArticle = async () => {
         try {
-            const response = await axios.get('API/article/articlesDetails');
+            const response = await axios.get('API/article/all');
             setDataArticle(response.data);
         } catch (error) {
             // Gérer les erreurs, par exemple :
@@ -78,18 +93,16 @@ function AdminHome() {
                             <h2 className="text-white text-2xl font-extrabold">Products</h2>
                             <div className="flex items-end justify-between">
                                 <p className="text-8xl text-white">{dataArticle.length}</p>
-                                <Link
-                                    className="mb-3 flex items-center justify-center w-28 h-10 text-2xl bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
-                                    to="/AdminProducts">GO</Link>
+                                <Link className="mb-3 flex items-center justify-center w-28 h-10 text-2xl bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
+                                      to="/AdminProducts">GO</Link>
                             </div>
                         </div>
                         <div className="h-1/2 bg-sky-500 p-5 shadow-xl rounded-xl">
                             <h2 className="text-white text-2xl font-extrabold">Orders</h2>
                             <div className="flex items-end justify-between">
-                                <p className="text-8xl text-white">4</p>
-                                <Link
-                                    className="mb-3 flex items-center justify-center w-28 h-10 text-2xl bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
-                                    to="/AdminOrders">GO</Link>
+                                <p className="text-8xl text-white">{dataOrder.length}</p>
+                                <Link className="mb-3 flex items-center justify-center w-28 h-10 text-2xl bg-white border-2 border-sky-500 text-sky-500 font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
+                                      to="/AdminOrders">GO</Link>
                             </div>
                         </div>
                     </div>
@@ -109,9 +122,8 @@ function AdminHome() {
                             ))}
                         </div>
                         <div className="flex justify-end">
-                            <Link
-                                className="mt-auto flex items-center justify-center w-28 h-10 text-2xl bg-sky-500 border-2 border-sky-500 text-white font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
-                                to="/AdminCustomers">GO</Link>
+                            <Link className="mt-auto flex items-center justify-center w-28 h-10 text-2xl bg-sky-500 border-2 border-sky-500 text-white font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
+                                  to="/AdminCustomers">GO</Link>
                         </div>
                     </div>
                 </div>
@@ -136,11 +148,9 @@ function AdminHome() {
                             )}
                         </div>
                         <div className="flex justify-end">
-                            <Link
-                                className="mt-auto flex items-center justify-center w-28 h-10 text-2xl bg-sky-500 border-2 border-sky-500 text-white font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
-                                to="/AccountRequests">GO</Link>
-                        </div>
-                    </div>
+                            <Link className="mt-auto flex items-center justify-center w-28 h-10 text-2xl bg-sky-500 border-2 border-sky-500 text-white font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
+                                  to="/AccountRequests">GO</Link>
+                        </div>                    </div>
                     <div className="w-1/2 h-96 p-5 shadow-xl rounded-xl flex flex-col justify-between">
                         <h2 className=" text-2xl font-extrabold">Admins ({dataAdmin.length})</h2>
                         <div className="overflow-auto space-y-4 my-4 whitespace-nowrap">
@@ -157,9 +167,8 @@ function AdminHome() {
                             ))}
                         </div>
                         <div className="flex justify-end">
-                            <Link
-                                className="mt-auto flex items-center justify-center w-28 h-10 text-2xl bg-sky-500 border-2 border-sky-500 text-white font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
-                                to="/AdminManagement">GO</Link>
+                            <Link className="mt-auto flex items-center justify-center w-28 h-10 text-2xl bg-sky-500 border-2 border-sky-500 text-white font-semibold hover:bg-sky-500 hover:text-white hover:ring-4 hover:ring-sky-200 transition duration-300 rounded-2xl text-center"
+                                  to="/AdminManagement">GO</Link>
                         </div>
                     </div>
                 </div>
