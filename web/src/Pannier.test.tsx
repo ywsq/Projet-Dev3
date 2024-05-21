@@ -1,43 +1,43 @@
 import React from 'react';
 
-import { render, fireEvent, screen } from '@testing-library/react';
+import {render} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Pannier, { calculateTotalPrice, handleQuantityChange } from './Pannier';
+import Pannier, {calculateTotalPrice, handleQuantityChange} from './Pannier';
 
 
 describe('calculateTotalPrice', () => {
     test('should calculate total price correctly when quantity and price are positive integers', () => {
-        const totalPrice = calculateTotalPrice({ quantity: 5, price: 10 });
+        const totalPrice = calculateTotalPrice({quantity: 5, price: 10});
         expect(totalPrice).toBe(50); // 5 * 10 = 50
     });
 
     test('should handle quantity as zero', () => {
-        const totalPrice = calculateTotalPrice({ quantity: 0, price: 10 });
+        const totalPrice = calculateTotalPrice({quantity: 0, price: 10});
         expect(totalPrice).toBe(0); // 0 * 10 = 0
     });
 
     test('should handle price as zero', () => {
-        const totalPrice = calculateTotalPrice({ quantity: 5, price: 0 });
+        const totalPrice = calculateTotalPrice({quantity: 5, price: 0});
         expect(totalPrice).toBe(0); // 5 * 0 = 0
     });
 
     test('should handle negative quantity by returning zero', () => {
-        const totalPrice = calculateTotalPrice({ quantity: -5, price: 10 });
+        const totalPrice = calculateTotalPrice({quantity: -5, price: 10});
         expect(totalPrice).toBe(0); // -5 * 10 = -50, but should return 0
     });
 
     test('should handle negative price by returning zero', () => {
-        const totalPrice = calculateTotalPrice({ quantity: 5, price: -10 });
+        const totalPrice = calculateTotalPrice({quantity: 5, price: -10});
         expect(totalPrice).toBe(0); // 5 * -10 = -50, but should return 0
     });
 
     test('should handle quantity as string by parsing it to integer', () => {
-        const totalPrice = calculateTotalPrice({ quantity: '5', price: 10 });
+        const totalPrice = calculateTotalPrice({quantity: '5', price: 10});
         expect(totalPrice).toBe(50); // 5 * 10 = 50
     });
 
     test('should handle price as string by parsing it to integer', () => {
-        const totalPrice = calculateTotalPrice({ quantity: 5, price: '10' });
+        const totalPrice = calculateTotalPrice({quantity: 5, price: '10'});
         expect(totalPrice).toBe(50); // 5 * 10 = 50
     });
 });
@@ -105,7 +105,7 @@ describe('handleQuantityChange function', () => {
 
 describe('Pannier', () => {
     test('should display cart price', () => {
-        const { getByTestId } = render(<p data-testid="cart-item-price">Total:</p>);
+        const {getByTestId} = render(<p data-testid="cart-item-price">Total:</p>);
         const priceElement = getByTestId("cart-item-price");
         expect(priceElement.textContent).toBe("Total:");
     });

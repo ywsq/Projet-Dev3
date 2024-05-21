@@ -45,15 +45,16 @@ router.get("/all", (req, res) => {
 router.post("/add", (req, res) => {
     // Supposons que vous receviez les données nécessaires dans le corps de la requête
     const {Order_Date, Availability_Date, Price} = req.body;
+    const status = "In review"
 
     const authHeader = req.headers.authorization;
 
     const token = authHeader.split(' ')[1];
     const clientID = jwt.decode(token).clientID;
 
-    let sqlCreateOrder = "INSERT INTO tb_orders (ID_client, Order_Date, Availability_Date, Price) VALUES (?, ?, ?, ?);";
+    let sqlCreateOrder = "INSERT INTO tb_orders (ID_client, Order_Date, Availability_Date, Price, Status) VALUES (?, ?, ?, ?, ?);";
 
-    connection.query(sqlCreateOrder, [clientID, Order_Date, Availability_Date, Price], function (err, result) {
+    connection.query(sqlCreateOrder, [clientID, Order_Date, Availability_Date, Price, status], function (err, result) {
         if (err) {
             console.error("Erreur lors de la création de la commande : ", err);
             res.status(400).send("Erreur lors de l'insertion dans la base de données.");
@@ -73,7 +74,7 @@ router.post("/add", (req, res) => {
                             cartResults.forEach(cartItem => {
                                 let articleID = cartItem["ID_Article"];
                                 let amount = cartItem["Amount"];
-                                let sqlInsertArticleOrderLink = "INSERT INTO tb_article_order_link (ID_Orders, ID_Article, Amount) VALUES (?, ?, ?);";
+                                let sqlInsertArticleOrderLink = "INSERT INTO tb_article_order_link (ID_Orders, ID_Article, Amount, Status) VALUES (?, ?, ?);";
                                 connection.query(sqlInsertArticleOrderLink, [orderID, articleID, amount], function (err, insertResult) {
                                     if (err) {
                                         console.error("Erreur lors de l'insertion de l'article dans le lien de commande : ", err);

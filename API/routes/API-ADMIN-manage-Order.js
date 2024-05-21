@@ -19,11 +19,31 @@ router.get("/all", (req, res) => {
 
 
 // Delete an order by its ID
-router.delete("/delete/:id", (req, res) => {
+router.put("/cancel/:id", (req, res) => {
     const orderId = req.params.id;
 
     // SQL request to delete the order from database
-    const sql = "DELETE FROM tb_orders WHERE ID_Order = ?";
+    const sql = "UPDATE tb_orders SET Status = 'Cancel' WHERE ID_Orders = ?;";
+
+    // Execute SQL request
+    connection.query(sql, [orderId], (err, result) => {
+        if (err) {
+            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            console.error("Error retrieving data from the database: ", err);
+            res.status(500).json({error: "Error retrieving data from the database"});
+        } else {
+            // Si la requête s'est exécutée avec succès, renvoyer les données du client administrateur
+            res.status(200).json(result);
+        }
+    });
+});
+
+// Delete an order by its ID
+router.put("/uncancel/:id", (req, res) => {
+    const orderId = req.params.id;
+
+    // SQL request to delete the order from database
+    const sql = "UPDATE tb_orders SET Status = 'In review' WHERE ID_Orders = ?;";
 
     // Execute SQL request
     connection.query(sql, [orderId], (err, result) => {

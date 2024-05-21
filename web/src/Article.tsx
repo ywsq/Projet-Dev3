@@ -39,6 +39,20 @@ function Article() {
 
     const addArticleCart = async () => {
         try {
+            if (quantity > dataArticle[0].Stock) {
+                // Si la quantité demandée est supérieure au stock disponible
+                const AddCartElementFAIL = document.getElementById("AddCartElementFAIL");
+                const AddCartElementSUCCES = document.getElementById("AddCartElementSUCCES");
+
+                if (AddCartElementFAIL && AddCartElementSUCCES) {
+                    AddCartElementSUCCES.innerHTML = "";
+                    AddCartElementFAIL.innerHTML = "Quantity exceeds available stock";
+                }
+
+                return; // Sortir de la fonction sans envoyer la requête
+            }
+
+            // Si la quantité est valide, envoyer la requête POST pour ajouter au panier
             const response = await axios.post('/API/cart/add', {
                 'ID_Article': dataArticle[0].ID_Article,
                 'Amount': quantity
@@ -47,24 +61,21 @@ function Article() {
             const AddCartElementSUCCES = document.getElementById("AddCartElementSUCCES");
             const AddCartElementFAIL = document.getElementById("AddCartElementFAIL");
 
-
             if (AddCartElementSUCCES && AddCartElementFAIL && response.status === 200) {
-                AddCartElementFAIL.innerHTML = ""
+                AddCartElementFAIL.innerHTML = "";
                 AddCartElementSUCCES.innerHTML = "Added to Cart SUCCESSFUL";
             }
         } catch (error) {
             const AddCartElementFAIL = document.getElementById("AddCartElementFAIL");
             const AddCartElementSUCCES = document.getElementById("AddCartElementSUCCES");
 
-
             if (AddCartElementFAIL && AddCartElementSUCCES) {
                 AddCartElementSUCCES.innerHTML = "";
-                AddCartElementFAIL.innerHTML = "ALREADY added to Cart"
+                AddCartElementFAIL.innerHTML = "Error adding to Cart";
             }
-
         }
+    };
 
-    }
 
 
     return (

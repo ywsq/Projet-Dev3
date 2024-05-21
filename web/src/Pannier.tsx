@@ -145,9 +145,14 @@ function Pannier() {
     }
 
 
-    const handleCheckout = (ID_Shopping_Cart: number) => {
-        proceedCheckout();
-        deleteItems(ID_Shopping_Cart);
+    const handleCheckout = async (ID_Shopping_Cart: number) => {
+        try {
+            await proceedCheckout(); // Attend que la commande soit ajoutée
+            await deleteItems(ID_Shopping_Cart); // Efface le panier après la commande
+            await window.location.reload();
+        } catch (error) {
+            console.error("Error during checkout and deleting items:", error);
+        }
     }
 
 
