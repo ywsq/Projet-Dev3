@@ -9,7 +9,10 @@ router.use(bodyParser.json());
 
 
 router.put("/update/:cartId/:articleId", (req, res) => {
-    // Récupérer les données nécessaires de la requête
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Update the amount of article in the cart from a client'
+
+    // récupérer les données de la requête
     const {cartId, articleId} = req.params;
     const {newAmount} = req.body;
 
@@ -22,7 +25,6 @@ router.put("/update/:cartId/:articleId", (req, res) => {
     let sql = "UPDATE tb_shopping_cart_article SET Amount = ? WHERE ID_Shopping_Cart = ? AND ID_article = ?";
     let values = [newAmount, cartId, articleId];
 
-    // Exécuter la requête SQL
     connection.query(sql, values, function (err, result) {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
@@ -38,7 +40,7 @@ router.put("/update/:cartId/:articleId", (req, res) => {
                         console.error("Error retrieving updated shopping cart content:", selectErr);
                         res.status(500).json({error: "Error retrieving updated shopping cart content from the database"});
                     } else {
-                        // Si la requête s'est exécutée avec succès, renvoyer les données mises à jour du panier d'achat
+                        // si la requête s'est exécutée avec succès, renvoyer les données mises à jour du panier d'achat
                         res.status(200).json(selectResult);
                     }
                 });
@@ -51,6 +53,8 @@ router.put("/update/:cartId/:articleId", (req, res) => {
 });
 
 router.delete("/delete/:articleId/:cartId", (req, res) => {
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Delete a article in the cart from a client'
     let sql = "DELETE FROM tb_shopping_cart_article WHERE ID_Article = ? AND ID_Shopping_Cart = ?";
     connection.query(sql, [req.params.articleId, req.params.cartId], function (err, result) {
         if (err) {
@@ -64,6 +68,8 @@ router.delete("/delete/:articleId/:cartId", (req, res) => {
 });
 
 router.delete("/delete-all/:cartId", (req, res) => {
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Delete all article in the cart from a client'
     let sql = "DELETE FROM tb_shopping_cart_article WHERE  ID_Shopping_Cart = ?";
     connection.query(sql, [req.params.cartId], function (err, result) {
         if (err) {
@@ -77,7 +83,9 @@ router.delete("/delete-all/:cartId", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-    // Supposons que vous receviez les données nécessaires dans le corps de la requête
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Add a article in the cart from a client'
+
     const {ID_Article, Amount} = req.body;
 
     const authHeader = req.headers.authorization;
@@ -106,24 +114,20 @@ router.post("/add", (req, res) => {
                     res.status(200).send("Nouvel article ajouté au panier !");
                 }
             });
-
-
         }
     });
-
-
-    // Assurez-vous d'effectuer une validation des données avant l'insertion
 });
 
-// GET the user's shopping cart content
-router.get("/", (req, res) => {
 
+router.get("/", (req, res) => {
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Return cart from the client'
     const authHeader = req.headers.authorization;
 
     const token = authHeader.split(' ')[1];
     const clientID = jwt.decode(token).clientID
 
-    //rajouter quand le client est pas connecter un if aussinon la requete sql foire
+
 
     let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
     connection.query(sql, function (err, result) {
@@ -139,13 +143,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/ID", (req, res) => {
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Return cart from a client base on his ID'
 
     const authHeader = req.headers.authorization;
 
     const token = authHeader.split(' ')[1];
     const clientID = jwt.decode(token).clientID
 
-    //rajouter quand le client est pas connecter un if aussinon la requete sql foire
 
     let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
     connection.query(sql, function (err, result) {
@@ -161,6 +166,8 @@ router.get("/ID", (req, res) => {
 });
 
 router.get("/admin/:id", (req, res) => {
+    // #swagger.tags = ['carts']
+    // #swagger.summary = 'Return cart from a client base on his ID'
     const clientID = req.params.id;
     let sql = "SELECT * FROM tb_shopping_cart_article NATURAL JOIN tb_articles WHERE ID_Shopping_Cart LIKE " + clientID;
     connection.query(sql, function (err, result) {

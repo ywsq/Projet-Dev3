@@ -3,16 +3,17 @@ const swaggerAutogen = require("swagger-autogen")();
 const doc = {
     info: {
         title: "Star Mobile API",
-        description: "This API is use by the Star Mobile site",
-        version: "1.0.0" // Define a valid version field
+        description: "This API is used by the Star Mobile site",
+        version: "1.0.0"
     },
     host: "54.37.12.177:8080",
-    basePath: "/", // Base path of your API
-    schemes: ["http", "https"],
+    basePath: "54.37.12.177:8080/",
 };
 
 const outputFile = "./swagger-output.json";
 const endpointsFiles = ["./app.js"];
 
-// Generate Swagger documentation
-swaggerAutogen(outputFile, endpointsFiles, doc);
+// generate swagger documentation
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+    console.log('Swagger documentation generated');
+});

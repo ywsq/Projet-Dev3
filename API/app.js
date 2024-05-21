@@ -2,6 +2,7 @@ const express = require("express");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJson = require("./swagger-output.json");
 const swaggerDoc = require("./swagger");
+const swaggerAutogen = require('swagger-autogen')();
 const DataBaseConnection = require('./DataBaseConnection/connection.js');
 const authenticateJWT = require("./middlewares/authenticateJWT");
 const app = express();
@@ -15,11 +16,13 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
 
 
-// Middleware pour vérifier l'origine des requêtes
+// middleware pour vérifier l'origine des requêtes
 const requestOrigin = "https://localhost:3000" // en prod => https://dev3.l2-2.ephec-ti.be/
+const requestOriginDoc = "http://localhost:8080/api-docs" // en prod => http://dev3.l2-2.ephec-ti.be:8080/api-docs/
+
 app.use((req, res, next) => {
     const origin = req.headers.origin || req.headers.referer;
-    if (origin && origin.startsWith(requestOrigin)) {
+    if ((origin && origin.startsWith(requestOrigin) )|| origin && origin.startsWith(requestOriginDoc)) {
         next();
     } else {
         res.status(403).json({ message: 'Access denied: invalid origin' });
@@ -29,8 +32,8 @@ app.use((req, res, next) => {
 
 // body parser
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({extended: true}));
+
 // connect all route
 const clientAPI = require("./routes/API-client.tsx")
 const articleAPI = require("./routes/API-article.js")
@@ -48,12 +51,14 @@ app.use('/API/cart', authenticateJWT, cartAPI)
 app.use('/API/admin/manage-orders', authenticateJWT, adminManageOrderAPI) //only admin to have access
 app.use('/API/admin/manage-accounts', authenticateJWT, adminManageAccountAPI)
 
+
 app.use('/', (req, res, next) => {
     res.redirect("/api-docs");
 })
 
 
-// start your Express app
+
+// start the express app
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

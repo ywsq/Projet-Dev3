@@ -20,7 +20,7 @@ async function sendEmail(email) {
         }
     });
 
-    // Définir le contenu de l'email
+    // définir le contenu de l'email
     let mailOptions = {
         from: sender,
         to: recipients.join(', '),
@@ -29,7 +29,6 @@ async function sendEmail(email) {
     };
 
     try {
-        // Envoyer l'email
         let info = await transporter.sendMail(mailOptions);
     } catch (error) {
         console.error("Error sending email:", error);
@@ -43,7 +42,9 @@ router.use(bodyParser.json());
 
 
 router.get("/all-requests", (req, res) => {
-    // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return all accounts and there status of acceptance'
+    // requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept";
     connection.query(sql, function (err, result) {
         if (err) {
@@ -58,6 +59,8 @@ router.get("/all-requests", (req, res) => {
 });
 
 router.get("/waiting", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return all account that are waiting to be accepted by admin'
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept WHERE Accept = 0";
     connection.query(sql, function (err, result) {
@@ -73,6 +76,8 @@ router.get("/waiting", (req, res) => {
 });
 
 router.get("/accepted", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return all account that are already accepted by admin'
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept natural join tb_Login WHERE Accept = 1";
     connection.query(sql, function (err, result) {
@@ -88,6 +93,8 @@ router.get("/accepted", (req, res) => {
 });
 
 router.get("/refused", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return all account that are already redused by admin'
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_country natural join tb_clients natural join tb_clients_accept WHERE Accept = 2";
     connection.query(sql, function (err, result) {
@@ -103,6 +110,8 @@ router.get("/refused", (req, res) => {
 });
 
 router.get("/admin", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return the status of the account if he is an adminstrator'
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -129,6 +138,8 @@ router.get("/admin", (req, res) => {
 });
 
 router.get("/customers", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return all the clients that are not admin'
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
     let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND admin = 0;";
     connection.query(sql, function (err, result) {
@@ -144,8 +155,10 @@ router.get("/customers", (req, res) => {
 });
 
 router.get("/admin-team", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Return All the client that are admin'
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
-    let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND (admin = 1 OR admin LIKE 4);";
+    let sql = "SELECT * FROM tb_clienssts natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND (admin = 1 OR admin LIKE 4);";
     connection.query(sql, function (err, result) {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
@@ -159,6 +172,8 @@ router.get("/admin-team", (req, res) => {
 });
 
 router.put("/new-accept/:id", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Accept the client account base on ID'
     const clientId = req.params.id;
     const email = req.body.email;
 
@@ -176,6 +191,8 @@ router.put("/new-accept/:id", (req, res) => {
 });
 
 router.put("/new-refuse/:id", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Refuse the client account base on ID'
     const clientId = req.params.id;
 
     // Requête SQL pour mettre à jour la valeur de la colonne Accept à 1 pour le client spécifié par son ID
@@ -191,6 +208,8 @@ router.put("/new-refuse/:id", (req, res) => {
 });
 
 router.put("/new-admin/:id", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Set a new client admin base on ID'
     const clientId = req.params.id;
 
     // Requête SQL pour mettre à jour la valeur de la colonne Admin à true
@@ -206,6 +225,8 @@ router.put("/new-admin/:id", (req, res) => {
 });
 
 router.put("/not-admin/:id", (req, res) => {
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Remove the admin status from an admin client'
     const clientId = req.params.id;
 
     // Requête SQL pour mettre à jour la valeur de la colonne Admin à false
@@ -222,7 +243,8 @@ router.put("/not-admin/:id", (req, res) => {
 
 // Admin ajouté directement par l'admin sur son interface
 router.post("/addAdmin", (req, res) => {
-    // Supposons que vous receviez les données nécessaires dans le corps de la requête
+    // #swagger.tags = ['Admin accounts']
+    // #swagger.summary = 'Add a new admin dirrect from the admin page'
     const {companyName, country, address, email, phone, password} = req.body;
     // Assurez-vous d'effectuer une validation des données avant l'insertion
     let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
@@ -237,11 +259,11 @@ router.post("/addAdmin", (req, res) => {
             // Récupérer l'ID du client nouvellement inséré
             const clientId = clientResult.insertId;
 
-            // Insérer la valeur d'acceptation pour le client dans la table 'tb_clients_accept'
+            // insérer la valeur d'acceptation pour le client dans la table 'tb_clients_accept'
             let acceptSql = "INSERT INTO tb_clients_accept (ID_Client, Accept) VALUES (?, ?)";
             let acceptValues = [clientId, 1];
 
-            //insertion tableau acceptation par admin
+            // insertion tableau acceptation par admin
             connection.query(acceptSql, acceptValues, function (acceptErr, acceptResult) {
                 if (acceptErr) {
                     console.error("Erreur lors de l'insertion dans la table 'tb_clients_accept' : ", acceptErr);
