@@ -25,15 +25,36 @@ function Profile() {
     const name = data[0].Mail_Address.split('@')[0];
 
     return (
-        <div>
-            <ul>
-                <li>Name : {name}</li>
-                <li>Society Name : {data[0].Society_Name}</li>
-                <li>Mail Address : {data[0].Mail_Address}</li>
-                <li>Address : {data[0].Addresse}</li>
-                <li>Phone Number : {data[0].Phone_Number}</li>
-                <li>Country : {data[0].Country_Name}</li>
-            </ul>
+        <div className="p-10 h-screen">
+            <div className="rounded-xl flex justify-center max-w-2xl bg-white shadow-lg p-10">
+                <div className=" flex items-center w-1/4 text-4xl">{name}</div>
+                <div className="w-3/4 space-y-5">
+                    <div className="flex">
+                        <p className="w-1/2">Society Name</p>
+                        <p className="w-1/2">{data[0].Society_Name}</p>
+                    </div>
+                    <hr/>
+                    <div className="flex">
+                        <p className="w-1/2">Mail Address</p>
+                        <p className="w-1/2">{data[0].Mail_Address}</p>
+                    </div>
+                    <hr/>
+                    <div className="flex">
+                        <p className="w-1/2">Address</p>
+                        <p className="w-1/2">{data[0].Addresse}</p>
+                    </div>
+                    <hr/>
+                    <div className="flex">
+                        <p className="w-1/2">Phone Number</p>
+                        <p className="w-1/2">{data[0].Phone_Number}</p>
+                    </div>
+                    <hr/>
+                    <div className="flex">
+                        <p className="w-1/2">Country</p>
+                        <p className="w-1/2">{data[0].Country_Name}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

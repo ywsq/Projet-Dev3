@@ -55,6 +55,26 @@ function AdminOrders() {
         }
     };
 
+    const handleClickCancelData = async (ID_Order: number) => {
+        try {
+            const response = await axios.put(`/API/admin/manage-orders/cancel/${ID_Order}`);
+            setOrder(response.data);
+            window.location.reload();
+        } catch (error) {
+            console.error('Erreur lors de la récupération des données:', error);
+        }
+    };
+
+    const handleClickUnCancelData = async (ID_Order: number) => {
+        try {
+            const response = await axios.put(`/API/admin/manage-orders/uncancel/${ID_Order}`);
+            setOrder(response.data);
+            window.location.reload();
+        } catch (error) {
+            console.error('Erreur lors de la récupération des données:', error);
+        }
+    };
+
     const handleClickView = (index: number, ID_Client: number) => {
         toggleCustomerExpand(index);
         handleClickGetData(ID_Client);
@@ -107,7 +127,7 @@ function AdminOrders() {
                             <p>$ {item.Price}</p>
                         </div>
                         <div className="flex justify-center w-2/12">
-                            <p className="bg-sky-200 text-sky-900 h-fit p-1 rounded-xl">???</p>
+                            <p className="bg-sky-200 text-sky-900 h-fit p-1 rounded-xl">{item.Status}</p>
                         </div>
                         <div className="flex justify-center w-10">
                             <button className="group">
@@ -159,10 +179,10 @@ function AdminOrders() {
                     {expandedEdit[index] && (
                         <div className="w-full flex flex-col items-center  px-10 py-5">
                             <div className="w-1/2 bg-white rounded-xl p-5 border shadow-lg">
-                                <h1 className="text-lg font-semibold flex justify-center mb-4 capitalize">DELETE</h1>
+                                <h1 className="text-lg font-semibold flex justify-center mb-4 capitalize">EDIT</h1>
                                 <details className="w-full rounded-xl px-4 hover:bg-gray-100">
                                     <summary
-                                        className="flex  items-center font-semibold text-gray-700 h-14 select-none">Details
+                                        className="flex  items-center font-semibold text-gray-700 h-14 select-none">Delete
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                                              width="24"
                                              className="fill-current text-gray-700">
@@ -171,9 +191,41 @@ function AdminOrders() {
                                     </summary>
                                     <hr/>
                                     <div className="py-4">
-                                        <button onClick={() => handleClickDeleteData(item.ID_Orders)}>DELETE</button>
+                                        <button onClick={() => handleClickDeleteData(item.ID_Orders)}>Delete</button>
                                     </div>
                                 </details>
+                                {expandedEdit[index] && (item.Status == "in review") && (
+                                <details className="w-full rounded-xl px-4 hover:bg-gray-100">
+                                    <summary
+                                        className="flex  items-center font-semibold text-gray-700 h-14 select-none">Cancel
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                                             width="24"
+                                             className="fill-current text-gray-700">
+                                            <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+                                        </svg>
+                                    </summary>
+                                    <hr/>
+                                    <div className="py-4">
+                                        <button onClick={() => handleClickCancelData(item.ID_Orders)}>Cancel</button>
+                                    </div>
+                                </details>
+                                )}
+                                {expandedEdit[index] && (item.Status == "cancel") && (
+                                <details className="w-full rounded-xl px-4 hover:bg-gray-100">
+                                    <summary
+                                        className="flex  items-center font-semibold text-gray-700 h-14 select-none">UnCancel
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                                             width="24"
+                                             className="fill-current text-gray-700">
+                                            <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+                                        </svg>
+                                    </summary>
+                                    <hr/>
+                                    <div className="py-4">
+                                        <button onClick={() => handleClickUnCancelData(item.ID_Orders)}>UnCancel</button>
+                                    </div>
+                                </details>
+                                    )}
                             </div>
                         </div>
                     )}
