@@ -9,13 +9,26 @@ const port = 8080;
 
 
 const bodyParser = require('body-parser');
+
 // swagger documentation
-
-
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJson));
+
+
+
+// Middleware pour vérifier l'origine des requêtes
+const requestOrigin = "https://localhost:3000" // en prod => https://dev3.l2-2.ephec-ti.be/
+app.use((req, res, next) => {
+    const origin = req.headers.origin || req.headers.referer;
+    if (origin && origin.startsWith(requestOrigin)) {
+        next();
+    } else {
+        res.status(403).json({ message: 'Access denied: invalid origin' });
+    }
+});
+
+
 // body parser
 app.use(bodyParser.json());
-
 
 app.use(bodyParser.urlencoded({extended: true}));
 // connect all route

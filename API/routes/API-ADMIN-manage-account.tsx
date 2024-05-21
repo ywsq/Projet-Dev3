@@ -3,6 +3,41 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const nodemailer = require('nodemailer');
+
+const sender = "gaetan.carbonnelle1@gmail.com";
+const password = "hsot ijrh dbud rfef";
+
+async function sendEmail(email) {
+    const recipients = [sender, email];
+
+    // Créer un transporteur SMTP
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: sender,
+            pass: password
+        }
+    });
+
+    // Définir le contenu de l'email
+    let mailOptions = {
+        from: sender,
+        to: recipients.join(', '),
+        subject: "Email accepted on StarMobile",
+        text: `Congratulations,\n\n Your account (${email}) have been accepted by the admin !\n\n StarMobile`
+    };
+
+    try {
+        // Envoyer l'email
+        let info = await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
+}
+
+
+
 
 router.use(bodyParser.json());
 
@@ -125,6 +160,7 @@ router.get("/admin-team", (req, res) => {
 
 router.put("/new-accept/:id", (req, res) => {
     const clientId = req.params.id;
+    const email = req.body.email;
 
     // Requête SQL pour mettre à jour la valeur de la colonne Accept à 1 pour le client spécifié par son ID
     let sql = "UPDATE tb_clients_accept SET Accept = 1 WHERE ID_Client = ?";
@@ -133,6 +169,7 @@ router.put("/new-accept/:id", (req, res) => {
             console.error("Error updating client acceptance:", err);
             res.status(500).send("Error updating client acceptance");
         } else {
+            sendEmail(email)
             res.status(200).send("Client acceptance updated successfully");
         }
     });
