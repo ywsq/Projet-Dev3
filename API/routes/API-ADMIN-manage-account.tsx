@@ -158,7 +158,7 @@ router.get("/admin-team", (req, res) => {
     // #swagger.tags = ['Admin accounts']
     // #swagger.summary = 'Return All the client that are admin'
     // Requête SQL pour récupérer toutes les données de la table tb_clients_accept où Accept = 0
-    let sql = "SELECT * FROM tb_clienssts natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND (admin = 1 OR admin LIKE 4);";
+    let sql = "SELECT * FROM tb_clients natural join tb_clients_accept natural join tb_Login natural join tb_country WHERE Accept = 1 AND (admin = 1 OR admin LIKE 4);";
     connection.query(sql, function (err, result) {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié

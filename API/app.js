@@ -5,6 +5,7 @@ const swaggerDoc = require("./swagger");
 const swaggerAutogen = require('swagger-autogen')();
 const DataBaseConnection = require('./DataBaseConnection/connection.js');
 const authenticateJWT = require("./middlewares/authenticateJWT");
+
 const app = express();
 const port = 8080;
 

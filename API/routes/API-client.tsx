@@ -5,6 +5,7 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 const authenticateJWT = require("../middlewares/authenticateJWT");
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv').config({ path: '../.env' })
 
 const sender = "gaetan.carbonnelle1@gmail.com";
 const password = "hsot ijrh dbud rfef";
@@ -123,11 +124,11 @@ router.post('/login', async (req, res) => {
                 const auth_token = jwt.sign({
                     'email': email,
                     'clientID': clientID
-                }, 'Votre_Clef_Secrète_pour_le_JWT', {expiresIn: '1h'});
+                }, process.env.JWTaccessTokenSecret, {expiresIn: '1h'});
                 const refresh_auth_token = jwt.sign({
                     'email': email,
                     'clientID': clientID
-                }, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', {expiresIn: '1D'});
+                }, process.env.JWTrefreshTokenSecret, {expiresIn: '1D'});
 
                 return res.json({auth_token, refresh_auth_token, isAdmin});
             } else {
