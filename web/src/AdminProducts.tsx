@@ -29,6 +29,7 @@ function AdminProducts() {
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
     const indexOfLastArticle = currentPage * articlesPerPage;
     const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+    // Sélectionner les articles à ajouter dans la page actuelle
     const currentArticles = data.slice(indexOfFirstArticle, indexOfLastArticle);
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
     const [sortField, setSortField] = useState<"id" | "name" | "stock" | "price">("id");
