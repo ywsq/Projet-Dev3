@@ -4,6 +4,8 @@ const connection = require("../DataBaseConnection/connection");
 
 // Get all orders data
 router.get("/all", (req, res) => {
+    // #swagger.tags = ['Admin orders']
+    // #swagger.summary = 'Return all orders'
     let sql = "SELECT * FROM tb_orders";
     connection.query(sql, function (err, result) {
         if (err) {
@@ -20,12 +22,14 @@ router.get("/all", (req, res) => {
 
 // Delete an order by its ID
 router.put("/cancel/:id", (req, res) => {
+    // #swagger.tags = ['Admin orders']
+    // #swagger.summary = 'Cansel an order base on ID'
     const orderId = req.params.id;
 
     // SQL request to delete the order from database
     const sql = "UPDATE tb_orders SET Status = 'Cancel' WHERE ID_Orders = ?;";
 
-    // Execute SQL request
+    // execute SQL request
     connection.query(sql, [orderId], (err, result) => {
         if (err) {
             // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
@@ -40,6 +44,8 @@ router.put("/cancel/:id", (req, res) => {
 
 // Delete an order by its ID
 router.put("/uncancel/:id", (req, res) => {
+    // #swagger.tags = ['Admin orders']
+    // #swagger.summary = 'Uncancel an order base on ID'
     const orderId = req.params.id;
 
     // SQL request to delete the order from database

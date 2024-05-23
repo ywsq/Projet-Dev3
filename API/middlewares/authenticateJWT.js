@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const connection = require("../DataBaseConnection/connection");
+const dotenv = require('dotenv').config({ path: '../.env' })
 
-const accessTokenSecret = 'Votre_Clef_Secrète_pour_le_JWT';
-const refreshTokenSecret = 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement';
+
+const accessTokenSecret = process.env.JWTaccessTokenSecret;
+const refreshTokenSecret = process.env.JWTrefreshTokenSecret;
 const refreshTokens = []; // Stockez les tokens de rafraîchissement dans une base de données ou un stockage persistant
 
 const authenticateJWT = async (req, res, next) => {

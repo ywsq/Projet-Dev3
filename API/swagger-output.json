@@ -2,18 +2,21 @@
   "swagger": "2.0",
   "info": {
     "title": "Star Mobile API",
-    "description": "This API is use by the Star Mobile site",
+    "description": "This API is used by the Star Mobile site",
     "version": "1.0.0"
   },
   "host": "54.37.12.177:8080",
-  "basePath": "/",
+  "basePath": "54.37.12.177:8080/",
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "paths": {
     "/API/client/": {
       "get": {
+        "tags": [
+          "clients"
+        ],
+        "summary": "Return all client",
         "description": "",
         "parameters": [
           {
@@ -55,6 +58,10 @@
     },
     "/API/client/login": {
       "post": {
+        "tags": [
+          "clients"
+        ],
+        "summary": "Login the client",
         "description": "",
         "parameters": [
           {
@@ -90,6 +97,9 @@
           "203": {
             "description": "Non-Authoritative Information"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -104,6 +114,10 @@
     },
     "/API/client/new": {
       "post": {
+        "tags": [
+          "clients"
+        ],
+        "summary": "Créate a client in the DB",
         "description": "",
         "parameters": [
           {
@@ -148,6 +162,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "403": {
             "description": "Forbidden"
           },
@@ -159,6 +176,10 @@
     },
     "/API/client/addClient": {
       "post": {
+        "tags": [
+          "clients"
+        ],
+        "summary": "Add client from the admin page so he is already accepted",
         "description": "",
         "parameters": [
           {
@@ -214,6 +235,10 @@
     },
     "/API/client/update": {
       "put": {
+        "tags": [
+          "clients"
+        ],
+        "summary": "Update a client informations",
         "description": "",
         "parameters": [
           {
@@ -282,6 +307,10 @@
     },
     "/API/article/all-categories": {
       "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Return all categories from the articles",
         "description": "",
         "parameters": [
           {
@@ -310,6 +339,10 @@
     },
     "/API/article/all-infos/{id}": {
       "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Return all infos of an artile base on his id",
         "description": "",
         "parameters": [
           {
@@ -344,6 +377,10 @@
     },
     "/API/article/all": {
       "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Return all articles",
         "description": "",
         "parameters": [
           {
@@ -372,6 +409,10 @@
     },
     "/API/article/articlesDetails": {
       "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Return all articles with more details",
         "description": "",
         "parameters": [
           {
@@ -400,6 +441,10 @@
     },
     "/API/article/Category/{name}": {
       "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Return all article from a dedicate category",
         "description": "",
         "parameters": [
           {
@@ -434,6 +479,10 @@
     },
     "/API/article/{id}": {
       "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Return an article base on his ID",
         "description": "",
         "parameters": [
           {
@@ -468,6 +517,10 @@
     },
     "/API/article/editingArticle/{id}": {
       "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Edit a article base on his ID",
         "description": "",
         "parameters": [
           {
@@ -539,6 +592,10 @@
     },
     "/API/order/": {
       "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Return all orders",
         "description": "",
         "parameters": [
           {
@@ -575,6 +632,10 @@
     },
     "/API/order/all": {
       "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Return all orders",
         "description": "",
         "parameters": [
           {
@@ -611,6 +672,10 @@
     },
     "/API/order/add": {
       "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Add a order link to a client and articles in the DB",
         "description": "",
         "parameters": [
           {
@@ -674,6 +739,10 @@
     },
     "/API/order/delete/{id}": {
       "delete": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Delete a order in the DB",
         "description": "",
         "parameters": [
           {
@@ -728,6 +797,10 @@
     },
     "/API/cart/update/{cartId}/{articleId}": {
       "put": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Update the amount of article in the cart from a client",
         "description": "",
         "parameters": [
           {
@@ -797,6 +870,10 @@
     },
     "/API/cart/delete/{articleId}/{cartId}": {
       "delete": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Delete a article in the cart from a client",
         "description": "",
         "parameters": [
           {
@@ -857,6 +934,10 @@
     },
     "/API/cart/delete-all/{cartId}": {
       "delete": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Delete all article in the cart from a client",
         "description": "",
         "parameters": [
           {
@@ -911,6 +992,10 @@
     },
     "/API/cart/add": {
       "post": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Add a article in the cart from a client",
         "description": "",
         "parameters": [
           {
@@ -968,6 +1053,10 @@
     },
     "/API/cart/": {
       "get": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Return cart from the client",
         "description": "",
         "parameters": [
           {
@@ -1004,6 +1093,10 @@
     },
     "/API/cart/ID": {
       "get": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Return cart from a client base on his ID",
         "description": "",
         "parameters": [
           {
@@ -1040,6 +1133,10 @@
     },
     "/API/cart/admin/{id}": {
       "get": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "Return cart from a client base on his ID",
         "description": "",
         "parameters": [
           {
@@ -1082,6 +1179,10 @@
     },
     "/API/admin/manage-orders/all": {
       "get": {
+        "tags": [
+          "Admin orders"
+        ],
+        "summary": "Return all orders",
         "description": "",
         "parameters": [
           {
@@ -1118,6 +1219,10 @@
     },
     "/API/admin/manage-orders/cancel/{id}": {
       "put": {
+        "tags": [
+          "Admin orders"
+        ],
+        "summary": "Cansel an order base on ID",
         "description": "",
         "parameters": [
           {
@@ -1172,6 +1277,10 @@
     },
     "/API/admin/manage-orders/uncancel/{id}": {
       "put": {
+        "tags": [
+          "Admin orders"
+        ],
+        "summary": "Uncancel an order base on ID",
         "description": "",
         "parameters": [
           {
@@ -1226,6 +1335,10 @@
     },
     "/API/admin/manage-accounts/all-requests": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return all accounts and there status of acceptance",
         "description": "",
         "parameters": [
           {
@@ -1262,6 +1375,10 @@
     },
     "/API/admin/manage-accounts/waiting": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return all account that are waiting to be accepted by admin",
         "description": "",
         "parameters": [
           {
@@ -1298,6 +1415,10 @@
     },
     "/API/admin/manage-accounts/accepted": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return all account that are already accepted by admin",
         "description": "",
         "parameters": [
           {
@@ -1334,6 +1455,10 @@
     },
     "/API/admin/manage-accounts/refused": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return all account that are already redused by admin",
         "description": "",
         "parameters": [
           {
@@ -1370,6 +1495,10 @@
     },
     "/API/admin/manage-accounts/admin": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return the status of the account if he is an adminstrator",
         "description": "",
         "parameters": [
           {
@@ -1406,6 +1535,10 @@
     },
     "/API/admin/manage-accounts/customers": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return all the clients that are not admin",
         "description": "",
         "parameters": [
           {
@@ -1442,6 +1575,10 @@
     },
     "/API/admin/manage-accounts/admin-team": {
       "get": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Return All the client that are admin",
         "description": "",
         "parameters": [
           {
@@ -1478,6 +1615,10 @@
     },
     "/API/admin/manage-accounts/new-accept/{id}": {
       "put": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Accept the client account base on ID",
         "description": "",
         "parameters": [
           {
@@ -1535,6 +1676,10 @@
     },
     "/API/admin/manage-accounts/new-refuse/{id}": {
       "put": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Refuse the client account base on ID",
         "description": "",
         "parameters": [
           {
@@ -1589,6 +1734,10 @@
     },
     "/API/admin/manage-accounts/new-admin/{id}": {
       "put": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Set a new client admin base on ID",
         "description": "",
         "parameters": [
           {
@@ -1643,6 +1792,10 @@
     },
     "/API/admin/manage-accounts/not-admin/{id}": {
       "put": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Remove the admin status from an admin client",
         "description": "",
         "parameters": [
           {
@@ -1697,6 +1850,10 @@
     },
     "/API/admin/manage-accounts/addAdmin": {
       "post": {
+        "tags": [
+          "Admin accounts"
+        ],
+        "summary": "Add a new admin dirrect from the admin page",
         "description": "",
         "parameters": [
           {

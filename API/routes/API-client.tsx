@@ -5,6 +5,7 @@ const router = express.Router();
 const connection = require("../DataBaseConnection/connection");
 const authenticateJWT = require("../middlewares/authenticateJWT");
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv').config({ path: '../.env' })
 
 const sender = "gaetan.carbonnelle1@gmail.com";
 const password = "hsot ijrh dbud rfef";
@@ -12,7 +13,7 @@ const password = "hsot ijrh dbud rfef";
 async function sendEmail(email) {
     const recipients = [sender, email];
 
-    // Créer un transporteur SMTP
+    // crée un transporteur SMTP
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -21,7 +22,7 @@ async function sendEmail(email) {
         }
     });
 
-    // Définir le contenu de l'email
+    // définir le contenu de l'email
     let mailOptions = {
         from: sender,
         to: recipients.join(', '),
@@ -30,7 +31,6 @@ async function sendEmail(email) {
     };
 
     try {
-        // Envoyer l'email
         let info = await transporter.sendMail(mailOptions);
     } catch (error) {
         console.error("Error sending email:", error);
@@ -40,6 +40,8 @@ async function sendEmail(email) {
 
 
 router.get('/', authenticateJWT, async (req, res) => {
+    // #swagger.tags = ['clients']
+    // #swagger.summary = 'Return all client'
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -53,11 +55,11 @@ router.get('/', authenticateJWT, async (req, res) => {
     let sql = "select * from tb_clients natural join tb_country where ID_Client like ?;"
     connection.query(sql, [clientID], function (err, result) {
         if (err) {
-            // En cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
+            // en cas d'erreur de base de données, renvoyer une réponse avec un code d'erreur approprié
             console.error("Error retrieving client data:", err);
             res.status(500).json({error: "Error retrieving client data from the database"});
         } else {
-            // Si la requête s'est exécutée avec succès, renvoyer les données du client
+            // si la requête s'est exécutée avec succès, renvoyer les données du client
             res.status(200).json(result);
         }
     })
@@ -65,7 +67,17 @@ router.get('/', authenticateJWT, async (req, res) => {
 
 
 router.post('/login', async (req, res) => {
+    // #swagger.tags = ['clients']
+    // #swagger.summary = 'Login the client'
     const {email, password} = req.body;
+
+    // email validation regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(email)) {
+        return res.status(400).send("Invalid email format.");
+        console.log("nop")
+    }
 
     try {
         // Récupérer les informations de l'utilisateur depuis la base de données en fonction de l'adresse e-mail
@@ -84,12 +96,10 @@ router.post('/login', async (req, res) => {
                 return res.status(203).json({error: 'Admin has refused your account'});
             }
         } else {
-            //user accepted by admin
-
-            //  Vérifier si l'utilisateur est un admin
+            //  vérifier si l'utilissateur est un admin
             const isAdmin = user[0].admin;
 
-            // Comparer le mot de passe fourni avec le mot de passe haché stocké en base de données
+            // comparé le mot de passe fourni avec le mot de passe haché stocké en base de données
             const isMatch = await bcrypt.compare(password, user[0].Password);
 
 
@@ -114,11 +124,11 @@ router.post('/login', async (req, res) => {
                 const auth_token = jwt.sign({
                     'email': email,
                     'clientID': clientID
-                }, 'Votre_Clef_Secrète_pour_le_JWT', {expiresIn: '1h'});
+                }, process.env.JWTaccessTokenSecret, {expiresIn: '1h'});
                 const refresh_auth_token = jwt.sign({
                     'email': email,
                     'clientID': clientID
-                }, 'Votre_Autre_Clef_Secrète_pour_le_Rafraîchissement', {expiresIn: '1D'});
+                }, process.env.JWTrefreshTokenSecret, {expiresIn: '1D'});
 
                 return res.json({auth_token, refresh_auth_token, isAdmin});
             } else {
@@ -133,79 +143,91 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.post("/new", (req, res) => {
-    // Supposons que vous receviez les données nécessaires dans le corps de la requête
-    const {companyName, country, address, email, phone, password} = req.body;
-    // Assurez-vous d'effectuer une validation des données avant l'insertion
-    let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
-    let values = [companyName, email, address, country, phone];
+    router.post("/new", (req, res) => {
+        // #swagger.tags = ['clients']
+        // #swagger.summary = 'Créate a client in the DB'
+        // Supposons que vous receviez les données nécessaires dans le corps de la requête
+        const {companyName, country, address, email, phone, password} = req.body;
 
-    //insersion client infos
-    connection.query(sql, values, function (err, clientResult) {
-        if (err) {
-            console.error("Erreur lors de l'insertion dans la table 'tb_clients' : ", err);
-            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients'.");
-        } else {
-            // Récupérer l'ID du client nouvellement inséré
-            const clientId = clientResult.insertId;
+        // email validation regex
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-            // Insérer la valeur d'acceptation pour le client dans la table 'tb_clients_accept'
-            let acceptSql = "INSERT INTO tb_clients_accept (ID_Client, Accept) VALUES (?, ?)";
-            let acceptValues = [clientId, 0];
-
-            //insersion tableau acceptation par admin
-            connection.query(acceptSql, acceptValues, function (acceptErr, acceptResult) {
-                if (acceptErr) {
-                    console.error("Erreur lors de l'insertion dans la table 'tb_clients_accept' : ", acceptErr);
-                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients_accept'.");
-                } else {
-                    console.log("Nouveau client ajouté avec succès !");
-
-                    // Insérer le password pour le client dans la table 'tb_Login'
-                    let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
-                    let passwordValues = [clientId, password];
-
-                    //insersion du password hasé
-                    connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
-                        if (acceptErr) {
-                            console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
-                            res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
-                        } else {
-                            console.log("Password ajouté avec succès !");
-
-                            let shoppingCartsql = "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
-                            let shoppingCartValues = [clientId, clientId]
-
-                            //insertion du shopping cart
-                            connection.query(shoppingCartsql, shoppingCartValues, function (acceptErr, acceptResult) {
-                                if (acceptErr) {
-                                    console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
-                                    res.status(500).send("Erreur lors de l'insertion dans la table 'tb_cart_client_link'.");
-                                } else {
-                                    console.log(`Le client ${companyName} à été ajouter à la DB avec succes !`);
-                                    // envoyer le mail
-                                    // @ts-ignore
-                                    sendEmail(email);
-
-                                    //validation final
-                                    res.status(200).send("Nouveau client ajouté avec succès !");
-                                }
-                            })
-                        }
-                    })
-                }
-            });
-
-
+        if (!emailRegex.test(email)) {
+            return res.status(400).send("Invalid email format.");
+            console.log("nop")
         }
-    });
-});
 
-// Client ajouté par l'admin, Accept égale 1
+        let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
+        let values = [companyName, email, address, country, phone];
+
+        //insersion client infos
+        connection.query(sql, values, function (err, clientResult) {
+            if (err) {
+                console.error("Erreur lors de l'insertion dans la table 'tb_clients' : ", err);
+                res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients'.");
+            } else {
+                // Récupérer l'ID du client nouvellement inséré
+                const clientId = clientResult.insertId;
+
+                // Insérer la valeur d'acceptation pour le client dans la table 'tb_clients_accept'
+                let acceptSql = "INSERT INTO tb_clients_accept (ID_Client, Accept) VALUES (?, ?)";
+                let acceptValues = [clientId, 0];
+
+                //insersion tableau acceptation par admin
+                connection.query(acceptSql, acceptValues, function (acceptErr, acceptResult) {
+                    if (acceptErr) {
+                        console.error("Erreur lors de l'insertion dans la table 'tb_clients_accept' : ", acceptErr);
+                        res.status(500).send("Erreur lors de l'insertion dans la table 'tb_clients_accept'.");
+                    } else {
+                        console.log("Nouveau client ajouté avec succès !");
+
+                        // Insérer le password pour le client dans la table 'tb_Login'
+                        let passwordSql = "INSERT INTO tb_Login (ID_Client, Password) VALUES (?, ?)";
+                        let passwordValues = [clientId, password];
+
+                        // insersion du password hasé
+                        connection.query(passwordSql, passwordValues, function (acceptErr, acceptResult) {
+                            if (acceptErr) {
+                                console.error("Erreur lors de l'insertion dans la table 'tb_Login' : ", acceptErr);
+                                res.status(500).send("Erreur lors de l'insertion dans la table 'tb_Login'.");
+                            } else {
+                                console.log("Password ajouté avec succès !");
+
+                                let shoppingCartsql = "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
+                                let shoppingCartValues = [clientId, clientId]
+
+                                //insertion du shopping cart
+                                connection.query(shoppingCartsql, shoppingCartValues, function (acceptErr, acceptResult) {
+                                    if (acceptErr) {
+                                        console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
+                                        res.status(500).send("Erreur lors de l'insertion dans la table 'tb_cart_client_link'.");
+                                    } else {
+                                        console.log(`Le client ${companyName} à été ajouter à la DB avec succes !`);
+                                        // envoyer le mail
+                                        // @ts-ignore
+                                        sendEmail(email);
+
+                                        //validation final
+                                        res.status(200).send("Nouveau client ajouté avec succès !");
+                                    }
+                                })
+                            }
+                        })
+                    }
+                });
+
+
+            }
+        });
+    });
+
+
 router.post("/addClient", (req, res) => {
+    // #swagger.tags = ['clients']
+    // #swagger.summary = 'Add client from the admin page so he is already accepted'
     // Supposons que vous receviez les données nécessaires dans le corps de la requête
     const {companyName, country, address, email, phone, password} = req.body;
-    // Assurez-vous d'effectuer une validation des données avant l'insertion
+
     let sql = "INSERT INTO tb_clients (Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number) VALUES (?, ?, ?, ?, ?)";
     let values = [companyName, email, address, country, phone];
 
@@ -245,7 +267,7 @@ router.post("/addClient", (req, res) => {
                             let shoppingCartsql = "INSERT INTO tb_cart_client_link (ID_Shopping_Cart, ID_Client) VALUES (?, ?)"
                             let shoppingCartValues = [clientId, clientId]
 
-                            //insertion du shopping cart
+                            // insertion du shopping cart
                             connection.query(shoppingCartsql, shoppingCartValues, function (acceptErr, acceptResult) {
                                 if (acceptErr) {
                                     console.error("Erreur lors de l'insertion dans la table 'tb_cart_client_link' : ", acceptErr);
@@ -266,15 +288,17 @@ router.post("/addClient", (req, res) => {
     });
 });
 
-// Update the information of a specific client by ID
+
 router.put("/update", authenticateJWT, (req, res) => {
+    // #swagger.tags = ['clients']
+    // #swagger.summary = 'Update a client informations'
     // Get the client ID to update from the request parameters
     const clientId = req.params.id;
 
     // Get the new information of the client from the request body
     const {Society_Name, Mail_Address, Addresse, ID_Country, Phone_Number} = req.body;
 
-    // Create the SQL query to update the client information in the database
+    // create the SQL query to update the client information in the database
     const sql = "UPDATE tb_clients SET Society_Name = ?, Mail_Address = ?, Addresse = ?, ID_Country = ?, Phone_Number = ? WHERE ID_Client = ?";
 
     // Execute the SQL query with the new information of the client and its ID
