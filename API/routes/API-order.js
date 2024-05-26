@@ -79,8 +79,8 @@ router.post("/add", (req, res) => {
                             cartResults.forEach(cartItem => {
                                 let articleID = cartItem["ID_Article"];
                                 let amount = cartItem["Amount"];
-                                let sqlInsertArticleOrderLink = "INSERT INTO tb_article_order_link (ID_Orders, ID_Article, Amount) VALUES (?, ?, ?);";
-                                connection.query(sqlInsertArticleOrderLink, [orderID, articleID, amount], function (err, insertResult) {
+                                let sqlInsertArticleOrderLink = "INSERT INTO tb_article_order_link (ID_Orders, ID_Article, Amount, Status) VALUES (?, ?, ?, ?);";
+                                connection.query(sqlInsertArticleOrderLink, [orderID, articleID, amount, status], function (err, insertResult) {
                                     if (err) {
                                         console.error("Erreur lors de l'insertion de l'article dans le lien de commande : ", err);
                                     }
