@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 
 
 router.get("/", (req, res) => {
+    // #swagger.tags = ['orders']
+    // #swagger.summary = 'Return all orders'
     let sql = "SELECT * FROM tb_clients natural join tb_orders;";
     connection.query(sql, function (err, result) {
         if (err) {
@@ -20,7 +22,8 @@ router.get("/", (req, res) => {
 
 
 router.get("/all", (req, res) => {
-
+    // #swagger.tags = ['orders']
+    // #swagger.summary = 'Return all orders'
     const authHeader = req.headers.authorization;
 
     const token = authHeader.split(' ')[1];
@@ -43,7 +46,9 @@ router.get("/all", (req, res) => {
 
 
 router.post("/add", (req, res) => {
-    // Supposons que vous receviez les données nécessaires dans le corps de la requête
+    // #swagger.tags = ['orders']
+    // #swagger.summary = 'Add a order link to a client and articles in the DB'
+
     const {Order_Date, Availability_Date, Price} = req.body;
     const status = "In review"
 
@@ -74,14 +79,14 @@ router.post("/add", (req, res) => {
                             cartResults.forEach(cartItem => {
                                 let articleID = cartItem["ID_Article"];
                                 let amount = cartItem["Amount"];
-                                let sqlInsertArticleOrderLink = "INSERT INTO tb_article_order_link (ID_Orders, ID_Article, Amount, Status) VALUES (?, ?, ?);";
-                                connection.query(sqlInsertArticleOrderLink, [orderID, articleID, amount], function (err, insertResult) {
+                                let sqlInsertArticleOrderLink = "INSERT INTO tb_article_order_link (ID_Orders, ID_Article, Amount, Status) VALUES (?, ?, ?, ?);";
+                                connection.query(sqlInsertArticleOrderLink, [orderID, articleID, amount, status], function (err, insertResult) {
                                     if (err) {
                                         console.error("Erreur lors de l'insertion de l'article dans le lien de commande : ", err);
                                     }
                                 });
                             });
-                            // Répondre une fois que toutes les insertions sont terminées
+                            // répondre une fois que toutes les insertions sont terminées
                             res.status(200).send("Commande créée avec succès !");
                         }
                     });
@@ -92,6 +97,8 @@ router.post("/add", (req, res) => {
 });
 
 router.delete("/delete/:id", (req, res) => {
+    // #swagger.tags = ['orders']
+    // #swagger.summary = 'Delete a order in the DB'
     let ID_Order = req.params.id; // Récupérer l'ID de l'article à supprimer
     console.log(ID_Order)
     let sqlDelLink = "DELETE FROM tb_article_order_link WHERE ID_Orders = ?;";

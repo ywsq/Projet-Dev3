@@ -26,9 +26,9 @@ function Profile() {
 
     return (
         <div className="p-10 h-screen">
-            <div className="rounded-xl flex justify-center max-w-2xl bg-white shadow-lg p-10">
-                <div className=" flex items-center w-1/4 text-4xl">{name}</div>
-                <div className="w-3/4 space-y-5">
+            <div className="rounded-xl flex flex-col justify-center max-w-2xl bg-white shadow-lg p-10">
+                <div className="flex items-center w-1/4 text-4xl pb-10">{name}</div>
+                <div className="w-full space-y-5">
                     <div className="flex">
                         <p className="w-1/2">Society Name</p>
                         <p className="w-1/2">{data[0].Society_Name}</p>
